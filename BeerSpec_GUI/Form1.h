@@ -5,6 +5,7 @@
 
 #include "Header1.h"
 #include "Header2.h"
+#include "SettingsClass.h"
 
 namespace CppCLRWinFormsProject {
 
@@ -24,6 +25,9 @@ namespace CppCLRWinFormsProject {
     Form1(void)
     {
       InitializeComponent();
+      //Settings object to store instrument settings
+      SettingsClass settings;
+
       //
       //TODO: Add the constructor code here
       //
@@ -44,69 +48,13 @@ namespace CppCLRWinFormsProject {
         delete components;
       }
     }
+
+  //Default buttons etc from the example
   private: System::Windows::Forms::TextBox^ out_textBox;
   private: System::Windows::Forms::TextBox^ in_textBox;
   private: System::Windows::Forms::Button^ button_plus_1;
   private: System::Windows::Forms::Button^ button_plus_2;
-  private: System::Windows::Forms::Label^ labSettings;
-
-
-  private: System::Windows::Forms::TextBox^ tbLEDR;
-  private: System::Windows::Forms::TextBox^ tbLEDG;
-  private: System::Windows::Forms::TextBox^ tbLEDB;
-  private: System::Windows::Forms::Label^ labLED;
-  private: System::Windows::Forms::Label^ labGainExt;
-
-  private: System::Windows::Forms::TextBox^ tbGainExtB;
-  private: System::Windows::Forms::TextBox^ tbGainExtG;
-  private: System::Windows::Forms::TextBox^ tbGainExtR;
-  private: System::Windows::Forms::Label^ labGainSca;
-  private: System::Windows::Forms::TextBox^ tbGainScaB;
-
-
-  private: System::Windows::Forms::TextBox^ tbGainScaG;
-
-
-
-  private: System::Windows::Forms::TextBox^ tbGainScaR;
-
-
-  private: System::Windows::Forms::Label^ labNumSamples;
-  private: System::Windows::Forms::TextBox^ tbNumSamples;
-
-  private: System::Windows::Forms::Label^ labMeasurements;
-
-
-  private: System::Windows::Forms::CheckBox^ cboxAutoSave;
-  private: System::Windows::Forms::Button^ btnSet;
-  private: System::Windows::Forms::Button^ btnMakeGetMsmt;
-  private: System::Windows::Forms::TextBox^ tbMeasExtB;
-
-  private: System::Windows::Forms::TextBox^ tbMeasExtG;
-
-  private: System::Windows::Forms::TextBox^ tbMeasExtR;
-  private: System::Windows::Forms::Label^ LabMeasExt;
-  private: System::Windows::Forms::Label^ labMeasSca;
-  private: System::Windows::Forms::TextBox^ tbMeasScaB;
-
-  private: System::Windows::Forms::TextBox^ tbMeasScaG;
-
-  private: System::Windows::Forms::TextBox^ tbMeasScaR;
-  private: System::Windows::Forms::TextBox^ tbMeasTime;
-  private: System::Windows::Forms::Label^ labMeasTime;
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
 
@@ -119,6 +67,42 @@ namespace CppCLRWinFormsProject {
     /// Required designer variable.
     /// </summary>
     System::ComponentModel::Container^ components;
+  
+    //Define settings part of form
+    System::Windows::Forms::Label^ labSettings;
+    System::Windows::Forms::Label^ labLED;
+    System::Windows::Forms::TextBox^ tbLEDR;
+    System::Windows::Forms::TextBox^ tbLEDG;
+    System::Windows::Forms::TextBox^ tbLEDB;
+    System::Windows::Forms::Label^ labGainExt;
+    System::Windows::Forms::TextBox^ tbGainExtR;
+    System::Windows::Forms::TextBox^ tbGainExtG;
+    System::Windows::Forms::TextBox^ tbGainExtB;
+    System::Windows::Forms::Label^ labGainSca;
+    System::Windows::Forms::TextBox^ tbGainScaR;
+    System::Windows::Forms::TextBox^ tbGainScaG;
+    System::Windows::Forms::TextBox^ tbGainScaB;
+    System::Windows::Forms::Label^ labNumSamples;
+    System::Windows::Forms::TextBox^ tbNumSamples;
+
+
+    //Define measurements part of form
+    System::Windows::Forms::Label^ labMeasurements;
+    System::Windows::Forms::Label^ labMeasTime;
+    System::Windows::Forms::TextBox^ tbMeasTime;
+    System::Windows::Forms::Label^ LabMeasExt;
+    System::Windows::Forms::TextBox^ tbMeasExtR;
+    System::Windows::Forms::TextBox^ tbMeasExtG;
+    System::Windows::Forms::TextBox^ tbMeasExtB;
+    System::Windows::Forms::Label^ labMeasSca;
+    System::Windows::Forms::TextBox^ tbMeasScaR;
+    System::Windows::Forms::TextBox^ tbMeasScaG;
+    System::Windows::Forms::TextBox^ tbMeasScaB;
+    System::Windows::Forms::Label^ labNotes;
+    System::Windows::Forms::TextBox^ tbNotes;
+    System::Windows::Forms::CheckBox^ cboxAutoSave;
+    System::Windows::Forms::Button^ btnSet;
+    System::Windows::Forms::Button^ btnMakeGetMsmt;
 
 #pragma region Windows Form Designer generated code
     /// <summary>
@@ -160,6 +144,8 @@ namespace CppCLRWinFormsProject {
         this->tbMeasScaR = (gcnew System::Windows::Forms::TextBox());
         this->tbMeasTime = (gcnew System::Windows::Forms::TextBox());
         this->labMeasTime = (gcnew System::Windows::Forms::Label());
+        this->tbNotes = (gcnew System::Windows::Forms::TextBox());
+        this->labNotes = (gcnew System::Windows::Forms::Label());
         this->SuspendLayout();
         // 
         // out_textBox
@@ -180,6 +166,7 @@ namespace CppCLRWinFormsProject {
         this->in_textBox->Name = L"in_textBox";
         this->in_textBox->Size = System::Drawing::Size(100, 20);
         this->in_textBox->TabIndex = 1;
+        this->in_textBox->TextChanged += gcnew System::EventHandler(this, &Form1::in_textBox_TextChanged);
         // 
         // button_plus_1
         // 
@@ -225,6 +212,7 @@ namespace CppCLRWinFormsProject {
         this->tbLEDR->Size = System::Drawing::Size(57, 22);
         this->tbLEDR->TabIndex = 6;
         this->tbLEDR->Text = L"128";
+        this->tbLEDR->TextChanged += gcnew System::EventHandler(this, &Form1::tbLEDR_TextChanged);
         // 
         // tbLEDG
         // 
@@ -357,6 +345,7 @@ namespace CppCLRWinFormsProject {
         this->labNumSamples->Size = System::Drawing::Size(90, 20);
         this->labNumSamples->TabIndex = 24;
         this->labNumSamples->Text = L"n samples";
+        this->labNumSamples->Click += gcnew System::EventHandler(this, &Form1::labNumSamples_Click);
         // 
         // tbNumSamples
         // 
@@ -374,7 +363,7 @@ namespace CppCLRWinFormsProject {
         this->labMeasurements->AutoSize = true;
         this->labMeasurements->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labMeasurements->Location = System::Drawing::Point(12, 157);
+        this->labMeasurements->Location = System::Drawing::Point(12, 167);
         this->labMeasurements->Name = L"labMeasurements";
         this->labMeasurements->Size = System::Drawing::Size(182, 24);
         this->labMeasurements->TabIndex = 27;
@@ -403,6 +392,7 @@ namespace CppCLRWinFormsProject {
         this->btnSet->TabIndex = 31;
         this->btnSet->Text = L"SET";
         this->btnSet->UseVisualStyleBackColor = false;
+        this->btnSet->Click += gcnew System::EventHandler(this, &Form1::btnSet_Click);
         // 
         // btnMakeGetMsmt
         // 
@@ -415,6 +405,7 @@ namespace CppCLRWinFormsProject {
         this->btnMakeGetMsmt->TabIndex = 32;
         this->btnMakeGetMsmt->Text = L"MAKE && GET\r\nMEASUREMENTS";
         this->btnMakeGetMsmt->UseVisualStyleBackColor = false;
+        this->btnMakeGetMsmt->Click += gcnew System::EventHandler(this, &Form1::btnMakeGetMsmt_Click);
         // 
         // tbMeasExtB
         // 
@@ -525,11 +516,31 @@ namespace CppCLRWinFormsProject {
         this->labMeasTime->TabIndex = 41;
         this->labMeasTime->Text = L"Time";
         // 
+        // tbNotes
+        // 
+        this->tbNotes->Location = System::Drawing::Point(323, 299);
+        this->tbNotes->Name = L"tbNotes";
+        this->tbNotes->Size = System::Drawing::Size(321, 20);
+        this->tbNotes->TabIndex = 43;
+        // 
+        // labNotes
+        // 
+        this->labNotes->AutoSize = true;
+        this->labNotes->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->labNotes->Location = System::Drawing::Point(256, 299);
+        this->labNotes->Name = L"labNotes";
+        this->labNotes->Size = System::Drawing::Size(61, 20);
+        this->labNotes->TabIndex = 44;
+        this->labNotes->Text = L"Notes:";
+        // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(682, 372);
+        this->Controls->Add(this->labNotes);
+        this->Controls->Add(this->tbNotes);
         this->Controls->Add(this->tbMeasTime);
         this->Controls->Add(this->labMeasTime);
         this->Controls->Add(this->labMeasSca);
@@ -593,6 +604,16 @@ namespace CppCLRWinFormsProject {
 private: System::Void labLEDR_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void labNumSamples_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void btnMakeGetMsmt_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void tbLEDR_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void in_textBox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
