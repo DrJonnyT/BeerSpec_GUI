@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 ref class SettingsClass
 {
 private:
@@ -14,6 +16,34 @@ private:
 	int m_NumSamples;
 
 public:
+	//Initialisation
+	SettingsClass(int LEDR,int LEDG,int LEDB,int GainExtR,int GainExtG,int GainExtB,int GainScaR,int GainScaG,int GainScaB,int NumSamples) {
+		m_LEDR = LEDR;
+		m_LEDG = LEDG;
+		m_LEDB = LEDB;
+		m_GainExtR = GainExtR;
+		m_GainExtG = GainExtG;
+		m_GainExtB = GainExtB;
+		m_GainScaR = GainScaR;
+		m_GainScaG = GainScaG;
+		m_GainScaB = GainScaB;
+		m_NumSamples = NumSamples;
+	}
+	//Default initialisation
+	SettingsClass() {
+		m_LEDR = 128;
+		m_LEDG = 128;
+		m_LEDB = 128;
+		m_GainExtR = 1000;
+		m_GainExtG = 1000;
+		m_GainExtB = 1000;
+		m_GainScaR = 5000;
+		m_GainScaG = 5000;
+		m_GainScaB = 5000;
+		m_NumSamples = 1;
+	}
+
+
 	//Functions to get and set the variables
 	//LED settings
 	property int LEDR {
