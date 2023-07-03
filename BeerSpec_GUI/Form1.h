@@ -26,8 +26,12 @@ namespace CppCLRWinFormsProject {
     Form1(void)
     {
       InitializeComponent();
+      
       //Settings object to store instrument settings
       SettingsClass settings;
+
+      //Measurements object to store measurements
+      MeasClass meas;
 
       //
       //TODO: Add the constructor code here
