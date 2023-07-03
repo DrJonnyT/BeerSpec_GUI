@@ -47,6 +47,9 @@
     <ClInclude Include="SettingsClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MeasClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinFormsProject.cpp">
@@ -62,6 +65,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SettingsClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MeasClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -6,6 +6,7 @@
 #include "Header1.h"
 #include "Header2.h"
 #include "SettingsClass.h"
+#include "MeasClass.h"
 
 namespace CppCLRWinFormsProject {
 
