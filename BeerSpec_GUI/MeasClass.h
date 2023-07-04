@@ -106,6 +106,10 @@ public:
 		System::Single get() { return m_MeasScaB_std; }
 		void set(System::Single value) { m_MeasScaB_std = value; }
 	}
+	property System::String^ Notes {
+		System::String^ get() { return m_Notes; }
+		void set(System::String^ value) { m_Notes = value; }
+	}
 
 
 	
