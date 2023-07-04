@@ -30,6 +30,8 @@ namespace CppCLRWinFormsProject {
   
   private:
       CSVSaver^ csvSaver;
+      SettingsClass^ settings;
+      MeasClass^ meas;
 
 
   public:
@@ -38,10 +40,10 @@ namespace CppCLRWinFormsProject {
       InitializeComponent();
       
       //Settings object to store instrument settings
-      SettingsClass^ settings = gcnew SettingsClass;
+      settings = gcnew SettingsClass;
 
       //Measurements object to store measurements
-      MeasClass^ meas = gcnew MeasClass;   
+      meas = gcnew MeasClass;   
 
       //CSVSaver object
       //CSVSaver^ csvSaver = gcnew CSVSaver;
@@ -173,6 +175,7 @@ private: System::Windows::Forms::NumericUpDown^ nudMeasScaR;
 private: System::Windows::Forms::Button^ BtnSelectFile;
 private: System::Windows::Forms::TextBox^ tbFilePath;
 private: System::Windows::Forms::SaveFileDialog^ saveFD;
+private: System::Windows::Forms::Button^ btnSave;
 
 
 
@@ -226,6 +229,7 @@ private: System::Windows::Forms::SaveFileDialog^ saveFD;
         this->BtnSelectFile = (gcnew System::Windows::Forms::Button());
         this->tbFilePath = (gcnew System::Windows::Forms::TextBox());
         this->saveFD = (gcnew System::Windows::Forms::SaveFileDialog());
+        this->btnSave = (gcnew System::Windows::Forms::Button());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDB))->BeginInit();
@@ -438,7 +442,7 @@ private: System::Windows::Forms::SaveFileDialog^ saveFD;
         // 
         // tbNotes
         // 
-        this->tbNotes->Location = System::Drawing::Point(323, 299);
+        this->tbNotes->Location = System::Drawing::Point(320, 286);
         this->tbNotes->Name = L"tbNotes";
         this->tbNotes->Size = System::Drawing::Size(321, 20);
         this->tbNotes->TabIndex = 43;
@@ -448,7 +452,7 @@ private: System::Windows::Forms::SaveFileDialog^ saveFD;
         this->labNotes->AutoSize = true;
         this->labNotes->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labNotes->Location = System::Drawing::Point(256, 299);
+        this->labNotes->Location = System::Drawing::Point(253, 284);
         this->labNotes->Name = L"labNotes";
         this->labNotes->Size = System::Drawing::Size(61, 20);
         this->labNotes->TabIndex = 44;
@@ -663,7 +667,7 @@ private: System::Windows::Forms::SaveFileDialog^ saveFD;
         // 
         this->BtnSelectFile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->BtnSelectFile->Location = System::Drawing::Point(260, 325);
+        this->BtnSelectFile->Location = System::Drawing::Point(250, 312);
         this->BtnSelectFile->Name = L"BtnSelectFile";
         this->BtnSelectFile->Size = System::Drawing::Size(108, 23);
         this->BtnSelectFile->TabIndex = 61;
@@ -675,17 +679,31 @@ private: System::Windows::Forms::SaveFileDialog^ saveFD;
         // 
         this->tbFilePath->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->tbFilePath->Location = System::Drawing::Point(375, 326);
+        this->tbFilePath->Location = System::Drawing::Point(364, 313);
         this->tbFilePath->Name = L"tbFilePath";
         this->tbFilePath->Size = System::Drawing::Size(266, 22);
         this->tbFilePath->TabIndex = 62;
         this->tbFilePath->TextChanged += gcnew System::EventHandler(this, &Form1::tbFilePath_TextChanged);
+        // 
+        // btnSave
+        // 
+        this->btnSave->BackColor = System::Drawing::Color::Khaki;
+        this->btnSave->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->btnSave->Location = System::Drawing::Point(250, 341);
+        this->btnSave->Name = L"btnSave";
+        this->btnSave->Size = System::Drawing::Size(148, 26);
+        this->btnSave->TabIndex = 63;
+        this->btnSave->Text = L"SAVE";
+        this->btnSave->UseVisualStyleBackColor = false;
+        this->btnSave->Click += gcnew System::EventHandler(this, &Form1::btnSave_Click);
         // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(682, 372);
+        this->Controls->Add(this->btnSave);
         this->Controls->Add(this->tbFilePath);
         this->Controls->Add(this->BtnSelectFile);
         this->Controls->Add(this->nudMeasScaB);
@@ -783,7 +801,7 @@ private: System::Void in_textBox_TextChanged(System::Object^ sender, System::Eve
 private: System::Void BtnSelectFile_Click(System::Object^ sender, System::EventArgs^ e)
 {
 
-    Stream^ myStream;
+    //Stream^ myStream;
 
     //Open the file dialog
     System::Windows::Forms::DialogResult result = saveFD->ShowDialog();
@@ -810,6 +828,9 @@ void Update_tbFilePath(Object^ sender, EventArgs^ e)
     
 
 
+private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e) {
+    csvSaver->SaveDataToFile(settings, meas);
+}
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
 
