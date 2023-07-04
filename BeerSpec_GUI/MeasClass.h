@@ -23,6 +23,8 @@ private:
 	System::Single m_MeasScaG_std;
 	System::Single m_MeasScaB_std;
 
+	System::String^ m_Notes;
+
 public:
 	//Default initialisation
 	MeasClass() {
@@ -39,6 +41,7 @@ public:
 		m_MeasScaR_std = 0;
 		m_MeasScaG_std = 0;
 		m_MeasScaB_std = 0;
+		m_Notes = "";
 	}
 
 
