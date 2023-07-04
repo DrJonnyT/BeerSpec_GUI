@@ -28,31 +28,47 @@ namespace CppCLRWinFormsProject {
       InitializeComponent();
       
       //Settings object to store instrument settings
-      //settings = gcnew SettingsClass();
-      //SettingsClass^ settings(127,128,129);
       SettingsClass^ settings = gcnew SettingsClass;
 
       //Measurements object to store measurements
-      //meas = gcnew MeasClass();
-      MeasClass^ meas;
-      
+      MeasClass^ meas = gcnew MeasClass;      
 
 
-      //Bind the TextBox control to the IntValue property
+      //Bind the TextBox control to the settings properties
       nudLEDR->DataBindings->Add("Value", settings, "LEDR");
       nudLEDG->DataBindings->Add("Value", settings, "LEDG");
       nudLEDB->DataBindings->Add("Value", settings, "LEDB");
-
       nudGainExtR->DataBindings->Add("Value", settings, "GainExtR");
       nudGainExtG->DataBindings->Add("Value", settings, "GainExtG");
       nudGainExtB->DataBindings->Add("Value", settings, "GainExtB");
-
       nudGainScaR->DataBindings->Add("Value", settings, "GainScaR");
       nudGainScaG->DataBindings->Add("Value", settings, "GainScaG");
       nudGainScaB->DataBindings->Add("Value", settings, "GainScaB");
-
       nudNumSamples->DataBindings->Add("Value", settings, "NumSamples");
 
+      //Bind the TextBoxes to the measurement properties
+      nudMeasExtR->DataBindings->Add("Value", meas, "MeasExtR");
+      nudMeasExtG->DataBindings->Add("Value", meas, "MeasExtG");
+      nudMeasExtB->DataBindings->Add("Value", meas, "MeasExtB");
+      nudMeasScaR->DataBindings->Add("Value", meas, "MeasScaR");
+      nudMeasScaG->DataBindings->Add("Value", meas, "MeasScaG");
+      nudMeasScaB->DataBindings->Add("Value", meas, "MeasScaB");
+
+      tbMeasTime->DataBindings->Add("Text", meas, "MeasTime");
+      
+      
+      tbNotes->DataBindings->Add("Text", meas, "Notes");
+
+      
+
+
+      //Remove arrows from measurements
+      nudMeasExtR->Controls->RemoveAt(0);
+      nudMeasExtG->Controls->RemoveAt(0);
+      nudMeasExtB->Controls->RemoveAt(0);
+      nudMeasScaR->Controls->RemoveAt(0);
+      nudMeasScaG->Controls->RemoveAt(0);
+      nudMeasScaB->Controls->RemoveAt(0);
 
       //
       //TODO: Add the constructor code here
@@ -120,18 +136,24 @@ namespace CppCLRWinFormsProject {
     System::Windows::Forms::Label^ labMeasTime;
     System::Windows::Forms::TextBox^ tbMeasTime;
     System::Windows::Forms::Label^ LabMeasExt;
-    System::Windows::Forms::TextBox^ tbMeasExtR;
-    System::Windows::Forms::TextBox^ tbMeasExtG;
-    System::Windows::Forms::TextBox^ tbMeasExtB;
+
+
+
     System::Windows::Forms::Label^ labMeasSca;
-    System::Windows::Forms::TextBox^ tbMeasScaR;
-    System::Windows::Forms::TextBox^ tbMeasScaG;
-    System::Windows::Forms::TextBox^ tbMeasScaB;
+
+
+
     System::Windows::Forms::Label^ labNotes;
     System::Windows::Forms::TextBox^ tbNotes;
     System::Windows::Forms::CheckBox^ cboxAutoSave;
     System::Windows::Forms::Button^ btnSet;
- 
+private: System::Windows::Forms::NumericUpDown^ nudMeasExtR;
+private: System::Windows::Forms::NumericUpDown^ nudMeasExtG;
+private: System::Windows::Forms::NumericUpDown^ nudMeasExtB;
+private: System::Windows::Forms::NumericUpDown^ nudMeasScaB;
+private: System::Windows::Forms::NumericUpDown^ nudMeasScaG;
+private: System::Windows::Forms::NumericUpDown^ nudMeasScaR;
+
 
 
 
@@ -157,14 +179,8 @@ namespace CppCLRWinFormsProject {
         this->cboxAutoSave = (gcnew System::Windows::Forms::CheckBox());
         this->btnSet = (gcnew System::Windows::Forms::Button());
         this->btnMakeGetMsmt = (gcnew System::Windows::Forms::Button());
-        this->tbMeasExtB = (gcnew System::Windows::Forms::TextBox());
-        this->tbMeasExtG = (gcnew System::Windows::Forms::TextBox());
-        this->tbMeasExtR = (gcnew System::Windows::Forms::TextBox());
         this->LabMeasExt = (gcnew System::Windows::Forms::Label());
         this->labMeasSca = (gcnew System::Windows::Forms::Label());
-        this->tbMeasScaB = (gcnew System::Windows::Forms::TextBox());
-        this->tbMeasScaG = (gcnew System::Windows::Forms::TextBox());
-        this->tbMeasScaR = (gcnew System::Windows::Forms::TextBox());
         this->tbMeasTime = (gcnew System::Windows::Forms::TextBox());
         this->labMeasTime = (gcnew System::Windows::Forms::Label());
         this->tbNotes = (gcnew System::Windows::Forms::TextBox());
@@ -179,6 +195,12 @@ namespace CppCLRWinFormsProject {
         this->nudGainScaG = (gcnew System::Windows::Forms::NumericUpDown());
         this->nudGainScaR = (gcnew System::Windows::Forms::NumericUpDown());
         this->nudNumSamples = (gcnew System::Windows::Forms::NumericUpDown());
+        this->nudMeasExtR = (gcnew System::Windows::Forms::NumericUpDown());
+        this->nudMeasExtG = (gcnew System::Windows::Forms::NumericUpDown());
+        this->nudMeasExtB = (gcnew System::Windows::Forms::NumericUpDown());
+        this->nudMeasScaB = (gcnew System::Windows::Forms::NumericUpDown());
+        this->nudMeasScaG = (gcnew System::Windows::Forms::NumericUpDown());
+        this->nudMeasScaR = (gcnew System::Windows::Forms::NumericUpDown());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDB))->BeginInit();
@@ -189,6 +211,12 @@ namespace CppCLRWinFormsProject {
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudGainScaG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudGainScaR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudNumSamples))->BeginInit();
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasExtR))->BeginInit();
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasExtG))->BeginInit();
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasExtB))->BeginInit();
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasScaB))->BeginInit();
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasScaG))->BeginInit();
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasScaR))->BeginInit();
         this->SuspendLayout();
         // 
         // out_textBox
@@ -306,7 +334,7 @@ namespace CppCLRWinFormsProject {
         this->cboxAutoSave->AutoSize = true;
         this->cboxAutoSave->Checked = true;
         this->cboxAutoSave->CheckState = System::Windows::Forms::CheckState::Checked;
-        this->cboxAutoSave->Location = System::Drawing::Point(538, 240);
+        this->cboxAutoSave->Location = System::Drawing::Point(570, 240);
         this->cboxAutoSave->Name = L"cboxAutoSave";
         this->cboxAutoSave->Size = System::Drawing::Size(71, 17);
         this->cboxAutoSave->TabIndex = 30;
@@ -331,46 +359,13 @@ namespace CppCLRWinFormsProject {
         this->btnMakeGetMsmt->BackColor = System::Drawing::Color::Khaki;
         this->btnMakeGetMsmt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->btnMakeGetMsmt->Location = System::Drawing::Point(355, 222);
+        this->btnMakeGetMsmt->Location = System::Drawing::Point(387, 222);
         this->btnMakeGetMsmt->Name = L"btnMakeGetMsmt";
         this->btnMakeGetMsmt->Size = System::Drawing::Size(168, 48);
         this->btnMakeGetMsmt->TabIndex = 32;
         this->btnMakeGetMsmt->Text = L"MAKE && GET\r\nMEASUREMENTS";
         this->btnMakeGetMsmt->UseVisualStyleBackColor = false;
         this->btnMakeGetMsmt->Click += gcnew System::EventHandler(this, &Form1::btnMakeGetMsmt_Click);
-        // 
-        // tbMeasExtB
-        // 
-        this->tbMeasExtB->BackColor = System::Drawing::Color::DeepSkyBlue;
-        this->tbMeasExtB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->tbMeasExtB->Location = System::Drawing::Point(276, 222);
-        this->tbMeasExtB->Name = L"tbMeasExtB";
-        this->tbMeasExtB->Size = System::Drawing::Size(57, 22);
-        this->tbMeasExtB->TabIndex = 35;
-        this->tbMeasExtB->Text = L"128";
-        // 
-        // tbMeasExtG
-        // 
-        this->tbMeasExtG->BackColor = System::Drawing::Color::LightGreen;
-        this->tbMeasExtG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->tbMeasExtG->Location = System::Drawing::Point(196, 222);
-        this->tbMeasExtG->Name = L"tbMeasExtG";
-        this->tbMeasExtG->Size = System::Drawing::Size(57, 22);
-        this->tbMeasExtG->TabIndex = 34;
-        this->tbMeasExtG->Text = L"128";
-        // 
-        // tbMeasExtR
-        // 
-        this->tbMeasExtR->BackColor = System::Drawing::Color::LightCoral;
-        this->tbMeasExtR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->tbMeasExtR->Location = System::Drawing::Point(111, 222);
-        this->tbMeasExtR->Name = L"tbMeasExtR";
-        this->tbMeasExtR->Size = System::Drawing::Size(57, 22);
-        this->tbMeasExtR->TabIndex = 33;
-        this->tbMeasExtR->Text = L"128";
         // 
         // LabMeasExt
         // 
@@ -394,46 +389,14 @@ namespace CppCLRWinFormsProject {
         this->labMeasSca->TabIndex = 40;
         this->labMeasSca->Text = L"Sca";
         // 
-        // tbMeasScaB
-        // 
-        this->tbMeasScaB->BackColor = System::Drawing::Color::DeepSkyBlue;
-        this->tbMeasScaB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->tbMeasScaB->Location = System::Drawing::Point(276, 250);
-        this->tbMeasScaB->Name = L"tbMeasScaB";
-        this->tbMeasScaB->Size = System::Drawing::Size(57, 22);
-        this->tbMeasScaB->TabIndex = 39;
-        this->tbMeasScaB->Text = L"128";
-        // 
-        // tbMeasScaG
-        // 
-        this->tbMeasScaG->BackColor = System::Drawing::Color::LightGreen;
-        this->tbMeasScaG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->tbMeasScaG->Location = System::Drawing::Point(196, 250);
-        this->tbMeasScaG->Name = L"tbMeasScaG";
-        this->tbMeasScaG->Size = System::Drawing::Size(57, 22);
-        this->tbMeasScaG->TabIndex = 38;
-        this->tbMeasScaG->Text = L"128";
-        // 
-        // tbMeasScaR
-        // 
-        this->tbMeasScaR->BackColor = System::Drawing::Color::LightCoral;
-        this->tbMeasScaR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->tbMeasScaR->Location = System::Drawing::Point(111, 250);
-        this->tbMeasScaR->Name = L"tbMeasScaR";
-        this->tbMeasScaR->Size = System::Drawing::Size(57, 22);
-        this->tbMeasScaR->TabIndex = 37;
-        this->tbMeasScaR->Text = L"128";
-        // 
         // tbMeasTime
         // 
         this->tbMeasTime->BackColor = System::Drawing::SystemColors::Window;
-        this->tbMeasTime->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+        this->tbMeasTime->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
         this->tbMeasTime->Location = System::Drawing::Point(111, 194);
         this->tbMeasTime->Name = L"tbMeasTime";
+        this->tbMeasTime->ReadOnly = true;
         this->tbMeasTime->Size = System::Drawing::Size(142, 22);
         this->tbMeasTime->TabIndex = 42;
         // 
@@ -586,11 +549,102 @@ namespace CppCLRWinFormsProject {
         this->nudNumSamples->TabIndex = 54;
         this->nudNumSamples->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
         // 
+        // nudMeasExtR
+        // 
+        this->nudMeasExtR->BackColor = System::Drawing::Color::LightCoral;
+        this->nudMeasExtR->DecimalPlaces = 2;
+        this->nudMeasExtR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->nudMeasExtR->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 0, 0, 0, 0 });
+        this->nudMeasExtR->Location = System::Drawing::Point(111, 222);
+        this->nudMeasExtR->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000000, 0, 0, 0 });
+        this->nudMeasExtR->Name = L"nudMeasExtR";
+        this->nudMeasExtR->ReadOnly = true;
+        this->nudMeasExtR->Size = System::Drawing::Size(83, 22);
+        this->nudMeasExtR->TabIndex = 55;
+        this->nudMeasExtR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 18, 0, 0, 65536 });
+        // 
+        // nudMeasExtG
+        // 
+        this->nudMeasExtG->BackColor = System::Drawing::Color::LightGreen;
+        this->nudMeasExtG->DecimalPlaces = 2;
+        this->nudMeasExtG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->nudMeasExtG->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 0, 0, 0, 0 });
+        this->nudMeasExtG->Location = System::Drawing::Point(180, 222);
+        this->nudMeasExtG->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000000, 0, 0, 0 });
+        this->nudMeasExtG->Name = L"nudMeasExtG";
+        this->nudMeasExtG->ReadOnly = true;
+        this->nudMeasExtG->Size = System::Drawing::Size(83, 22);
+        this->nudMeasExtG->TabIndex = 56;
+        // 
+        // nudMeasExtB
+        // 
+        this->nudMeasExtB->BackColor = System::Drawing::Color::DeepSkyBlue;
+        this->nudMeasExtB->DecimalPlaces = 2;
+        this->nudMeasExtB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->nudMeasExtB->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 0, 0, 0, 0 });
+        this->nudMeasExtB->Location = System::Drawing::Point(250, 222);
+        this->nudMeasExtB->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000000, 0, 0, 0 });
+        this->nudMeasExtB->Name = L"nudMeasExtB";
+        this->nudMeasExtB->ReadOnly = true;
+        this->nudMeasExtB->Size = System::Drawing::Size(83, 22);
+        this->nudMeasExtB->TabIndex = 57;
+        // 
+        // nudMeasScaB
+        // 
+        this->nudMeasScaB->BackColor = System::Drawing::Color::DeepSkyBlue;
+        this->nudMeasScaB->DecimalPlaces = 2;
+        this->nudMeasScaB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->nudMeasScaB->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 0, 0, 0, 0 });
+        this->nudMeasScaB->Location = System::Drawing::Point(250, 253);
+        this->nudMeasScaB->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000000, 0, 0, 0 });
+        this->nudMeasScaB->Name = L"nudMeasScaB";
+        this->nudMeasScaB->ReadOnly = true;
+        this->nudMeasScaB->Size = System::Drawing::Size(83, 22);
+        this->nudMeasScaB->TabIndex = 60;
+        // 
+        // nudMeasScaG
+        // 
+        this->nudMeasScaG->BackColor = System::Drawing::Color::LightGreen;
+        this->nudMeasScaG->DecimalPlaces = 2;
+        this->nudMeasScaG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->nudMeasScaG->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 0, 0, 0, 0 });
+        this->nudMeasScaG->Location = System::Drawing::Point(180, 253);
+        this->nudMeasScaG->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000000, 0, 0, 0 });
+        this->nudMeasScaG->Name = L"nudMeasScaG";
+        this->nudMeasScaG->ReadOnly = true;
+        this->nudMeasScaG->Size = System::Drawing::Size(83, 22);
+        this->nudMeasScaG->TabIndex = 59;
+        // 
+        // nudMeasScaR
+        // 
+        this->nudMeasScaR->BackColor = System::Drawing::Color::LightCoral;
+        this->nudMeasScaR->DecimalPlaces = 2;
+        this->nudMeasScaR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->nudMeasScaR->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 0, 0, 0, 0 });
+        this->nudMeasScaR->Location = System::Drawing::Point(111, 253);
+        this->nudMeasScaR->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000000, 0, 0, 0 });
+        this->nudMeasScaR->Name = L"nudMeasScaR";
+        this->nudMeasScaR->ReadOnly = true;
+        this->nudMeasScaR->Size = System::Drawing::Size(83, 22);
+        this->nudMeasScaR->TabIndex = 58;
+        // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(682, 372);
+        this->Controls->Add(this->nudMeasScaB);
+        this->Controls->Add(this->nudMeasScaG);
+        this->Controls->Add(this->nudMeasScaR);
+        this->Controls->Add(this->nudMeasExtB);
+        this->Controls->Add(this->nudMeasExtG);
+        this->Controls->Add(this->nudMeasExtR);
         this->Controls->Add(this->nudNumSamples);
         this->Controls->Add(this->nudGainScaB);
         this->Controls->Add(this->nudGainScaG);
@@ -606,13 +660,7 @@ namespace CppCLRWinFormsProject {
         this->Controls->Add(this->tbMeasTime);
         this->Controls->Add(this->labMeasTime);
         this->Controls->Add(this->labMeasSca);
-        this->Controls->Add(this->tbMeasScaB);
-        this->Controls->Add(this->tbMeasScaG);
-        this->Controls->Add(this->tbMeasScaR);
         this->Controls->Add(this->LabMeasExt);
-        this->Controls->Add(this->tbMeasExtB);
-        this->Controls->Add(this->tbMeasExtG);
-        this->Controls->Add(this->tbMeasExtR);
         this->Controls->Add(this->btnMakeGetMsmt);
         this->Controls->Add(this->btnSet);
         this->Controls->Add(this->cboxAutoSave);
@@ -638,6 +686,12 @@ namespace CppCLRWinFormsProject {
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudGainScaG))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudGainScaR))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudNumSamples))->EndInit();
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasExtR))->EndInit();
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasExtG))->EndInit();
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasExtB))->EndInit();
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasScaB))->EndInit();
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasScaG))->EndInit();
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasScaR))->EndInit();
         this->ResumeLayout(false);
         this->PerformLayout();
 
