@@ -24,6 +24,25 @@ private:
 	System::Single m_MeasScaB_std;
 
 public:
+	//Default initialisation
+	MeasClass() {
+		m_MeasTime = System::DateTime::Now;
+		m_MeasExtR = 0;
+		m_MeasExtG = 0;
+		m_MeasExtB = 0;
+		m_MeasExtR_std = 0;
+		m_MeasExtG_std = 0;
+		m_MeasExtB_std = 0;
+		m_MeasScaR = 0;
+		m_MeasScaG = 0;
+		m_MeasScaB = 0;
+		m_MeasScaR_std = 0;
+		m_MeasScaG_std = 0;
+		m_MeasScaB_std = 0;
+	}
+
+
+
 	//Functions to get and set the variables
 	//Time
 	property System::DateTime MeasTime {
