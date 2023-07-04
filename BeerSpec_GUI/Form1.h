@@ -7,6 +7,10 @@
 #include "Header2.h"
 #include "SettingsClass.h"
 #include "MeasClass.h"
+#include "CSVSaver.h"
+
+
+
 
 namespace CppCLRWinFormsProject {
 
@@ -16,12 +20,18 @@ namespace CppCLRWinFormsProject {
   using namespace System::Windows::Forms;
   using namespace System::Data;
   using namespace System::Drawing;
+  using namespace System::IO;
 
   /// <summary>
   /// Summary for Form1
   /// </summary>
   public ref class Form1 : public System::Windows::Forms::Form
   {
+  
+  private:
+      CSVSaver^ csvSaver;
+
+
   public:
     Form1(void)
     {
@@ -31,7 +41,11 @@ namespace CppCLRWinFormsProject {
       SettingsClass^ settings = gcnew SettingsClass;
 
       //Measurements object to store measurements
-      MeasClass^ meas = gcnew MeasClass;      
+      MeasClass^ meas = gcnew MeasClass;   
+
+      //CSVSaver object
+      //CSVSaver^ csvSaver = gcnew CSVSaver;
+      csvSaver = gcnew CSVSaver();
 
 
       //Bind the TextBox control to the settings properties
@@ -55,9 +69,11 @@ namespace CppCLRWinFormsProject {
       nudMeasScaB->DataBindings->Add("Value", meas, "MeasScaB");
 
       tbMeasTime->DataBindings->Add("Text", meas, "MeasTime");
-      
-      
       tbNotes->DataBindings->Add("Text", meas, "Notes");
+
+      //Bind the file path to the csvSaver object
+      tbFilePath->DataBindings->Add("Text", csvSaver, "FilePath");
+      csvSaver->FilePathChanged += gcnew EventHandler(this, &Form1::Update_tbFilePath);
 
       
 
@@ -154,6 +170,12 @@ private: System::Windows::Forms::NumericUpDown^ nudMeasScaB;
 private: System::Windows::Forms::NumericUpDown^ nudMeasScaG;
 private: System::Windows::Forms::NumericUpDown^ nudMeasScaR;
 
+private: System::Windows::Forms::Button^ BtnSelectFile;
+private: System::Windows::Forms::TextBox^ tbFilePath;
+private: System::Windows::Forms::SaveFileDialog^ saveFD;
+
+
+
 
 
 
@@ -201,6 +223,9 @@ private: System::Windows::Forms::NumericUpDown^ nudMeasScaR;
         this->nudMeasScaB = (gcnew System::Windows::Forms::NumericUpDown());
         this->nudMeasScaG = (gcnew System::Windows::Forms::NumericUpDown());
         this->nudMeasScaR = (gcnew System::Windows::Forms::NumericUpDown());
+        this->BtnSelectFile = (gcnew System::Windows::Forms::Button());
+        this->tbFilePath = (gcnew System::Windows::Forms::TextBox());
+        this->saveFD = (gcnew System::Windows::Forms::SaveFileDialog());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDB))->BeginInit();
@@ -634,11 +659,35 @@ private: System::Windows::Forms::NumericUpDown^ nudMeasScaR;
         this->nudMeasScaR->Size = System::Drawing::Size(83, 22);
         this->nudMeasScaR->TabIndex = 58;
         // 
+        // BtnSelectFile
+        // 
+        this->BtnSelectFile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->BtnSelectFile->Location = System::Drawing::Point(260, 325);
+        this->BtnSelectFile->Name = L"BtnSelectFile";
+        this->BtnSelectFile->Size = System::Drawing::Size(108, 23);
+        this->BtnSelectFile->TabIndex = 61;
+        this->BtnSelectFile->Text = L"Select file";
+        this->BtnSelectFile->UseVisualStyleBackColor = true;
+        this->BtnSelectFile->Click += gcnew System::EventHandler(this, &Form1::BtnSelectFile_Click);
+        // 
+        // tbFilePath
+        // 
+        this->tbFilePath->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->tbFilePath->Location = System::Drawing::Point(375, 326);
+        this->tbFilePath->Name = L"tbFilePath";
+        this->tbFilePath->Size = System::Drawing::Size(266, 22);
+        this->tbFilePath->TabIndex = 62;
+        this->tbFilePath->TextChanged += gcnew System::EventHandler(this, &Form1::tbFilePath_TextChanged);
+        // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(682, 372);
+        this->Controls->Add(this->tbFilePath);
+        this->Controls->Add(this->BtnSelectFile);
         this->Controls->Add(this->nudMeasScaB);
         this->Controls->Add(this->nudMeasScaG);
         this->Controls->Add(this->nudMeasScaR);
@@ -731,6 +780,37 @@ private: System::Void tbLEDR_TextChanged(System::Object^ sender, System::EventAr
 }
 private: System::Void in_textBox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
+private: System::Void BtnSelectFile_Click(System::Object^ sender, System::EventArgs^ e)
+{
+
+    Stream^ myStream;
+
+    //Open the file dialog
+    System::Windows::Forms::DialogResult result = saveFD->ShowDialog();
+    if (result == System::Windows::Forms::DialogResult::OK)
+    {
+        csvSaver->FilePath = saveFD->FileName;
+        //tbFilePath->Text = saveFD->FileName;
+        
+        out_textBox->AppendText(String::Format(csvSaver->FilePath));
+    }
+
+}
+
+
+private: System::Void tbFilePath_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+    csvSaver->FilePath = tbFilePath->Text;
+}
+
+void Update_tbFilePath(Object^ sender, EventArgs^ e)
+{
+    // Update the TextBox with the latest value from csvSaver.FilePath
+    tbFilePath->Text = csvSaver->FilePath;
+}
+    
+
+
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
+
 
