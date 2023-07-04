@@ -446,6 +446,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->tbNotes->Name = L"tbNotes";
         this->tbNotes->Size = System::Drawing::Size(321, 20);
         this->tbNotes->TabIndex = 43;
+        this->tbNotes->TextChanged += gcnew System::EventHandler(this, &Form1::tbNotes_TextChanged);
         // 
         // labNotes
         // 
@@ -469,6 +470,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudLEDR->Size = System::Drawing::Size(57, 22);
         this->nudLEDR->TabIndex = 45;
         this->nudLEDR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudLEDR->ValueChanged += gcnew System::EventHandler(this, &Form1::nudLEDR_ValueChanged);
         // 
         // nudLEDG
         // 
@@ -529,6 +531,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudGainExtR->Size = System::Drawing::Size(57, 22);
         this->nudGainExtR->TabIndex = 48;
         this->nudGainExtR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudGainExtR->ValueChanged += gcnew System::EventHandler(this, &Form1::nudGainExtR_ValueChanged);
         // 
         // nudGainScaB
         // 
@@ -830,6 +833,36 @@ void Update_tbFilePath(Object^ sender, EventArgs^ e)
 
 private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e) {
     csvSaver->SaveDataToFile(settings, meas);
+}
+private: System::Void tbNotes_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+    meas->Notes = tbNotes->Text;
+}
+private: System::Void nudLEDR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->LEDR = Decimal::ToInt32(nudLEDR->Value);
+}
+private: System::Void nudLEDG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->LEDG = Decimal::ToInt32(nudLEDG->Value);
+}
+private: System::Void nudLEDB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->LEDB = Decimal::ToInt32(nudLEDB->Value);
+}
+private: System::Void nudGainExtR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainExtR = Decimal::ToInt32(nudGainExtR->Value);
+}
+private: System::Void nudGainExtG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainExtG = Decimal::ToInt32(nudGainExtG->Value);
+}
+private: System::Void nudGainExtB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainExtB = Decimal::ToInt32(nudGainExtB->Value);
+}
+private: System::Void nudGainScaR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainScaR = Decimal::ToInt32(nudGainScaR->Value);
+}
+private: System::Void nudGainScaG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainScaG = Decimal::ToInt32(nudGainScaG->Value);
+}
+private: System::Void nudGainScaB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainScaB = Decimal::ToInt32(nudGainScaB->Value);
 }
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
