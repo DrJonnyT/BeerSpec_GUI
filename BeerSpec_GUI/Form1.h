@@ -784,7 +784,6 @@ private: System::Windows::Forms::Button^ btnSave;
         this->Controls->Add(this->out_textBox);
         this->Name = L"Form1";
         this->Text = L"BeerSpec GUI";
-        this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDR))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDG))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDB))->EndInit();
