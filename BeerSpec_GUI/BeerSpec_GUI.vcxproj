@@ -139,6 +139,7 @@
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Header.h" />
     <ClInclude Include="Header1.h" />
     <ClInclude Include="Header2.h" />
     <ClInclude Include="MeasClass.h" />

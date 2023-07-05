@@ -8,6 +8,7 @@
 #include "SettingsClass.h"
 #include "MeasClass.h"
 #include "CSVSaver.h"
+//#include "SerialComms.h"
 
 
 
@@ -21,6 +22,7 @@ namespace CppCLRWinFormsProject {
   using namespace System::Data;
   using namespace System::Drawing;
   using namespace System::IO;
+  using namespace System::IO::Ports;
 
   /// <summary>
   /// Summary for Form1
@@ -31,7 +33,12 @@ namespace CppCLRWinFormsProject {
   private:
       CSVSaver^ csvSaver;
       SettingsClass^ settings;
+      System::IO::Ports::SerialPort^ serialPort1;
   private: System::Windows::Forms::Label^ labFolderPath;
+  
+  private: System::Windows::Forms::ComboBox^ cboxCOMPort;
+  private: System::Windows::Forms::Label^ labCOMPort;
+
          MeasClass^ meas;
 
 
@@ -39,6 +46,11 @@ namespace CppCLRWinFormsProject {
     Form1(void)
     {
       InitializeComponent();
+
+      //Find COM ports
+      findPorts();
+
+      //serialPort1 = gcnew System::IO::Ports::SerialPort;
       
       //Settings object to store instrument settings
       settings = gcnew SettingsClass;
@@ -115,7 +127,8 @@ namespace CppCLRWinFormsProject {
   private: System::Windows::Forms::TextBox^ in_textBox;
   private: System::Windows::Forms::Button^ button_plus_1;
   private: System::Windows::Forms::Button^ button_plus_2;
-  
+  private: System::ComponentModel::IContainer^ components;
+
 
 
 
@@ -127,7 +140,7 @@ namespace CppCLRWinFormsProject {
     /// <summary>
     /// Required designer variable.
     /// </summary>
-    System::ComponentModel::Container^ components;
+
   
     //Define settings part of form
     System::Windows::Forms::Label^ labSettings;
@@ -192,6 +205,7 @@ private: System::Windows::Forms::Button^ btnSave;
     /// </summary>
     void InitializeComponent(void)
     {
+        this->components = (gcnew System::ComponentModel::Container());
         this->out_textBox = (gcnew System::Windows::Forms::TextBox());
         this->in_textBox = (gcnew System::Windows::Forms::TextBox());
         this->button_plus_1 = (gcnew System::Windows::Forms::Button());
@@ -230,6 +244,9 @@ private: System::Windows::Forms::Button^ btnSave;
         this->tbFolderPath = (gcnew System::Windows::Forms::TextBox());
         this->btnSave = (gcnew System::Windows::Forms::Button());
         this->labFolderPath = (gcnew System::Windows::Forms::Label());
+        this->serialPort1 = (gcnew System::IO::Ports::SerialPort(this->components));
+        this->cboxCOMPort = (gcnew System::Windows::Forms::ComboBox());
+        this->labCOMPort = (gcnew System::Windows::Forms::Label());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDB))->BeginInit();
@@ -700,11 +717,33 @@ private: System::Windows::Forms::Button^ btnSave;
         this->labFolderPath->TabIndex = 64;
         this->labFolderPath->Text = L"Save Folder:";
         // 
+        // cboxCOMPort
+        // 
+        this->cboxCOMPort->FormattingEnabled = true;
+        this->cboxCOMPort->Location = System::Drawing::Point(505, 167);
+        this->cboxCOMPort->Name = L"cboxCOMPort";
+        this->cboxCOMPort->Size = System::Drawing::Size(121, 21);
+        this->cboxCOMPort->TabIndex = 65;
+        this->cboxCOMPort->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxCOMPort_SelectedIndexChanged);
+        // 
+        // labCOMPort
+        // 
+        this->labCOMPort->AutoSize = true;
+        this->labCOMPort->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->labCOMPort->Location = System::Drawing::Point(459, 168);
+        this->labCOMPort->Name = L"labCOMPort";
+        this->labCOMPort->Size = System::Drawing::Size(40, 16);
+        this->labCOMPort->TabIndex = 66;
+        this->labCOMPort->Text = L"COM";
+        // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(682, 372);
+        this->Controls->Add(this->labCOMPort);
+        this->Controls->Add(this->cboxCOMPort);
         this->Controls->Add(this->labFolderPath);
         this->Controls->Add(this->btnSave);
         this->Controls->Add(this->tbFolderPath);
@@ -791,6 +830,10 @@ private: System::Void labLEDR_Click(System::Object^ sender, System::EventArgs^ e
 private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e) {
+    if (this->serialPort1->IsOpen)
+    {
+        this->serialPort1->WriteLine("#SETLED 128 0 0");
+    }
 }
 private: System::Void labNumSamples_Click(System::Object^ sender, System::EventArgs^ e) {
 }
@@ -845,8 +888,29 @@ private: System::Void nudGainScaR_ValueChanged(System::Object^ sender, System::E
 private: System::Void nudGainScaG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
     settings->GainScaG = Decimal::ToInt32(nudGainScaG->Value);
 }
-private: System::Void nudGainScaB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainScaB = Decimal::ToInt32(nudGainScaB->Value);
+  private: System::Void nudGainScaB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+      settings->GainScaB = Decimal::ToInt32(nudGainScaB->Value);
+}
+
+// find available COM ports
+private: void findPorts(void)
+{
+    // get port names
+    array<Object^>^ objectArray = SerialPort::GetPortNames();
+    // add string array to combobox
+    this->cboxCOMPort->Items->AddRange(objectArray);
+}
+
+private: System::Void cboxCOMPort_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+    //close existing serialPort
+    this->serialPort1->Close();
+
+    // make sure port isn't open	
+    if (!this->serialPort1->IsOpen) {
+        this->serialPort1->PortName = this->cboxCOMPort->Text;
+        //open serial port 
+        this->serialPort1->Open();
+    }
 }
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
