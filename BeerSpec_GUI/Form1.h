@@ -31,7 +31,8 @@ namespace CppCLRWinFormsProject {
   private:
       CSVSaver^ csvSaver;
       SettingsClass^ settings;
-      MeasClass^ meas;
+  private: System::Windows::Forms::Label^ labFolderPath;
+         MeasClass^ meas;
 
 
   public:
@@ -174,7 +175,7 @@ private: System::Windows::Forms::NumericUpDown^ nudMeasScaR;
 
 
 private: System::Windows::Forms::TextBox^ tbFolderPath;
-private: System::Windows::Forms::SaveFileDialog^ saveFD;
+
 private: System::Windows::Forms::Button^ btnSave;
 
 
@@ -227,8 +228,8 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudMeasScaG = (gcnew System::Windows::Forms::NumericUpDown());
         this->nudMeasScaR = (gcnew System::Windows::Forms::NumericUpDown());
         this->tbFolderPath = (gcnew System::Windows::Forms::TextBox());
-        this->saveFD = (gcnew System::Windows::Forms::SaveFileDialog());
         this->btnSave = (gcnew System::Windows::Forms::Button());
+        this->labFolderPath = (gcnew System::Windows::Forms::Label());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDB))->BeginInit();
@@ -688,11 +689,23 @@ private: System::Windows::Forms::Button^ btnSave;
         this->btnSave->UseVisualStyleBackColor = false;
         this->btnSave->Click += gcnew System::EventHandler(this, &Form1::btnSave_Click);
         // 
+        // labFolderPath
+        // 
+        this->labFolderPath->AutoSize = true;
+        this->labFolderPath->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->labFolderPath->Location = System::Drawing::Point(248, 313);
+        this->labFolderPath->Name = L"labFolderPath";
+        this->labFolderPath->Size = System::Drawing::Size(110, 20);
+        this->labFolderPath->TabIndex = 64;
+        this->labFolderPath->Text = L"Save Folder:";
+        // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(682, 372);
+        this->Controls->Add(this->labFolderPath);
         this->Controls->Add(this->btnSave);
         this->Controls->Add(this->tbFolderPath);
         this->Controls->Add(this->nudMeasScaB);
