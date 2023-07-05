@@ -523,7 +523,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudGainExtB->Name = L"nudGainExtB";
         this->nudGainExtB->Size = System::Drawing::Size(57, 22);
         this->nudGainExtB->TabIndex = 50;
-        this->nudGainExtB->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudGainExtB->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
         // 
         // nudGainExtG
         // 
@@ -535,7 +535,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudGainExtG->Name = L"nudGainExtG";
         this->nudGainExtG->Size = System::Drawing::Size(57, 22);
         this->nudGainExtG->TabIndex = 49;
-        this->nudGainExtG->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudGainExtG->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
         // 
         // nudGainExtR
         // 
@@ -547,7 +547,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudGainExtR->Name = L"nudGainExtR";
         this->nudGainExtR->Size = System::Drawing::Size(57, 22);
         this->nudGainExtR->TabIndex = 48;
-        this->nudGainExtR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudGainExtR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
         this->nudGainExtR->ValueChanged += gcnew System::EventHandler(this, &Form1::nudGainExtR_ValueChanged);
         // 
         // nudGainScaB
@@ -560,7 +560,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudGainScaB->Name = L"nudGainScaB";
         this->nudGainScaB->Size = System::Drawing::Size(57, 22);
         this->nudGainScaB->TabIndex = 53;
-        this->nudGainScaB->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudGainScaB->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
         // 
         // nudGainScaG
         // 
@@ -572,7 +572,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudGainScaG->Name = L"nudGainScaG";
         this->nudGainScaG->Size = System::Drawing::Size(57, 22);
         this->nudGainScaG->TabIndex = 52;
-        this->nudGainScaG->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudGainScaG->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
         // 
         // nudGainScaR
         // 
@@ -584,7 +584,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudGainScaR->Name = L"nudGainScaR";
         this->nudGainScaR->Size = System::Drawing::Size(57, 22);
         this->nudGainScaR->TabIndex = 51;
-        this->nudGainScaR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudGainScaR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
         // 
         // nudNumSamples
         // 
