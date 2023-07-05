@@ -783,7 +783,8 @@ private: System::Windows::Forms::Button^ btnSave;
         this->Controls->Add(this->in_textBox);
         this->Controls->Add(this->out_textBox);
         this->Name = L"Form1";
-        this->Text = L"Form1";
+        this->Text = L"BeerSpec GUI";
+        this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDR))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDG))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDB))->EndInit();
@@ -832,8 +833,9 @@ private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e)
 private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e) {
     if (this->serialPort1->IsOpen)
     {
-        this->serialPort1->WriteLine("#SETLED 128 0 0");
+        this->serialPort1->WriteLine("#SETLED " + System::Convert::ToString(settings->LEDR) + " " + System::Convert::ToString(settings->LEDG) + " " + System::Convert::ToString(settings->LEDB));
     }
+    
 }
 private: System::Void labNumSamples_Click(System::Object^ sender, System::EventArgs^ e) {
 }
