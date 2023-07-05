@@ -15,7 +15,6 @@ using namespace System::IO;
 ref class CSVSaver
 {
 private:
-    System::String^ m_FilePath;
     System::String^ m_FileName;
     System::String^ m_FolderPath;
     EventHandler^ _FolderPathChanged;
@@ -59,8 +58,7 @@ protected:
 public:
     //Default initialisation
     CSVSaver() {
-        m_FilePath = "";
-        m_FolderPath = "C:\\BeerSpec";
+        m_FolderPath = "C:\\BeerSpec\\";
         //Make the filename the date/time
         String^ dateTimeString = DateTime::Now.ToString("yyyyMMdd-HHmmss");
         m_FileName = dateTimeString + "-BeerSpec.csv";
@@ -71,7 +69,7 @@ public:
     {
         System::String^ get()
         {
-            return m_FolderPath + "\\" + m_FileName;
+            return m_FolderPath + m_FileName;
         }
     }
 
