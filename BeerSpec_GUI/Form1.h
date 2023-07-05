@@ -74,8 +74,8 @@ namespace CppCLRWinFormsProject {
       tbNotes->DataBindings->Add("Text", meas, "Notes");
 
       //Bind the file path to the csvSaver object
-      tbFilePath->DataBindings->Add("Text", csvSaver, "FilePath");
-      csvSaver->FilePathChanged += gcnew EventHandler(this, &Form1::Update_tbFilePath);
+      tbFolderPath->DataBindings->Add("Text", csvSaver, "FolderPath");
+      csvSaver->FolderPathChanged += gcnew EventHandler(this, &Form1::Update_tbFolderPath);
 
       
 
@@ -172,8 +172,8 @@ private: System::Windows::Forms::NumericUpDown^ nudMeasScaB;
 private: System::Windows::Forms::NumericUpDown^ nudMeasScaG;
 private: System::Windows::Forms::NumericUpDown^ nudMeasScaR;
 
-private: System::Windows::Forms::Button^ BtnSelectFile;
-private: System::Windows::Forms::TextBox^ tbFilePath;
+
+private: System::Windows::Forms::TextBox^ tbFolderPath;
 private: System::Windows::Forms::SaveFileDialog^ saveFD;
 private: System::Windows::Forms::Button^ btnSave;
 
@@ -226,8 +226,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudMeasScaB = (gcnew System::Windows::Forms::NumericUpDown());
         this->nudMeasScaG = (gcnew System::Windows::Forms::NumericUpDown());
         this->nudMeasScaR = (gcnew System::Windows::Forms::NumericUpDown());
-        this->BtnSelectFile = (gcnew System::Windows::Forms::Button());
-        this->tbFilePath = (gcnew System::Windows::Forms::TextBox());
+        this->tbFolderPath = (gcnew System::Windows::Forms::TextBox());
         this->saveFD = (gcnew System::Windows::Forms::SaveFileDialog());
         this->btnSave = (gcnew System::Windows::Forms::Button());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDR))->BeginInit();
@@ -666,27 +665,15 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudMeasScaR->Size = System::Drawing::Size(83, 22);
         this->nudMeasScaR->TabIndex = 58;
         // 
-        // BtnSelectFile
+        // tbFolderPath
         // 
-        this->BtnSelectFile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+        this->tbFolderPath->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->BtnSelectFile->Location = System::Drawing::Point(250, 312);
-        this->BtnSelectFile->Name = L"BtnSelectFile";
-        this->BtnSelectFile->Size = System::Drawing::Size(108, 23);
-        this->BtnSelectFile->TabIndex = 61;
-        this->BtnSelectFile->Text = L"Select file";
-        this->BtnSelectFile->UseVisualStyleBackColor = true;
-        this->BtnSelectFile->Click += gcnew System::EventHandler(this, &Form1::BtnSelectFile_Click);
-        // 
-        // tbFilePath
-        // 
-        this->tbFilePath->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->tbFilePath->Location = System::Drawing::Point(364, 313);
-        this->tbFilePath->Name = L"tbFilePath";
-        this->tbFilePath->Size = System::Drawing::Size(266, 22);
-        this->tbFilePath->TabIndex = 62;
-        this->tbFilePath->TextChanged += gcnew System::EventHandler(this, &Form1::tbFilePath_TextChanged);
+        this->tbFolderPath->Location = System::Drawing::Point(364, 313);
+        this->tbFolderPath->Name = L"tbFolderPath";
+        this->tbFolderPath->Size = System::Drawing::Size(266, 22);
+        this->tbFolderPath->TabIndex = 62;
+        this->tbFolderPath->TextChanged += gcnew System::EventHandler(this, &Form1::tbFolderPath_TextChanged);
         // 
         // btnSave
         // 
@@ -707,8 +694,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(682, 372);
         this->Controls->Add(this->btnSave);
-        this->Controls->Add(this->tbFilePath);
-        this->Controls->Add(this->BtnSelectFile);
+        this->Controls->Add(this->tbFolderPath);
         this->Controls->Add(this->nudMeasScaB);
         this->Controls->Add(this->nudMeasScaG);
         this->Controls->Add(this->nudMeasScaR);
@@ -801,32 +787,17 @@ private: System::Void tbLEDR_TextChanged(System::Object^ sender, System::EventAr
 }
 private: System::Void in_textBox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
-private: System::Void BtnSelectFile_Click(System::Object^ sender, System::EventArgs^ e)
-{
 
-    //Stream^ myStream;
 
-    //Open the file dialog
-    System::Windows::Forms::DialogResult result = saveFD->ShowDialog();
-    if (result == System::Windows::Forms::DialogResult::OK)
-    {
-        csvSaver->FilePath = saveFD->FileName;
-        //tbFilePath->Text = saveFD->FileName;
-        
-        out_textBox->AppendText(String::Format(csvSaver->FilePath));
-    }
 
+private: System::Void tbFolderPath_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+    csvSaver->FolderPath = tbFolderPath->Text;
 }
 
-
-private: System::Void tbFilePath_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    csvSaver->FilePath = tbFilePath->Text;
-}
-
-void Update_tbFilePath(Object^ sender, EventArgs^ e)
+void Update_tbFolderPath(Object^ sender, EventArgs^ e)
 {
     // Update the TextBox with the latest value from csvSaver.FilePath
-    tbFilePath->Text = csvSaver->FilePath;
+    tbFolderPath->Text = csvSaver->FolderPath;
 }
     
 

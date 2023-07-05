@@ -16,41 +16,43 @@ ref class CSVSaver
 {
 private:
     System::String^ m_FilePath;
-    EventHandler^ _FilePathChanged;
+    System::String^ m_FileName;
+    System::String^ m_FolderPath;
+    EventHandler^ _FolderPathChanged;
 
 public:
-    event EventHandler^ FilePathChanged
+    event EventHandler^ FolderPathChanged
     {
         void add(EventHandler^ handler)
         {
-            _FilePathChanged += handler;
+            _FolderPathChanged += handler;
         }
         void remove(EventHandler^ handler)
         {
-            _FilePathChanged -= handler;
+            _FolderPathChanged -= handler;
         }
     }
 
-    property String^ FilePath
+    property String^ FolderPath
     {
         String^ get()
         {
-            return m_FilePath;
+            return m_FolderPath;
         }
         void set(String^ value)
         {
-            if (m_FilePath != value)
+            if (m_FolderPath != value)
             {
-                m_FilePath = value;
-                OnFilePathChanged();
+                m_FolderPath = value;
+                OnFolderPathChanged();
             }
         }
     }
 
 protected:
-    void OnFilePathChanged()
+    void OnFolderPathChanged()
     {
-        _FilePathChanged(this, EventArgs::Empty);
+        _FolderPathChanged(this, EventArgs::Empty);
     }
 
 
@@ -58,6 +60,33 @@ public:
     //Default initialisation
     CSVSaver() {
         m_FilePath = "";
+        m_FolderPath = "C:\\BeerSpec";
+        //Make the filename the date/time
+        String^ dateTimeString = DateTime::Now.ToString("yyyyMMdd-HHmmss");
+        m_FileName = dateTimeString + "-BeerSpec.csv";
+    }
+
+    //Make a virtual member variable for the full file path
+    property System::String^ FilePath
+    {
+        System::String^ get()
+        {
+            return m_FolderPath + "\\" + m_FileName;
+        }
+    }
+
+    //Create a folder if it doesn't exist
+    void CreateFolderIfNotExists(String^ folderPath)
+    {
+        if (!Directory::Exists(folderPath))
+        {
+            Directory::CreateDirectory(folderPath);
+            Console::WriteLine("Folder created: " + folderPath);
+        }
+        else
+        {
+            Console::WriteLine("Folder already exists: " + folderPath);
+        }
     }
 
 
@@ -70,11 +99,14 @@ public:
     //Function to actually save the data
     void SaveDataToFile(SettingsClass^ settings, MeasClass^ meas)
     {
+        //Check if the folder exists, and create it if not
+        CreateFolderIfNotExists(m_FolderPath);
+
         // Check if the file exists
-        bool fileExists = File::Exists(m_FilePath);
+        bool fileExists = File::Exists(FilePath);
 
         // Open the file for appending or create a new file
-        StreamWriter^ writer = gcnew StreamWriter(m_FilePath, fileExists);
+        StreamWriter^ writer = gcnew StreamWriter(FilePath, fileExists);
 
         // Write the header row if the file is new
         if (!fileExists)
