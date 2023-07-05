@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 
 ref class SettingsClass
 {
