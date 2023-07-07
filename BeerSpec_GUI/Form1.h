@@ -947,7 +947,7 @@ private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e)
 private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e) {
     if (this->serialPort1->IsOpen)
     {
-        this->serialPort1->WriteLine("#SETLED " + System::Convert::ToString(settings->LEDR) + " " + System::Convert::ToString(settings->LEDG) + " " + System::Convert::ToString(settings->LEDB));
+        this->serialPort1->WriteLine("#SETTINGSLEDRGB " + System::Convert::ToString(settings->LEDR) + " " + System::Convert::ToString(settings->LEDG) + " " + System::Convert::ToString(settings->LEDB));
     }
     
 }
