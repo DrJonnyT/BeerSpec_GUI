@@ -12,12 +12,12 @@ private:
 	int m_GainScaR;
 	int m_GainScaG;
 	int m_GainScaB;
-	System::Double m_IntTimeExtR;
-	System::Double m_IntTimeExtG;
-	System::Double m_IntTimeExtB;
-	System::Double m_IntTimeScaR;
-	System::Double m_IntTimeScaG;
-	System::Double m_IntTimeScaB;
+	int m_IntTimeExtR;
+	int m_IntTimeExtG;
+	int m_IntTimeExtB;
+	int m_IntTimeScaR;
+	int m_IntTimeScaG;
+	int m_IntTimeScaB;
 	int m_NumSamples;
 
 public:
@@ -45,12 +45,12 @@ public:
 		m_GainScaR = 5000;
 		m_GainScaG = 5000;
 		m_GainScaB = 5000;
-		m_IntTimeExtR = 24.;
-		m_IntTimeExtG = 24.;
-		m_IntTimeExtB = 24.;
-		m_IntTimeScaR = 24.;
-		m_IntTimeScaG = 24.;
-		m_IntTimeScaB = 24.;
+		m_IntTimeExtR = 24;
+		m_IntTimeExtG = 24;
+		m_IntTimeExtB = 24;
+		m_IntTimeScaR = 24;
+		m_IntTimeScaG = 24;
+		m_IntTimeScaB = 24;
 		m_NumSamples = 1;
 	}
 

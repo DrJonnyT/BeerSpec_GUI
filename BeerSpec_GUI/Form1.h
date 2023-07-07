@@ -117,37 +117,31 @@ namespace CppCLRWinFormsProject {
 
 
       //Set options for integration time boxes
-      cboxIntTimeExtR->Items->Add(2.4);
       cboxIntTimeExtR->Items->Add(24.);
       cboxIntTimeExtR->Items->Add(60.);
       cboxIntTimeExtR->Items->Add(120.);
       cboxIntTimeExtR->Items->Add(240.);
       cboxIntTimeExtR->Items->Add(480.);
-      cboxIntTimeExtG->Items->Add(2.4);
       cboxIntTimeExtG->Items->Add(24.);
       cboxIntTimeExtG->Items->Add(60.);
       cboxIntTimeExtG->Items->Add(120.);
       cboxIntTimeExtG->Items->Add(240.);
       cboxIntTimeExtG->Items->Add(480.);
-      cboxIntTimeExtB->Items->Add(2.4);
       cboxIntTimeExtB->Items->Add(24.);
       cboxIntTimeExtB->Items->Add(60.);
       cboxIntTimeExtB->Items->Add(120.);
       cboxIntTimeExtB->Items->Add(240.);
       cboxIntTimeExtB->Items->Add(480.);
-      cboxIntTimeScaR->Items->Add(2.4);
       cboxIntTimeScaR->Items->Add(24.);
       cboxIntTimeScaR->Items->Add(60.);
       cboxIntTimeScaR->Items->Add(120.);
       cboxIntTimeScaR->Items->Add(240.);
       cboxIntTimeScaR->Items->Add(480.);
-      cboxIntTimeScaG->Items->Add(2.4);
       cboxIntTimeScaG->Items->Add(24.);
       cboxIntTimeScaG->Items->Add(60.);
       cboxIntTimeScaG->Items->Add(120.);
       cboxIntTimeScaG->Items->Add(240.);
       cboxIntTimeScaG->Items->Add(480.);
-      cboxIntTimeScaB->Items->Add(2.4);
       cboxIntTimeScaB->Items->Add(24.);
       cboxIntTimeScaB->Items->Add(60.);
       cboxIntTimeScaB->Items->Add(120.);
