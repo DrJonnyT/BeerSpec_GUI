@@ -778,6 +778,8 @@ private: System::Windows::Forms::Button^ btnSave;
         // cboxIntTimeExtR
         // 
         this->cboxIntTimeExtR->BackColor = System::Drawing::Color::LightCoral;
+        this->cboxIntTimeExtR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
         this->cboxIntTimeExtR->FormattingEnabled = true;
         this->cboxIntTimeExtR->Location = System::Drawing::Point(111, 131);
         this->cboxIntTimeExtR->Name = L"cboxIntTimeExtR";
@@ -789,6 +791,8 @@ private: System::Windows::Forms::Button^ btnSave;
         // cboxIntTimeExtG
         // 
         this->cboxIntTimeExtG->BackColor = System::Drawing::Color::LightGreen;
+        this->cboxIntTimeExtG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
         this->cboxIntTimeExtG->FormattingEnabled = true;
         this->cboxIntTimeExtG->Location = System::Drawing::Point(196, 131);
         this->cboxIntTimeExtG->Name = L"cboxIntTimeExtG";
@@ -800,6 +804,8 @@ private: System::Windows::Forms::Button^ btnSave;
         // cboxIntTimeExtB
         // 
         this->cboxIntTimeExtB->BackColor = System::Drawing::Color::DeepSkyBlue;
+        this->cboxIntTimeExtB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
         this->cboxIntTimeExtB->FormattingEnabled = true;
         this->cboxIntTimeExtB->Location = System::Drawing::Point(276, 131);
         this->cboxIntTimeExtB->Name = L"cboxIntTimeExtB";
@@ -811,6 +817,8 @@ private: System::Windows::Forms::Button^ btnSave;
         // cboxIntTimeScaB
         // 
         this->cboxIntTimeScaB->BackColor = System::Drawing::Color::DeepSkyBlue;
+        this->cboxIntTimeScaB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
         this->cboxIntTimeScaB->FormattingEnabled = true;
         this->cboxIntTimeScaB->Location = System::Drawing::Point(276, 158);
         this->cboxIntTimeScaB->Name = L"cboxIntTimeScaB";
@@ -822,6 +830,8 @@ private: System::Windows::Forms::Button^ btnSave;
         // cboxIntTimeScaG
         // 
         this->cboxIntTimeScaG->BackColor = System::Drawing::Color::LightGreen;
+        this->cboxIntTimeScaG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
         this->cboxIntTimeScaG->FormattingEnabled = true;
         this->cboxIntTimeScaG->Location = System::Drawing::Point(196, 158);
         this->cboxIntTimeScaG->Name = L"cboxIntTimeScaG";
@@ -833,6 +843,8 @@ private: System::Windows::Forms::Button^ btnSave;
         // cboxIntTimeScaR
         // 
         this->cboxIntTimeScaR->BackColor = System::Drawing::Color::LightCoral;
+        this->cboxIntTimeScaR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
         this->cboxIntTimeScaR->FormattingEnabled = true;
         this->cboxIntTimeScaR->Location = System::Drawing::Point(111, 158);
         this->cboxIntTimeScaR->Name = L"cboxIntTimeScaR";
