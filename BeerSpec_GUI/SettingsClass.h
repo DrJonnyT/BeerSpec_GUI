@@ -12,6 +12,12 @@ private:
 	int m_GainScaR;
 	int m_GainScaG;
 	int m_GainScaB;
+	System::Double m_IntTimeExtR;
+	System::Double m_IntTimeExtG;
+	System::Double m_IntTimeExtB;
+	System::Double m_IntTimeScaR;
+	System::Double m_IntTimeScaG;
+	System::Double m_IntTimeScaB;
 	int m_NumSamples;
 
 public:
@@ -39,6 +45,12 @@ public:
 		m_GainScaR = 5000;
 		m_GainScaG = 5000;
 		m_GainScaB = 5000;
+		m_IntTimeExtR = 24.;
+		m_IntTimeExtG = 24.;
+		m_IntTimeExtB = 24.;
+		m_IntTimeScaR = 24.;
+		m_IntTimeScaG = 24.;
+		m_IntTimeScaB = 24.;
 		m_NumSamples = 1;
 	}
 
@@ -85,7 +97,30 @@ public:
 		int get() { return m_GainScaB; }
 		void set(int value) { m_GainScaB = value; }
 	}
-	
+	property System::Double IntTimeExtR {
+		System::Double get() { return m_IntTimeExtR; }
+		void set(System::Double value) { m_IntTimeExtR = value; }
+	}
+	property System::Double IntTimeExtG {
+		System::Double get() { return m_IntTimeExtG; }
+		void set(System::Double value) { m_IntTimeExtG = value; }
+	}
+	property System::Double IntTimeExtB {
+		System::Double get() { return m_IntTimeExtB; }
+		void set(System::Double value) { m_IntTimeExtB = value; }
+	}
+	property System::Double IntTimeScaR {
+		System::Double get() { return m_IntTimeScaR; }
+		void set(System::Double value) { m_IntTimeScaR = value; }
+	}
+	property System::Double IntTimeScaG {
+		System::Double get() { return m_IntTimeScaG; }
+		void set(System::Double value) { m_IntTimeScaG = value; }
+	}
+	property System::Double IntTimeScaB {
+		System::Double get() { return m_IntTimeScaB; }
+		void set(System::Double value) { m_IntTimeScaB = value; }
+	}
 	property int NumSamples {
 		int get() { return m_NumSamples; }
 		void set(int value) { m_NumSamples = value; }
