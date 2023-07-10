@@ -55,6 +55,13 @@ namespace CppCLRWinFormsProject {
 
 
   private: System::Windows::Forms::Label^ labSerial;
+  private: System::Windows::Forms::RichTextBox^ rtbSerialSent;
+
+
+  private: System::Windows::Forms::Label^ labSerialSent;
+  private: System::Windows::Forms::Label^ labSerialReceived;
+
+
 
 
 
@@ -306,6 +313,9 @@ private: System::Windows::Forms::Button^ btnSave;
         this->label1 = (gcnew System::Windows::Forms::Label());
         this->rtbSerialReceived = (gcnew System::Windows::Forms::RichTextBox());
         this->labSerial = (gcnew System::Windows::Forms::Label());
+        this->rtbSerialSent = (gcnew System::Windows::Forms::RichTextBox());
+        this->labSerialSent = (gcnew System::Windows::Forms::Label());
+        this->labSerialReceived = (gcnew System::Windows::Forms::Label());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudLEDB))->BeginInit();
@@ -386,7 +396,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->labMeasurements->AutoSize = true;
         this->labMeasurements->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labMeasurements->Location = System::Drawing::Point(9, 372);
+        this->labMeasurements->Location = System::Drawing::Point(12, 399);
         this->labMeasurements->Name = L"labMeasurements";
         this->labMeasurements->Size = System::Drawing::Size(182, 24);
         this->labMeasurements->TabIndex = 27;
@@ -397,7 +407,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->cboxAutoSave->AutoSize = true;
         this->cboxAutoSave->Checked = true;
         this->cboxAutoSave->CheckState = System::Windows::Forms::CheckState::Checked;
-        this->cboxAutoSave->Location = System::Drawing::Point(523, 445);
+        this->cboxAutoSave->Location = System::Drawing::Point(526, 472);
         this->cboxAutoSave->Name = L"cboxAutoSave";
         this->cboxAutoSave->Size = System::Drawing::Size(71, 17);
         this->cboxAutoSave->TabIndex = 30;
@@ -422,7 +432,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->btnMakeGetMsmt->BackColor = System::Drawing::Color::Khaki;
         this->btnMakeGetMsmt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->btnMakeGetMsmt->Location = System::Drawing::Point(332, 427);
+        this->btnMakeGetMsmt->Location = System::Drawing::Point(335, 454);
         this->btnMakeGetMsmt->Name = L"btnMakeGetMsmt";
         this->btnMakeGetMsmt->Size = System::Drawing::Size(168, 48);
         this->btnMakeGetMsmt->TabIndex = 32;
@@ -435,7 +445,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->LabMeasExt->AutoSize = true;
         this->LabMeasExt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->LabMeasExt->Location = System::Drawing::Point(9, 429);
+        this->LabMeasExt->Location = System::Drawing::Point(12, 456);
         this->LabMeasExt->Name = L"LabMeasExt";
         this->LabMeasExt->Size = System::Drawing::Size(35, 20);
         this->LabMeasExt->TabIndex = 36;
@@ -446,7 +456,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->labMeasSca->AutoSize = true;
         this->labMeasSca->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labMeasSca->Location = System::Drawing::Point(9, 457);
+        this->labMeasSca->Location = System::Drawing::Point(12, 484);
         this->labMeasSca->Name = L"labMeasSca";
         this->labMeasSca->Size = System::Drawing::Size(40, 20);
         this->labMeasSca->TabIndex = 40;
@@ -457,7 +467,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->tbMeasTime->BackColor = System::Drawing::SystemColors::Window;
         this->tbMeasTime->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->tbMeasTime->Location = System::Drawing::Point(82, 399);
+        this->tbMeasTime->Location = System::Drawing::Point(85, 426);
         this->tbMeasTime->Name = L"tbMeasTime";
         this->tbMeasTime->ReadOnly = true;
         this->tbMeasTime->Size = System::Drawing::Size(142, 22);
@@ -468,7 +478,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->labMeasTime->AutoSize = true;
         this->labMeasTime->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labMeasTime->Location = System::Drawing::Point(9, 398);
+        this->labMeasTime->Location = System::Drawing::Point(12, 425);
         this->labMeasTime->Name = L"labMeasTime";
         this->labMeasTime->Size = System::Drawing::Size(47, 20);
         this->labMeasTime->TabIndex = 41;
@@ -476,7 +486,7 @@ private: System::Windows::Forms::Button^ btnSave;
         // 
         // tbNotes
         // 
-        this->tbNotes->Location = System::Drawing::Point(81, 491);
+        this->tbNotes->Location = System::Drawing::Point(84, 518);
         this->tbNotes->Name = L"tbNotes";
         this->tbNotes->Size = System::Drawing::Size(310, 20);
         this->tbNotes->TabIndex = 43;
@@ -487,7 +497,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->labNotes->AutoSize = true;
         this->labNotes->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labNotes->Location = System::Drawing::Point(9, 489);
+        this->labNotes->Location = System::Drawing::Point(12, 516);
         this->labNotes->Name = L"labNotes";
         this->labNotes->Size = System::Drawing::Size(61, 20);
         this->labNotes->TabIndex = 44;
@@ -622,7 +632,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudMeasExtR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
         this->nudMeasExtR->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 0, 0, 0, 0 });
-        this->nudMeasExtR->Location = System::Drawing::Point(82, 427);
+        this->nudMeasExtR->Location = System::Drawing::Point(85, 454);
         this->nudMeasExtR->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000000, 0, 0, 0 });
         this->nudMeasExtR->Name = L"nudMeasExtR";
         this->nudMeasExtR->ReadOnly = true;
@@ -637,7 +647,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudMeasExtG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
         this->nudMeasExtG->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 0, 0, 0, 0 });
-        this->nudMeasExtG->Location = System::Drawing::Point(151, 427);
+        this->nudMeasExtG->Location = System::Drawing::Point(154, 454);
         this->nudMeasExtG->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000000, 0, 0, 0 });
         this->nudMeasExtG->Name = L"nudMeasExtG";
         this->nudMeasExtG->ReadOnly = true;
@@ -651,7 +661,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudMeasExtB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
         this->nudMeasExtB->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 0, 0, 0, 0 });
-        this->nudMeasExtB->Location = System::Drawing::Point(221, 427);
+        this->nudMeasExtB->Location = System::Drawing::Point(224, 454);
         this->nudMeasExtB->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000000, 0, 0, 0 });
         this->nudMeasExtB->Name = L"nudMeasExtB";
         this->nudMeasExtB->ReadOnly = true;
@@ -665,7 +675,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudMeasScaB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
         this->nudMeasScaB->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 0, 0, 0, 0 });
-        this->nudMeasScaB->Location = System::Drawing::Point(221, 458);
+        this->nudMeasScaB->Location = System::Drawing::Point(224, 485);
         this->nudMeasScaB->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000000, 0, 0, 0 });
         this->nudMeasScaB->Name = L"nudMeasScaB";
         this->nudMeasScaB->ReadOnly = true;
@@ -679,7 +689,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudMeasScaG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
         this->nudMeasScaG->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 0, 0, 0, 0 });
-        this->nudMeasScaG->Location = System::Drawing::Point(151, 458);
+        this->nudMeasScaG->Location = System::Drawing::Point(154, 485);
         this->nudMeasScaG->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000000, 0, 0, 0 });
         this->nudMeasScaG->Name = L"nudMeasScaG";
         this->nudMeasScaG->ReadOnly = true;
@@ -693,7 +703,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudMeasScaR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
         this->nudMeasScaR->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 0, 0, 0, 0 });
-        this->nudMeasScaR->Location = System::Drawing::Point(82, 458);
+        this->nudMeasScaR->Location = System::Drawing::Point(85, 485);
         this->nudMeasScaR->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000000, 0, 0, 0 });
         this->nudMeasScaR->Name = L"nudMeasScaR";
         this->nudMeasScaR->ReadOnly = true;
@@ -704,7 +714,7 @@ private: System::Windows::Forms::Button^ btnSave;
         // 
         this->tbFolderPath->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->tbFolderPath->Location = System::Drawing::Point(125, 518);
+        this->tbFolderPath->Location = System::Drawing::Point(128, 545);
         this->tbFolderPath->Name = L"tbFolderPath";
         this->tbFolderPath->Size = System::Drawing::Size(266, 22);
         this->tbFolderPath->TabIndex = 62;
@@ -715,7 +725,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->btnSave->BackColor = System::Drawing::Color::Khaki;
         this->btnSave->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->btnSave->Location = System::Drawing::Point(13, 546);
+        this->btnSave->Location = System::Drawing::Point(473, 539);
         this->btnSave->Name = L"btnSave";
         this->btnSave->Size = System::Drawing::Size(148, 26);
         this->btnSave->TabIndex = 63;
@@ -728,7 +738,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->labFolderPath->AutoSize = true;
         this->labFolderPath->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labFolderPath->Location = System::Drawing::Point(9, 518);
+        this->labFolderPath->Location = System::Drawing::Point(12, 545);
         this->labFolderPath->Name = L"labFolderPath";
         this->labFolderPath->Size = System::Drawing::Size(110, 20);
         this->labFolderPath->TabIndex = 64;
@@ -738,7 +748,7 @@ private: System::Windows::Forms::Button^ btnSave;
         // 
         this->cboxCOMPort->BackColor = System::Drawing::Color::Khaki;
         this->cboxCOMPort->FormattingEnabled = true;
-        this->cboxCOMPort->Location = System::Drawing::Point(141, 223);
+        this->cboxCOMPort->Location = System::Drawing::Point(143, 223);
         this->cboxCOMPort->Name = L"cboxCOMPort";
         this->cboxCOMPort->Size = System::Drawing::Size(121, 21);
         this->cboxCOMPort->TabIndex = 65;
@@ -749,7 +759,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->labCOMPort->AutoSize = true;
         this->labCOMPort->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labCOMPort->Location = System::Drawing::Point(95, 224);
+        this->labCOMPort->Location = System::Drawing::Point(97, 224);
         this->labCOMPort->Name = L"labCOMPort";
         this->labCOMPort->Size = System::Drawing::Size(40, 16);
         this->labCOMPort->TabIndex = 66;
@@ -857,9 +867,9 @@ private: System::Windows::Forms::Button^ btnSave;
         // 
         // rtbSerialReceived
         // 
-        this->rtbSerialReceived->Location = System::Drawing::Point(16, 247);
+        this->rtbSerialReceived->Location = System::Drawing::Point(408, 272);
         this->rtbSerialReceived->Name = L"rtbSerialReceived";
-        this->rtbSerialReceived->Size = System::Drawing::Size(578, 119);
+        this->rtbSerialReceived->Size = System::Drawing::Size(386, 119);
         this->rtbSerialReceived->TabIndex = 76;
         this->rtbSerialReceived->Text = L"";
         // 
@@ -874,11 +884,44 @@ private: System::Windows::Forms::Button^ btnSave;
         this->labSerial->TabIndex = 77;
         this->labSerial->Text = L"SERIAL";
         // 
+        // rtbSerialSent
+        // 
+        this->rtbSerialSent->Location = System::Drawing::Point(16, 272);
+        this->rtbSerialSent->Name = L"rtbSerialSent";
+        this->rtbSerialSent->Size = System::Drawing::Size(386, 119);
+        this->rtbSerialSent->TabIndex = 78;
+        this->rtbSerialSent->Text = L"";
+        // 
+        // labSerialSent
+        // 
+        this->labSerialSent->AutoSize = true;
+        this->labSerialSent->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->labSerialSent->Location = System::Drawing::Point(13, 253);
+        this->labSerialSent->Name = L"labSerialSent";
+        this->labSerialSent->Size = System::Drawing::Size(48, 16);
+        this->labSerialSent->TabIndex = 79;
+        this->labSerialSent->Text = L"SENT";
+        // 
+        // labSerialReceived
+        // 
+        this->labSerialReceived->AutoSize = true;
+        this->labSerialReceived->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->labSerialReceived->Location = System::Drawing::Point(405, 253);
+        this->labSerialReceived->Name = L"labSerialReceived";
+        this->labSerialReceived->Size = System::Drawing::Size(83, 16);
+        this->labSerialReceived->TabIndex = 80;
+        this->labSerialReceived->Text = L"RECEIVED";
+        // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-        this->ClientSize = System::Drawing::Size(600, 577);
+        this->ClientSize = System::Drawing::Size(834, 577);
+        this->Controls->Add(this->labSerialReceived);
+        this->Controls->Add(this->labSerialSent);
+        this->Controls->Add(this->rtbSerialSent);
         this->Controls->Add(this->labSerial);
         this->Controls->Add(this->rtbSerialReceived);
         this->Controls->Add(this->label1);
@@ -963,8 +1006,12 @@ private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e)
 }
 private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e) {
     if (this->serialPort1->IsOpen)
-    {
-        this->serialPort1->WriteLine("#SETTINGSLEDRGB " + System::Convert::ToString(settings->LEDR) + " " + System::Convert::ToString(settings->LEDG) + " " + System::Convert::ToString(settings->LEDB));
+    {   
+        String^ serialOut = "#SETTINGSLEDRGB " + System::Convert::ToString(settings->LEDR) + " " + System::Convert::ToString(settings->LEDG) + " " + System::Convert::ToString(settings->LEDB);
+        this->serialPort1->WriteLine(serialOut);
+        UpdatertbSerialSent(serialOut);
+        
+        //this->serialPort1->WriteLine("#SETTINGSGAINS " + System::Convert::ToString(settings->GainExtR) + " " + System::Convert::ToString(settings->GainExtG) + " " + System::Convert::ToString(settings->GainExtB));
     }
     
 }
@@ -1045,6 +1092,7 @@ private: System::Void cboxCOMPort_SelectedIndexChanged(System::Object^ sender, S
         this->serialPort1->Open();
         //Add event handler for receiving serial data
         serialPort1->DataReceived += gcnew SerialDataReceivedEventHandler(this, &Form1::serialPort_DataReceived);
+
     }
 }
 private: System::Void nudMeasExtR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -1079,11 +1127,15 @@ void serialPort_DataReceived(System::Object^ sender, System::IO::Ports::SerialDa
 
     // Check if the received data contains a new line character
     if (receivedData->Contains("\n")) {
+        //Make the complete command of everything up intil the \n
         int newLineIndex = receivedDataBuilder->ToString()->LastIndexOf("\n");
         System::String^ completeData = receivedDataBuilder->ToString()->Substring(0, newLineIndex + 1);
 
-        // Update the TextBox or RichTextBox with the complete data
-        Invoke(gcnew Action<System::String^>(this, &Form1::UpdatertbSerialReceived), completeData);
+        // Check if the received data came from the Arduino command
+        if (completeData->StartsWith("@")) {
+            // Update the received commands RichTextBox
+            Invoke(gcnew Action<System::String^>(this, &Form1::UpdatertbSerialReceived), completeData);
+        }
 
         // Clear the StringBuilder and stop waiting for a new line
         receivedDataBuilder->Clear();
@@ -1092,6 +1144,26 @@ void serialPort_DataReceived(System::Object^ sender, System::IO::Ports::SerialDa
     else {
         isWaitingForNewLine = true;
     }
+}
+
+
+
+void UpdatertbSerialSent(System::String^ data) {
+    //First add datetime
+    String^ dateTimeNowStr = System::DateTime::Now.ToString("yyyy-MM-dd HH:mm:ss");
+    //Remove whitespace from the ends
+    data = data->Trim();
+
+    // Check if the formatted data is empty
+    if (!System::String::IsNullOrEmpty(data)) {
+        // Add the formatted data to the RichTextBox with the desired formatting
+        rtbSerialSent->AppendText(dateTimeNowStr + ": " + data + "\n");
+
+        //Scroll to the end of the richtextbox
+        rtbSerialSent->SelectionStart = rtbSerialSent->Text->Length;
+        rtbSerialSent->ScrollToCaret();
+    }
+
 }
 
 
