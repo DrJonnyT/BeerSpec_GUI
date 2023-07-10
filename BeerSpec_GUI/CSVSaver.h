@@ -111,7 +111,7 @@ public:
         {
             //Header for time and settings
             writer->Write("Time,LED_R,LED_G,LED_B,GainExtR,GainExtG,GainExtB,GainScaR,GainScaG,GainScaB");
-            writer->Write("MeasExtR,MeasExtG,MeasExtB,MeasExtR_std,MeasExtG_std,MeasExtB_std,MeasScaR,MeasScaG,MeasScaB,MeasScaR_std,MeasScaG_std,MeasScaB_std,Notes");
+            writer->Write("MeasExtR,MeasExtG,MeasExtB,MeasScaR,MeasScaG,MeasScaB,Notes");
             
             writer->WriteLine();
         }
@@ -131,15 +131,9 @@ public:
         writer->Write(meas->MeasExtR.ToString() + ",");
         writer->Write(meas->MeasExtG.ToString() + ",");
         writer->Write(meas->MeasExtB.ToString() + ",");
-        writer->Write(meas->MeasExtR_std.ToString() + ",");
-        writer->Write(meas->MeasExtG_std.ToString() + ",");
-        writer->Write(meas->MeasExtB_std.ToString() + ",");
         writer->Write(meas->MeasScaR.ToString() + ",");
         writer->Write(meas->MeasScaG.ToString() + ",");
         writer->Write(meas->MeasScaB.ToString() + ",");
-        writer->Write(meas->MeasScaR_std.ToString() + ",");
-        writer->Write(meas->MeasScaG_std.ToString() + ",");
-        writer->Write(meas->MeasScaB_std.ToString() + ",");
         writer->Write("\"" + meas->Notes + "\"");
 
         writer->WriteLine();

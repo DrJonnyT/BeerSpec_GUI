@@ -11,17 +11,11 @@ private:
 	System::Single m_MeasExtR;
 	System::Single m_MeasExtG;
 	System::Single m_MeasExtB;
-	System::Single m_MeasExtR_std;
-	System::Single m_MeasExtG_std;
-	System::Single m_MeasExtB_std;
 
 	//Scattering mean and stdev
 	System::Single m_MeasScaR;
 	System::Single m_MeasScaG;
 	System::Single m_MeasScaB;
-	System::Single m_MeasScaR_std;
-	System::Single m_MeasScaG_std;
-	System::Single m_MeasScaB_std;
 
 	System::String^ m_Notes;
 
@@ -32,18 +26,11 @@ public:
 		m_MeasExtR = 0;
 		m_MeasExtG = 0;
 		m_MeasExtB = 0;
-		m_MeasExtR_std = 0;
-		m_MeasExtG_std = 0;
-		m_MeasExtB_std = 0;
 		m_MeasScaR = 0;
 		m_MeasScaG = 0;
 		m_MeasScaB = 0;
-		m_MeasScaR_std = 0;
-		m_MeasScaG_std = 0;
-		m_MeasScaB_std = 0;
 		m_Notes = "";
 	}
-
 
 
 	//Functions to get and set the variables
@@ -67,19 +54,6 @@ public:
 		void set(System::Single value) { m_MeasExtB = value; }
 	}
 
-	property System::Single MeasExtR_std {
-		System::Single get() { return m_MeasExtR_std; }
-		void set(System::Single value) { m_MeasExtR_std = value; }
-	}
-	property System::Single MeasExtG_std {
-		System::Single get() { return m_MeasExtG_std; }
-		void set(System::Single value) { m_MeasExtG_std = value; }
-	}
-	property System::Single MeasExtB_std {
-		System::Single get() { return m_MeasExtB_std; }
-		void set(System::Single value) { m_MeasExtB_std = value; }
-	}
-
 	//Scattering measurements
 	property System::Single MeasScaR {
 		System::Single get() { return m_MeasScaR; }
@@ -94,18 +68,6 @@ public:
 		void set(System::Single value) { m_MeasScaB = value; }
 	}
 
-	property System::Single MeasScaR_std {
-		System::Single get() { return m_MeasScaR_std; }
-		void set(System::Single value) { m_MeasScaR_std = value; }
-	}
-	property System::Single MeasScaG_std {
-		System::Single get() { return m_MeasScaG_std; }
-		void set(System::Single value) { m_MeasScaG_std = value; }
-	}
-	property System::Single MeasScaB_std {
-		System::Single get() { return m_MeasScaB_std; }
-		void set(System::Single value) { m_MeasScaB_std = value; }
-	}
 	property System::String^ Notes {
 		System::String^ get() { return m_Notes; }
 		void set(System::String^ value) { m_Notes = value; }
