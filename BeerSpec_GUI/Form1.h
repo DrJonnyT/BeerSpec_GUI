@@ -8,14 +8,13 @@
 #include "SettingsClass.h"
 #include "MeasClass.h"
 #include "CSVSaver.h"
-//#include "SerialComms.h"
-
+#include "SerialManager.h"
 
 
 
 namespace CppCLRWinFormsProject {
 
-  using namespace System;
+  //using namespace System;
   using namespace System::ComponentModel;
   using namespace System::Collections;
   using namespace System::Windows::Forms;
@@ -23,6 +22,7 @@ namespace CppCLRWinFormsProject {
   using namespace System::Drawing;
   using namespace System::IO;
   using namespace System::IO::Ports;
+
 
   /// <summary>
   /// Summary for Form1
@@ -34,6 +34,7 @@ namespace CppCLRWinFormsProject {
       CSVSaver^ csvSaver;
       SettingsClass^ settings;
       System::IO::Ports::SerialPort^ serialPort1;
+      SerialManager^ serialManager1;
   private: System::Windows::Forms::Label^ labFolderPath;
   
   private: System::Windows::Forms::ComboBox^ cboxCOMPort;
@@ -77,7 +78,8 @@ namespace CppCLRWinFormsProject {
       //Find COM ports
       findPorts();
 
-      //serialPort1 = gcnew System::IO::Ports::SerialPort;
+      //Open the serial port manager as a dummy
+      serialManager1 = gcnew SerialManager();
       
       //Settings object to store instrument settings
       settings = gcnew SettingsClass;
@@ -88,6 +90,8 @@ namespace CppCLRWinFormsProject {
       //CSVSaver object
       //CSVSaver^ csvSaver = gcnew CSVSaver;
       csvSaver = gcnew CSVSaver();
+
+     
 
 
       //Bind the TextBox control to the settings properties
@@ -1005,13 +1009,36 @@ private: System::Void labLEDR_Click(System::Object^ sender, System::EventArgs^ e
 private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e) {
-    if (this->serialPort1->IsOpen)
+    if (serialManager1->IsOpen())
     {   
+        //Set LED RGB
         String^ serialOut = "#SETTINGSLEDRGB " + System::Convert::ToString(settings->LEDR) + " " + System::Convert::ToString(settings->LEDG) + " " + System::Convert::ToString(settings->LEDB);
-        this->serialPort1->WriteLine(serialOut);
-        UpdatertbSerialSent(serialOut);
+        //this->serialPort1->WriteLine(serialOut);
+        //UpdatertbSerialSent(serialOut);
+        serialManager1->EnqueueSendCommand(serialOut);        
         
-        //this->serialPort1->WriteLine("#SETTINGSGAINS " + System::Convert::ToString(settings->GainExtR) + " " + System::Convert::ToString(settings->GainExtG) + " " + System::Convert::ToString(settings->GainExtB));
+        //Set Gains
+        serialOut = "#SETTINGSGAINS " + System::Convert::ToString(settings->GainExtR) + " " + System::Convert::ToString(settings->GainExtG) + " " + System::Convert::ToString(settings->GainExtB);
+        serialOut = serialOut + " " + System::Convert::ToString(settings->GainScaR) + " " + System::Convert::ToString(settings->GainScaG) + " " + System::Convert::ToString(settings->GainScaB);
+        //this->serialPort1->WriteLine(serialOut);
+        //UpdatertbSerialSent(serialOut);
+        serialManager1->EnqueueSendCommand(serialOut);
+        
+
+        ////Set IntTimes
+        //serialOut = "#SETTINGSINTTIMESS " + System::Convert::ToString(settings->IntTimeExtR) + " " + System::Convert::ToString(settings->IntTimeExtG) + " " + System::Convert::ToString(settings->IntTimeExtB);
+        //serialOut = serialOut + " " + System::Convert::ToString(settings->IntTimeScaR) + " " + System::Convert::ToString(settings->IntTimeScaG) + " " + System::Convert::ToString(settings->IntTimeScaB);
+        //this->serialPort1->WriteLine(serialOut);
+        //UpdatertbSerialSent(serialOut);
+        //System::Threading::Thread::Sleep(1000);
+
+        serialManager1->SendQueuedCommands();
+        serialManager1->ProcessReceivedCommands();    
+
+    }
+    else
+    {
+        UpdatertbSerialReceived("Serial port not open");
     }
     
 }
@@ -1082,18 +1109,32 @@ private: void findPorts(void)
 }
 
 private: System::Void cboxCOMPort_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    //close existing serialPort
-    this->serialPort1->Close();
 
-    // make sure port isn't open	
-    if (!this->serialPort1->IsOpen) {
-        this->serialPort1->PortName = this->cboxCOMPort->Text;
-        //open serial port 
-        this->serialPort1->Open();
-        //Add event handler for receiving serial data
-        serialPort1->DataReceived += gcnew SerialDataReceivedEventHandler(this, &Form1::serialPort_DataReceived);
-
+    if (serialManager1->IsOpen()) {
+        this->serialManager1->Close();
     }
+    
+    //Open the new port
+    String^ portName = this->cboxCOMPort->Text;
+    serialManager1 = gcnew SerialManager(portName, 9600,rtbSerialSent,rtbSerialReceived);
+    serialManager1->Open();  
+
+
+    // Check if the serial port is open
+    if (serialManager1->IsOpen())
+    {
+        Console::WriteLine("Serial port is open. Ready to send/receive data.");
+        // Perform operations when the serial port is open
+    }
+    else
+    {
+        Console::WriteLine("Failed to open the serial port.");
+        UpdatertbSerialReceived("not open");
+    }
+
+
+
+    //}
 }
 private: System::Void nudMeasExtR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 }
