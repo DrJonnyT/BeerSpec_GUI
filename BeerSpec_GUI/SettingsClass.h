@@ -39,12 +39,12 @@ public:
 		m_LEDR = 128;
 		m_LEDG = 128;
 		m_LEDB = 128;
-		m_GainExtR = 1000;
-		m_GainExtG = 1000;
-		m_GainExtB = 1000;
-		m_GainScaR = 5000;
-		m_GainScaG = 5000;
-		m_GainScaB = 5000;
+		m_GainExtR = 1;
+		m_GainExtG = 1;
+		m_GainExtB = 1;
+		m_GainScaR = 1;
+		m_GainScaG = 1;
+		m_GainScaB = 1;
 		m_IntTimeExtR = 24;
 		m_IntTimeExtG = 24;
 		m_IntTimeExtB = 24;
@@ -97,29 +97,29 @@ public:
 		int get() { return m_GainScaB; }
 		void set(int value) { m_GainScaB = value; }
 	}
-	property System::Double IntTimeExtR {
-		System::Double get() { return m_IntTimeExtR; }
-		void set(System::Double value) { m_IntTimeExtR = value; }
+	property int IntTimeExtR {
+		int get() { return m_IntTimeExtR; }
+		void set(int value) { m_IntTimeExtR = value; }
 	}
-	property System::Double IntTimeExtG {
-		System::Double get() { return m_IntTimeExtG; }
-		void set(System::Double value) { m_IntTimeExtG = value; }
+	property int IntTimeExtG {
+		int get() { return m_IntTimeExtG; }
+		void set(int value) { m_IntTimeExtG = value; }
 	}
-	property System::Double IntTimeExtB {
-		System::Double get() { return m_IntTimeExtB; }
-		void set(System::Double value) { m_IntTimeExtB = value; }
+	property int IntTimeExtB {
+		int get() { return m_IntTimeExtB; }
+		void set(int value) { m_IntTimeExtB = value; }
 	}
-	property System::Double IntTimeScaR {
-		System::Double get() { return m_IntTimeScaR; }
-		void set(System::Double value) { m_IntTimeScaR = value; }
+	property int IntTimeScaR {
+		int get() { return m_IntTimeScaR; }
+		void set(int value) { m_IntTimeScaR = value; }
 	}
-	property System::Double IntTimeScaG {
-		System::Double get() { return m_IntTimeScaG; }
-		void set(System::Double value) { m_IntTimeScaG = value; }
+	property int IntTimeScaG {
+		int get() { return m_IntTimeScaG; }
+		void set(int value) { m_IntTimeScaG = value; }
 	}
-	property System::Double IntTimeScaB {
-		System::Double get() { return m_IntTimeScaB; }
-		void set(System::Double value) { m_IntTimeScaB = value; }
+	property int IntTimeScaB {
+		int get() { return m_IntTimeScaB; }
+		void set(int value) { m_IntTimeScaB = value; }
 	}
 	property int NumSamples {
 		int get() { return m_NumSamples; }
