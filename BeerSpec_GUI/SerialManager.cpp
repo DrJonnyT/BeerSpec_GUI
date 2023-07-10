@@ -48,8 +48,12 @@ void SerialManager::ProcessReceivedCommands()
     while (receivedCommandQueue->Count > 0)
     {
         String^ command = receivedCommandQueue->Dequeue();
-        // Process the received command as needed
-        UpdateReceivedCommandsTextBox(command);
+
+        // Check if the command starts with "@" and ends with "\n", i.e. it is a standard command coming from the Arduino
+        if (command->StartsWith("@")) {
+            // Process the received command as needed
+            UpdateReceivedCommandsTextBox(command);
+        }
     }
 }
 
@@ -70,7 +74,16 @@ void SerialManager::UpdateSendCommandsTextBox(String^ command)
 {
     if (rtbSendCommands != nullptr)
     {
-        rtbSendCommands->AppendText(command + Environment::NewLine);
+        //Remove whitespace from the ends
+        command = command->Trim();
+
+        //Scroll to the end of the richtextbox
+        rtbSendCommands->SelectionStart = rtbSendCommands->Text->Length;
+        rtbSendCommands->ScrollToCaret();
+
+        //Add datetime to start and append to box
+        String^ dateTimeNowStr = System::DateTime::Now.ToString("yyyy-MM-dd HH:mm:ss");
+        rtbSendCommands->AppendText(dateTimeNowStr + ": " + command + Environment::NewLine);
     }
 }
 
@@ -78,7 +91,16 @@ void SerialManager::UpdateReceivedCommandsTextBox(String^ command)
 {
     if (rtbReceivedCommands != nullptr)
     {
-        rtbReceivedCommands->AppendText(command + Environment::NewLine);
+        //Remove whitespace from the ends
+        command = command->Trim();
+
+        //Scroll to the end of the richtextbox
+        rtbReceivedCommands->SelectionStart = rtbReceivedCommands->Text->Length;
+        rtbReceivedCommands->ScrollToCaret();
+
+        //Add datetime to start and append to box
+        String^ dateTimeNowStr = System::DateTime::Now.ToString("yyyy-MM-dd HH:mm:ss");
+        rtbReceivedCommands->AppendText(dateTimeNowStr + ": " + command + Environment::NewLine);
     }
 }
 

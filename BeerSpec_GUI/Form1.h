@@ -1013,26 +1013,21 @@ private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e)
     {   
         //Set LED RGB
         String^ serialOut = "#SETTINGSLEDRGB " + System::Convert::ToString(settings->LEDR) + " " + System::Convert::ToString(settings->LEDG) + " " + System::Convert::ToString(settings->LEDB);
-        //this->serialPort1->WriteLine(serialOut);
-        //UpdatertbSerialSent(serialOut);
         serialManager1->EnqueueSendCommand(serialOut);        
         
         //Set Gains
         serialOut = "#SETTINGSGAINS " + System::Convert::ToString(settings->GainExtR) + " " + System::Convert::ToString(settings->GainExtG) + " " + System::Convert::ToString(settings->GainExtB);
         serialOut = serialOut + " " + System::Convert::ToString(settings->GainScaR) + " " + System::Convert::ToString(settings->GainScaG) + " " + System::Convert::ToString(settings->GainScaB);
-        //this->serialPort1->WriteLine(serialOut);
-        //UpdatertbSerialSent(serialOut);
         serialManager1->EnqueueSendCommand(serialOut);
-        
 
-        ////Set IntTimes
-        //serialOut = "#SETTINGSINTTIMESS " + System::Convert::ToString(settings->IntTimeExtR) + " " + System::Convert::ToString(settings->IntTimeExtG) + " " + System::Convert::ToString(settings->IntTimeExtB);
-        //serialOut = serialOut + " " + System::Convert::ToString(settings->IntTimeScaR) + " " + System::Convert::ToString(settings->IntTimeScaG) + " " + System::Convert::ToString(settings->IntTimeScaB);
-        //this->serialPort1->WriteLine(serialOut);
-        //UpdatertbSerialSent(serialOut);
-        //System::Threading::Thread::Sleep(1000);
+        //Set IntTimes
+        serialOut = "#SETTINGSINTTIMESS " + System::Convert::ToString(settings->IntTimeExtR) + " " + System::Convert::ToString(settings->IntTimeExtG) + " " + System::Convert::ToString(settings->IntTimeExtB);
+        serialOut = serialOut + " " + System::Convert::ToString(settings->IntTimeScaR) + " " + System::Convert::ToString(settings->IntTimeScaG) + " " + System::Convert::ToString(settings->IntTimeScaB);
+        serialManager1->EnqueueSendCommand(serialOut);
 
+        //Send the queued commands and process the received ones
         serialManager1->SendQueuedCommands();
+        System::Threading::Thread::Sleep(1000);
         serialManager1->ProcessReceivedCommands();    
 
     }
