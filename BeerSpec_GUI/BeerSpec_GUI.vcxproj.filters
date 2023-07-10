@@ -47,6 +47,9 @@
     <ClInclude Include="CSVSaver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SerialManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinFormsProject.cpp">
@@ -68,6 +71,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CSVSaver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SerialManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

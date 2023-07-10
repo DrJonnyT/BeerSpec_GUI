@@ -143,6 +143,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="rk1_Utils_demo.h" />
+    <ClInclude Include="SerialManager.h" />
     <ClInclude Include="SettingsClass.h" />
     <ClInclude Include="SimpleUnitTests.h" />
   </ItemGroup>
@@ -158,6 +159,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SerialManager.cpp" />
     <ClCompile Include="SettingsClass.cpp" />
   </ItemGroup>
   <ItemGroup>
