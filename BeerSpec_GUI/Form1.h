@@ -1104,7 +1104,11 @@ void UpdatertbSerialReceived(System::String^ data) {
     // Check if the formatted data is empty
     if (!System::String::IsNullOrEmpty(data)) {
         // Add the formatted data to the RichTextBox with the desired formatting
-        rtbSerialReceived->AppendText(data + "\n");
+        rtbSerialReceived->AppendText(dateTimeNowStr + ": " + data + "\n");
+
+        //Scroll to the end of the richtextbox
+        rtbSerialReceived->SelectionStart = rtbSerialReceived->Text->Length;
+        rtbSerialReceived->ScrollToCaret();
     }
 
 }
