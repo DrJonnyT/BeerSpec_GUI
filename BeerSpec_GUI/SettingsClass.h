@@ -1,5 +1,6 @@
 #pragma once
-
+//Class to contain the settings that would be implemented when a scan is initiated
+//During a scan the instrument will measure each colour in sequence with no mixed colours on the LED
 ref class ScanSettings
 {
 private:
@@ -112,6 +113,68 @@ public:
 	property int NumSamples {
 		int get() { return m_NumSamples; }
 		void set(int value) { m_NumSamples = value; }
+	}
+
+};
+
+
+//Class to contain the settings that the instrument is currently set to
+ref class InstrumentSettings
+{
+private:
+	int m_LEDR;
+	int m_LEDG;
+	int m_LEDB;
+	int m_GainExt;
+	int m_GainSca;
+	int m_IntTimeExt;
+	int m_IntTimeSca;
+
+public:
+
+	//Default initialisation
+	InstrumentSettings() {
+		m_LEDR = 128;
+		m_LEDG = 128;
+		m_LEDB = 128;
+		m_GainExt = 1;
+		m_GainSca = 1;
+		m_IntTimeExt = 24;
+		m_IntTimeSca = 24;
+	}
+
+
+	//Functions to get and set the variables
+	//LED settings
+	property int LEDR {
+		int get() { return m_LEDR; }
+		void set(int value) { m_LEDR = value; }
+	}
+	property int LEDG {
+		int get() { return m_LEDG; }
+		void set(int value) { m_LEDG = value; }
+	}
+	property int LEDB {
+		int get() { return m_LEDB; }
+		void set(int value) { m_LEDB = value; }
+	}
+
+	//Extinction gains
+	property int GainExtR {
+		int get() { return m_GainExt; }
+		void set(int value) { m_GainExt = value; }
+	}
+	property int GainScaR {
+		int get() { return m_GainSca; }
+		void set(int value) { m_GainSca = value; }
+	}
+	property int IntTimeExt {
+		int get() { return m_IntTimeExt; }
+		void set(int value) { m_IntTimeExt = value; }
+	}
+	property int IntTimeSca {
+		int get() { return m_IntTimeSca; }
+		void set(int value) { m_IntTimeSca = value; }
 	}
 
 };
