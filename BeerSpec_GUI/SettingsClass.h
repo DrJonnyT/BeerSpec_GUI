@@ -180,7 +180,7 @@ public:
 	//Make a serial command containing all the settings
 	String^ SerialSet()
 	{
-		String^ serialOut = "#SET";
+		String^ serialOut = "#SETALL";
 		serialOut = serialOut + " " + Convert::ToString(m_LEDR) + " " + Convert::ToString(m_LEDG) + " " + Convert::ToString(m_LEDB);
 		serialOut = serialOut + " " + Convert::ToString(m_GainExt) + " " + Convert::ToString(m_GainSca);
 		serialOut = serialOut + " " + Convert::ToString(m_IntTimeExt) + " " + Convert::ToString(m_IntTimeSca);
