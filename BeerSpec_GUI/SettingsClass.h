@@ -1,6 +1,6 @@
 #pragma once
 
-ref class SettingsClass
+ref class ScanSettings
 {
 private:
 	int m_LEDR;
@@ -21,21 +21,9 @@ private:
 	int m_NumSamples;
 
 public:
-	//Initialisation
-	SettingsClass(int LEDR,int LEDG,int LEDB,int GainExtR,int GainExtG,int GainExtB,int GainScaR,int GainScaG,int GainScaB,int NumSamples) {
-		m_LEDR = LEDR;
-		m_LEDG = LEDG;
-		m_LEDB = LEDB;
-		m_GainExtR = GainExtR;
-		m_GainExtG = GainExtG;
-		m_GainExtB = GainExtB;
-		m_GainScaR = GainScaR;
-		m_GainScaG = GainScaG;
-		m_GainScaB = GainScaB;
-		m_NumSamples = NumSamples;
-	}
+
 	//Default initialisation
-	SettingsClass() {
+	ScanSettings() {
 		m_LEDR = 128;
 		m_LEDG = 128;
 		m_LEDB = 128;
