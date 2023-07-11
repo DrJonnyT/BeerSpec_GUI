@@ -32,7 +32,7 @@ namespace CppCLRWinFormsProject {
   
   private:
       CSVSaver^ csvSaver;
-      ScanSettings^ settings;
+      ScanSettings^ scanSettings;
       System::IO::Ports::SerialPort^ serialPort1;
       SerialManager^ serialManager1;
   private: System::Windows::Forms::Label^ labFolderPath;
@@ -142,8 +142,8 @@ namespace CppCLRWinFormsProject {
       //Open the serial port manager as a dummy
       serialManager1 = gcnew SerialManager();
       
-      //Settings object to store instrument settings
-      settings = gcnew ScanSettings;
+      //Settings object to store instrument scanSettings
+      scanSettings = gcnew ScanSettings;
 
       //Measurements object to store measurements
       meas = gcnew MeasClass;   
@@ -155,11 +155,11 @@ namespace CppCLRWinFormsProject {
      
 
 
-      //Bind the TextBox control to the settings properties
-      nudScanLEDR->DataBindings->Add("Value", settings, "LEDR");
-      nudScanLEDG->DataBindings->Add("Value", settings, "LEDG");
-      nudScanLEDB->DataBindings->Add("Value", settings, "LEDB");   
-      nudNumSamples->DataBindings->Add("Value", settings, "NumSamples");
+      //Bind the TextBox control to the scanSettings properties
+      nudScanLEDR->DataBindings->Add("Value", scanSettings, "LEDR");
+      nudScanLEDG->DataBindings->Add("Value", scanSettings, "LEDG");
+      nudScanLEDB->DataBindings->Add("Value", scanSettings, "LEDB");   
+      nudNumSamples->DataBindings->Add("Value", scanSettings, "NumSamples");
 
       //Bind the TextBoxes to the measurement properties
       nudMeasExtR->DataBindings->Add("Value", meas, "MeasExtR");
@@ -307,7 +307,7 @@ private: System::Windows::Forms::Label^ labScanSettings;
     /// </summary>
 
   
-    //Define settings part of form
+    //Define scanSettings part of form
 
     System::Windows::Forms::Label^ labLED;
     System::Windows::Forms::NumericUpDown^ nudScanLEDR;
@@ -1092,6 +1092,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->btnSet->TabIndex = 96;
         this->btnSet->Text = L"SET";
         this->btnSet->UseVisualStyleBackColor = false;
+        this->btnSet->Click += gcnew System::EventHandler(this, &Form1::btnSet_Click);
         // 
         // btnManualMsmt
         // 
@@ -1287,17 +1288,17 @@ private: System::Void btnScan_Click(System::Object^ sender, System::EventArgs^ e
     if (serialManager1->IsOpen())
     {   
         //Set LED RGB
-        String^ serialOut = "#SETTINGSLEDRGB " + System::Convert::ToString(settings->LEDR) + " " + System::Convert::ToString(settings->LEDG) + " " + System::Convert::ToString(settings->LEDB);
+        String^ serialOut = "#SETTINGSLEDRGB " + System::Convert::ToString(scanSettings->LEDR) + " " + System::Convert::ToString(scanSettings->LEDG) + " " + System::Convert::ToString(scanSettings->LEDB);
         serialManager1->EnqueueSendCommand(serialOut);        
         
         //Set Gains
-        serialOut = "#SETTINGSGAINS " + System::Convert::ToString(settings->GainExtR) + " " + System::Convert::ToString(settings->GainExtG) + " " + System::Convert::ToString(settings->GainExtB);
-        serialOut = serialOut + " " + System::Convert::ToString(settings->GainScaR) + " " + System::Convert::ToString(settings->GainScaG) + " " + System::Convert::ToString(settings->GainScaB);
+        serialOut = "#SETTINGSGAINS " + System::Convert::ToString(scanSettings->GainExtR) + " " + System::Convert::ToString(scanSettings->GainExtG) + " " + System::Convert::ToString(scanSettings->GainExtB);
+        serialOut = serialOut + " " + System::Convert::ToString(scanSettings->GainScaR) + " " + System::Convert::ToString(scanSettings->GainScaG) + " " + System::Convert::ToString(scanSettings->GainScaB);
         serialManager1->EnqueueSendCommand(serialOut);
 
         //Set IntTimes
-        serialOut = "#SETTINGSINTTIMESS " + System::Convert::ToString(settings->IntTimeExtR) + " " + System::Convert::ToString(settings->IntTimeExtG) + " " + System::Convert::ToString(settings->IntTimeExtB);
-        serialOut = serialOut + " " + System::Convert::ToString(settings->IntTimeScaR) + " " + System::Convert::ToString(settings->IntTimeScaG) + " " + System::Convert::ToString(settings->IntTimeScaB);
+        serialOut = "#SETTINGSINTTIMESS " + System::Convert::ToString(scanSettings->IntTimeExtR) + " " + System::Convert::ToString(scanSettings->IntTimeExtG) + " " + System::Convert::ToString(scanSettings->IntTimeExtB);
+        serialOut = serialOut + " " + System::Convert::ToString(scanSettings->IntTimeScaR) + " " + System::Convert::ToString(scanSettings->IntTimeScaG) + " " + System::Convert::ToString(scanSettings->IntTimeScaB);
         serialManager1->EnqueueSendCommand(serialOut);
 
         //Send the queued commands and process the received ones
@@ -1333,37 +1334,37 @@ void Update_tbFolderPath(Object^ sender, EventArgs^ e)
 
 
 private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e) {
-    csvSaver->SaveDataToFile(settings, meas);
+    csvSaver->SaveDataToFile(scanSettings, meas);
 }
 private: System::Void tbNotes_TextChanged(System::Object^ sender, System::EventArgs^ e) {
     meas->Notes = tbNotes->Text;
 }
 private: System::Void nudScanLEDR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->LEDR = Decimal::ToInt32(nudScanLEDR->Value);
+    scanSettings->LEDR = Decimal::ToInt32(nudScanLEDR->Value);
 }
 private: System::Void nudScanLEDG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->LEDG = Decimal::ToInt32(nudScanLEDG->Value);
+    scanSettings->LEDG = Decimal::ToInt32(nudScanLEDG->Value);
 }
 private: System::Void nudScanLEDB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->LEDB = Decimal::ToInt32(nudScanLEDB->Value);
+    scanSettings->LEDB = Decimal::ToInt32(nudScanLEDB->Value);
 }
 //private: System::Void cboxScanGainExtR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-//    settings->GainExtR = System::Convert::ToInt32(cboxScanGainExtR->SelectedValue);
+//    scanSettings->GainExtR = System::Convert::ToInt32(cboxScanGainExtR->SelectedValue);
 //}
 private: System::Void cboxScanGainExtG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainExtG = System::Convert::ToInt32(cboxScanGainExtG->SelectedValue);
+    scanSettings->GainExtG = System::Convert::ToInt32(cboxScanGainExtG->SelectedValue);
 }
 private: System::Void cboxScanGainExtB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainExtB = System::Convert::ToInt32(cboxScanGainExtB->SelectedValue);
+    scanSettings->GainExtB = System::Convert::ToInt32(cboxScanGainExtB->SelectedValue);
 }
 private: System::Void cboxScanGainScaR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainScaR = System::Convert::ToInt32(cboxScanGainScaR->SelectedValue);
+    scanSettings->GainScaR = System::Convert::ToInt32(cboxScanGainScaR->SelectedValue);
 }
 private: System::Void cboxScanGainScaG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainScaG = System::Convert::ToInt32(cboxScanGainScaG->SelectedValue);
+    scanSettings->GainScaG = System::Convert::ToInt32(cboxScanGainScaG->SelectedValue);
 }
   private: System::Void cboxScanGainScaB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-      settings->GainScaB = System::Convert::ToInt32(cboxScanGainScaB->SelectedValue);
+      scanSettings->GainScaB = System::Convert::ToInt32(cboxScanGainScaB->SelectedValue);
 }
 
 // find available COM ports
@@ -1406,22 +1407,22 @@ private: System::Void cboxCOMPort_SelectedIndexChanged(System::Object^ sender, S
 private: System::Void nudMeasExtR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void cboxScanIntTimeExtR_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->IntTimeExtR = System::Convert::ToInt32(cboxScanIntTimeExtR->SelectedValue);
+    scanSettings->IntTimeExtR = System::Convert::ToInt32(cboxScanIntTimeExtR->SelectedValue);
 }
 private: System::Void cboxScanIntTimeExtG_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->IntTimeExtG = System::Convert::ToInt32(cboxScanIntTimeExtG->SelectedValue);
+    scanSettings->IntTimeExtG = System::Convert::ToInt32(cboxScanIntTimeExtG->SelectedValue);
 }
 private: System::Void cboxScanIntTimeExtB_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->IntTimeExtB = System::Convert::ToInt32(cboxScanIntTimeExtB->SelectedValue);
+    scanSettings->IntTimeExtB = System::Convert::ToInt32(cboxScanIntTimeExtB->SelectedValue);
 }
 private: System::Void cboxScanIntTimeScaR_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->IntTimeScaR = System::Convert::ToInt32(cboxScanIntTimeScaR->SelectedValue);
+    scanSettings->IntTimeScaR = System::Convert::ToInt32(cboxScanIntTimeScaR->SelectedValue);
 }
 private: System::Void cboxScanIntTimeScaG_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->IntTimeScaG = System::Convert::ToInt32(cboxScanIntTimeScaG->SelectedValue);
+    scanSettings->IntTimeScaG = System::Convert::ToInt32(cboxScanIntTimeScaG->SelectedValue);
 }
 private: System::Void cboxScanIntTimeScaB_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->IntTimeScaB = System::Convert::ToInt32(cboxScanIntTimeScaB->SelectedValue);
+    scanSettings->IntTimeScaB = System::Convert::ToInt32(cboxScanIntTimeScaB->SelectedValue);
 }
 
 
@@ -1493,24 +1494,26 @@ void UpdatertbSerialReceived(System::String^ data) {
 
 }
 private: System::Void cboxScanGainExtR_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainExtR = System::Convert::ToInt32(cboxScanGainExtR->SelectedValue);
+    scanSettings->GainExtR = System::Convert::ToInt32(cboxScanGainExtR->SelectedValue);
 }
 private: System::Void cboxManualGainExt_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void cboxScanGainExtG_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainExtG = System::Convert::ToInt32(cboxScanGainExtG->SelectedValue);
+    scanSettings->GainExtG = System::Convert::ToInt32(cboxScanGainExtG->SelectedValue);
 }
 private: System::Void cboxScanGainExtB_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainExtB = System::Convert::ToInt32(cboxScanGainExtB->SelectedValue);
+    scanSettings->GainExtB = System::Convert::ToInt32(cboxScanGainExtB->SelectedValue);
 }
 private: System::Void cboxScanGainScaR_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainScaR = System::Convert::ToInt32(cboxScanGainScaR->SelectedValue);
+    scanSettings->GainScaR = System::Convert::ToInt32(cboxScanGainScaR->SelectedValue);
 }
 private: System::Void cboxScanGainScaG_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainScaG = System::Convert::ToInt32(cboxScanGainScaG->SelectedValue);
+    scanSettings->GainScaG = System::Convert::ToInt32(cboxScanGainScaG->SelectedValue);
 }
 private: System::Void cboxScanGainScaB_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainScaB = System::Convert::ToInt32(cboxScanGainScaB->SelectedValue);
+    scanSettings->GainScaB = System::Convert::ToInt32(cboxScanGainScaB->SelectedValue);
+}
+private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
