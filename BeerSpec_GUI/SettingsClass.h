@@ -1,4 +1,6 @@
 #pragma once
+using namespace System;
+
 //Class to contain the settings that would be implemented when a scan is initiated
 //During a scan the instrument will measure each colour in sequence with no mixed colours on the LED
 ref class ScanSettings
@@ -158,8 +160,6 @@ public:
 		int get() { return m_LEDB; }
 		void set(int value) { m_LEDB = value; }
 	}
-
-	//Extinction gains
 	property int GainExtR {
 		int get() { return m_GainExt; }
 		void set(int value) { m_GainExt = value; }
@@ -177,5 +177,16 @@ public:
 		void set(int value) { m_IntTimeSca = value; }
 	}
 
-};
+	//Make a serial command containing all the settings
+	String^ SerialSet()
+	{
+		String^ serialOut = "#SET";
+		serialOut = serialOut + " " + Convert::ToString(m_LEDR) + " " + Convert::ToString(m_LEDG) + " " + Convert::ToString(m_LEDB);
+		serialOut = serialOut + " " + Convert::ToString(m_GainExt) + " " + Convert::ToString(m_GainSca);
+		serialOut = serialOut + " " + Convert::ToString(m_IntTimeExt) + " " + Convert::ToString(m_IntTimeSca);
+		serialOut = serialOut + "\n";
+		return serialOut;
+	}
 
+
+};
