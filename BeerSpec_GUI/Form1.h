@@ -176,6 +176,7 @@ namespace CppCLRWinFormsProject {
       cboxScanGainExtR->Items->Add(4);
       cboxScanGainExtR->Items->Add(16);
       cboxScanGainExtR->Items->Add(60);
+      cboxScanGainExtR->SelectedItem = 1;
       cboxScanGainExtG->Items->Add(1);
       cboxScanGainExtG->Items->Add(4);
       cboxScanGainExtG->Items->Add(16);
@@ -200,10 +201,12 @@ namespace CppCLRWinFormsProject {
       cboxManualGainExt->Items->Add(4);
       cboxManualGainExt->Items->Add(16);
       cboxManualGainExt->Items->Add(60);
+      cboxManualGainExt->SelectedItem = 1;
       cboxManualGainSca->Items->Add(1);
       cboxManualGainSca->Items->Add(4);
       cboxManualGainSca->Items->Add(16);
       cboxManualGainSca->Items->Add(60);
+      cboxManualGainSca->SelectedItem = 1;
 
 
       //Set options for integration time boxes
@@ -242,12 +245,13 @@ namespace CppCLRWinFormsProject {
       cboxManualIntTimeExt->Items->Add(120);
       cboxManualIntTimeExt->Items->Add(240);
       cboxManualIntTimeExt->Items->Add(480);
+      cboxManualIntTimeExt->SelectedItem = 24;
       cboxManualIntTimeSca->Items->Add(24);
       cboxManualIntTimeSca->Items->Add(60);
       cboxManualIntTimeSca->Items->Add(120);
       cboxManualIntTimeSca->Items->Add(240);
       cboxManualIntTimeSca->Items->Add(480);
-
+      cboxManualIntTimeSca->SelectedItem = 24;
 
       //
       //TODO: Add the constructor code here
@@ -1400,6 +1404,46 @@ private: System::Void cboxScanGainScaB_SelectedIndexChanged(System::Object^ send
     scanSettings->GainScaB = System::Convert::ToInt32(cboxScanGainScaB->SelectedValue);
 }
 private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e) {
+    if (serialManager1->IsOpen())
+    {
+        //Update the instrumentSettings object
+        instrumentSettings->LEDR = static_cast<int>(nudManualLEDR->Value);
+
+        instrumentSettings->LEDG = static_cast<int>(nudManualLEDG->Value);
+        instrumentSettings->LEDB = static_cast<int>(nudManualLEDB->Value);
+        instrumentSettings->GainExt = static_cast<int>(cboxManualGainExt->SelectedItem);
+        instrumentSettings->GainSca = static_cast<int>(cboxManualGainSca->SelectedItem);
+        instrumentSettings->IntTimeExt = static_cast<int>(cboxManualIntTimeExt->SelectedItem);
+        instrumentSettings->IntTimeSca = static_cast<int>(cboxManualIntTimeSca->SelectedItem);
+
+
+        //Set LED RGB
+        //String^ serialOut = instrumentSettings->SerialCommand();
+        serialManager1->EnqueueSendCommand(instrumentSettings->SerialSet());
+
+        //String^ serialOut = "#SETTINGSLEDRGB " + System::Convert::ToString(scanSettings->LEDR) + " " + System::Convert::ToString(scanSettings->LEDG) + " " + System::Convert::ToString(scanSettings->LEDB);
+        //serialManager1->EnqueueSendCommand(serialOut);
+
+        ////Set Gains
+        //serialOut = "#SETTINGSGAINS " + System::Convert::ToString(scanSettings->GainExtR) + " " + System::Convert::ToString(scanSettings->GainExtG) + " " + System::Convert::ToString(scanSettings->GainExtB);
+        //serialOut = serialOut + " " + System::Convert::ToString(scanSettings->GainScaR) + " " + System::Convert::ToString(scanSettings->GainScaG) + " " + System::Convert::ToString(scanSettings->GainScaB);
+        //serialManager1->EnqueueSendCommand(serialOut);
+
+        ////Set IntTimes
+        //serialOut = "#SETTINGSINTTIMESS " + System::Convert::ToString(scanSettings->IntTimeExtR) + " " + System::Convert::ToString(scanSettings->IntTimeExtG) + " " + System::Convert::ToString(scanSettings->IntTimeExtB);
+        //serialOut = serialOut + " " + System::Convert::ToString(scanSettings->IntTimeScaR) + " " + System::Convert::ToString(scanSettings->IntTimeScaG) + " " + System::Convert::ToString(scanSettings->IntTimeScaB);
+        //serialManager1->EnqueueSendCommand(serialOut);
+
+        //Send the queued commands and process the received ones
+        serialManager1->SendQueuedCommands();
+        System::Threading::Thread::Sleep(1000);
+        serialManager1->ProcessReceivedCommands();
+
+    }
+    else
+    {
+        UpdatertbSerialReceived("Serial port not open");
+    }
 }
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
