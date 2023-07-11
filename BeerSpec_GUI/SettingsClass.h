@@ -160,11 +160,11 @@ public:
 		int get() { return m_LEDB; }
 		void set(int value) { m_LEDB = value; }
 	}
-	property int GainExtR {
+	property int GainExt {
 		int get() { return m_GainExt; }
 		void set(int value) { m_GainExt = value; }
 	}
-	property int GainScaR {
+	property int GainSca {
 		int get() { return m_GainSca; }
 		void set(int value) { m_GainSca = value; }
 	}
