@@ -100,6 +100,25 @@ namespace CppCLRWinFormsProject {
   private: System::Windows::Forms::ComboBox^ cboxManualGainExt;
   private: System::Windows::Forms::Button^ btnSet;
   private: System::Windows::Forms::Button^ btnManualMsmt;
+  private: System::Windows::Forms::ComboBox^ cboxScanGainScaB;
+
+  private: System::Windows::Forms::ComboBox^ cboxScanGainScaG;
+
+  private: System::Windows::Forms::ComboBox^ cboxScanGainScaR;
+  private: System::Windows::Forms::ComboBox^ cboxScanGainExtB;
+
+
+  private: System::Windows::Forms::ComboBox^ cboxScanGainExtG;
+  private: System::Windows::Forms::ComboBox^ cboxScanGainExtR;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -139,13 +158,7 @@ namespace CppCLRWinFormsProject {
       //Bind the TextBox control to the settings properties
       nudScanLEDR->DataBindings->Add("Value", settings, "LEDR");
       nudScanLEDG->DataBindings->Add("Value", settings, "LEDG");
-      nudScanLEDB->DataBindings->Add("Value", settings, "LEDB");
-      nudScanGainExtR->DataBindings->Add("Value", settings, "GainExtR");
-      nudScanGainExtG->DataBindings->Add("Value", settings, "GainExtG");
-      nudScanGainExtB->DataBindings->Add("Value", settings, "GainExtB");
-      nudScanGainScaR->DataBindings->Add("Value", settings, "GainScaR");
-      nudScanGainScaG->DataBindings->Add("Value", settings, "GainScaG");
-      nudScanGainScaB->DataBindings->Add("Value", settings, "GainScaB");
+      nudScanLEDB->DataBindings->Add("Value", settings, "LEDB");   
       nudNumSamples->DataBindings->Add("Value", settings, "NumSamples");
 
       //Bind the TextBoxes to the measurement properties
@@ -174,38 +187,83 @@ namespace CppCLRWinFormsProject {
       nudMeasScaG->Controls->RemoveAt(0);
       nudMeasScaB->Controls->RemoveAt(0);
 
+      //Set options for Gain boxes
+      cboxScanGainExtR->Items->Add(1);
+      cboxScanGainExtR->Items->Add(4);
+      cboxScanGainExtR->Items->Add(16);
+      cboxScanGainExtR->Items->Add(60);
+      cboxScanGainExtG->Items->Add(1);
+      cboxScanGainExtG->Items->Add(4);
+      cboxScanGainExtG->Items->Add(16);
+      cboxScanGainExtG->Items->Add(60);
+      cboxScanGainExtB->Items->Add(1);
+      cboxScanGainExtB->Items->Add(4);
+      cboxScanGainExtB->Items->Add(16);
+      cboxScanGainExtB->Items->Add(60);
+      cboxScanGainScaR->Items->Add(1);
+      cboxScanGainScaR->Items->Add(4);
+      cboxScanGainScaR->Items->Add(16);
+      cboxScanGainScaR->Items->Add(60);
+      cboxScanGainScaG->Items->Add(1);
+      cboxScanGainScaG->Items->Add(4);
+      cboxScanGainScaG->Items->Add(16);
+      cboxScanGainScaG->Items->Add(60);
+      cboxScanGainScaB->Items->Add(1);
+      cboxScanGainScaB->Items->Add(4);
+      cboxScanGainScaB->Items->Add(16);
+      cboxScanGainScaB->Items->Add(60);
+      cboxManualGainExt->Items->Add(1);
+      cboxManualGainExt->Items->Add(4);
+      cboxManualGainExt->Items->Add(16);
+      cboxManualGainExt->Items->Add(60);
+      cboxManualGainSca->Items->Add(1);
+      cboxManualGainSca->Items->Add(4);
+      cboxManualGainSca->Items->Add(16);
+      cboxManualGainSca->Items->Add(60);
+
 
       //Set options for integration time boxes
-      cboxScanIntTimeExtR->Items->Add(24.);
-      cboxScanIntTimeExtR->Items->Add(60.);
-      cboxScanIntTimeExtR->Items->Add(120.);
-      cboxScanIntTimeExtR->Items->Add(240.);
-      cboxScanIntTimeExtR->Items->Add(480.);
-      cboxScanIntTimeExtG->Items->Add(24.);
-      cboxScanIntTimeExtG->Items->Add(60.);
-      cboxScanIntTimeExtG->Items->Add(120.);
-      cboxScanIntTimeExtG->Items->Add(240.);
-      cboxScanIntTimeExtG->Items->Add(480.);
-      cboxScanIntTimeExtB->Items->Add(24.);
-      cboxScanIntTimeExtB->Items->Add(60.);
-      cboxScanIntTimeExtB->Items->Add(120.);
-      cboxScanIntTimeExtB->Items->Add(240.);
-      cboxScanIntTimeExtB->Items->Add(480.);
-      cboxScanIntTimeScaR->Items->Add(24.);
-      cboxScanIntTimeScaR->Items->Add(60.);
-      cboxScanIntTimeScaR->Items->Add(120.);
-      cboxScanIntTimeScaR->Items->Add(240.);
-      cboxScanIntTimeScaR->Items->Add(480.);
-      cboxScanIntTimeScaG->Items->Add(24.);
-      cboxScanIntTimeScaG->Items->Add(60.);
-      cboxScanIntTimeScaG->Items->Add(120.);
-      cboxScanIntTimeScaG->Items->Add(240.);
-      cboxScanIntTimeScaG->Items->Add(480.);
-      cboxScanIntTimeScaB->Items->Add(24.);
-      cboxScanIntTimeScaB->Items->Add(60.);
-      cboxScanIntTimeScaB->Items->Add(120.);
-      cboxScanIntTimeScaB->Items->Add(240.);
-      cboxScanIntTimeScaB->Items->Add(480.);
+      cboxScanIntTimeExtR->Items->Add(24);
+      cboxScanIntTimeExtR->Items->Add(60);
+      cboxScanIntTimeExtR->Items->Add(120);
+      cboxScanIntTimeExtR->Items->Add(240);
+      cboxScanIntTimeExtR->Items->Add(480);
+      cboxScanIntTimeExtG->Items->Add(24);
+      cboxScanIntTimeExtG->Items->Add(60);
+      cboxScanIntTimeExtG->Items->Add(120);
+      cboxScanIntTimeExtG->Items->Add(240);
+      cboxScanIntTimeExtG->Items->Add(480);
+      cboxScanIntTimeExtB->Items->Add(24);
+      cboxScanIntTimeExtB->Items->Add(60);
+      cboxScanIntTimeExtB->Items->Add(120);
+      cboxScanIntTimeExtB->Items->Add(240);
+      cboxScanIntTimeExtB->Items->Add(480);
+      cboxScanIntTimeScaR->Items->Add(24);
+      cboxScanIntTimeScaR->Items->Add(60);
+      cboxScanIntTimeScaR->Items->Add(120);
+      cboxScanIntTimeScaR->Items->Add(240);
+      cboxScanIntTimeScaR->Items->Add(480);
+      cboxScanIntTimeScaG->Items->Add(24);
+      cboxScanIntTimeScaG->Items->Add(60);
+      cboxScanIntTimeScaG->Items->Add(120);
+      cboxScanIntTimeScaG->Items->Add(240);
+      cboxScanIntTimeScaG->Items->Add(480);
+      cboxScanIntTimeScaB->Items->Add(24);
+      cboxScanIntTimeScaB->Items->Add(60);
+      cboxScanIntTimeScaB->Items->Add(120);
+      cboxScanIntTimeScaB->Items->Add(240);
+      cboxScanIntTimeScaB->Items->Add(480);
+      cboxManualIntTimeExt->Items->Add(24);
+      cboxManualIntTimeExt->Items->Add(60);
+      cboxManualIntTimeExt->Items->Add(120);
+      cboxManualIntTimeExt->Items->Add(240);
+      cboxManualIntTimeExt->Items->Add(480);
+      cboxManualIntTimeSca->Items->Add(24);
+      cboxManualIntTimeSca->Items->Add(60);
+      cboxManualIntTimeSca->Items->Add(120);
+      cboxManualIntTimeSca->Items->Add(240);
+      cboxManualIntTimeSca->Items->Add(480);
+
 
       //
       //TODO: Add the constructor code here
@@ -257,14 +315,14 @@ private: System::Windows::Forms::Label^ labScanSettings;
     System::Windows::Forms::NumericUpDown^ nudScanLEDB;
 
     System::Windows::Forms::Label^ labGainExt;
-    System::Windows::Forms::NumericUpDown^ nudScanGainExtB;
-    System::Windows::Forms::NumericUpDown^ nudScanGainExtG;
-    System::Windows::Forms::NumericUpDown^ nudScanGainExtR;
+
+
+
 
     System::Windows::Forms::Label^ labGainSca;
-    System::Windows::Forms::NumericUpDown^ nudScanGainScaB;
-    System::Windows::Forms::NumericUpDown^ nudScanGainScaG;
-    System::Windows::Forms::NumericUpDown^ nudScanGainScaR;
+
+
+
 
     System::Windows::Forms::Label^ labNumSamples;
     System::Windows::Forms::NumericUpDown^ nudNumSamples;
@@ -329,12 +387,6 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudScanLEDR = (gcnew System::Windows::Forms::NumericUpDown());
         this->nudScanLEDG = (gcnew System::Windows::Forms::NumericUpDown());
         this->nudScanLEDB = (gcnew System::Windows::Forms::NumericUpDown());
-        this->nudScanGainExtB = (gcnew System::Windows::Forms::NumericUpDown());
-        this->nudScanGainExtG = (gcnew System::Windows::Forms::NumericUpDown());
-        this->nudScanGainExtR = (gcnew System::Windows::Forms::NumericUpDown());
-        this->nudScanGainScaB = (gcnew System::Windows::Forms::NumericUpDown());
-        this->nudScanGainScaG = (gcnew System::Windows::Forms::NumericUpDown());
-        this->nudScanGainScaR = (gcnew System::Windows::Forms::NumericUpDown());
         this->nudNumSamples = (gcnew System::Windows::Forms::NumericUpDown());
         this->nudMeasExtR = (gcnew System::Windows::Forms::NumericUpDown());
         this->nudMeasExtG = (gcnew System::Windows::Forms::NumericUpDown());
@@ -376,15 +428,15 @@ private: System::Windows::Forms::Button^ btnSave;
         this->cboxManualGainExt = (gcnew System::Windows::Forms::ComboBox());
         this->btnSet = (gcnew System::Windows::Forms::Button());
         this->btnManualMsmt = (gcnew System::Windows::Forms::Button());
+        this->cboxScanGainScaB = (gcnew System::Windows::Forms::ComboBox());
+        this->cboxScanGainScaG = (gcnew System::Windows::Forms::ComboBox());
+        this->cboxScanGainScaR = (gcnew System::Windows::Forms::ComboBox());
+        this->cboxScanGainExtB = (gcnew System::Windows::Forms::ComboBox());
+        this->cboxScanGainExtG = (gcnew System::Windows::Forms::ComboBox());
+        this->cboxScanGainExtR = (gcnew System::Windows::Forms::ComboBox());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDB))->BeginInit();
-        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanGainExtB))->BeginInit();
-        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanGainExtG))->BeginInit();
-        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanGainExtR))->BeginInit();
-        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanGainScaB))->BeginInit();
-        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanGainScaG))->BeginInit();
-        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanGainScaR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudNumSamples))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasExtR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasExtG))->BeginInit();
@@ -577,79 +629,6 @@ private: System::Windows::Forms::Button^ btnSave;
         this->nudScanLEDB->Size = System::Drawing::Size(57, 22);
         this->nudScanLEDB->TabIndex = 47;
         this->nudScanLEDB->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
-        // 
-        // nudScanGainExtB
-        // 
-        this->nudScanGainExtB->BackColor = System::Drawing::Color::DeepSkyBlue;
-        this->nudScanGainExtB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->nudScanGainExtB->Location = System::Drawing::Point(276, 68);
-        this->nudScanGainExtB->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
-        this->nudScanGainExtB->Name = L"nudScanGainExtB";
-        this->nudScanGainExtB->Size = System::Drawing::Size(57, 22);
-        this->nudScanGainExtB->TabIndex = 50;
-        this->nudScanGainExtB->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-        // 
-        // nudScanGainExtG
-        // 
-        this->nudScanGainExtG->BackColor = System::Drawing::Color::LightGreen;
-        this->nudScanGainExtG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->nudScanGainExtG->Location = System::Drawing::Point(196, 68);
-        this->nudScanGainExtG->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
-        this->nudScanGainExtG->Name = L"nudScanGainExtG";
-        this->nudScanGainExtG->Size = System::Drawing::Size(57, 22);
-        this->nudScanGainExtG->TabIndex = 49;
-        this->nudScanGainExtG->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-        // 
-        // nudScanGainExtR
-        // 
-        this->nudScanGainExtR->BackColor = System::Drawing::Color::LightCoral;
-        this->nudScanGainExtR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->nudScanGainExtR->Location = System::Drawing::Point(111, 68);
-        this->nudScanGainExtR->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
-        this->nudScanGainExtR->Name = L"nudScanGainExtR";
-        this->nudScanGainExtR->Size = System::Drawing::Size(57, 22);
-        this->nudScanGainExtR->TabIndex = 48;
-        this->nudScanGainExtR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-        this->nudScanGainExtR->ValueChanged += gcnew System::EventHandler(this, &Form1::nudScanGainExtR_ValueChanged);
-        // 
-        // nudScanGainScaB
-        // 
-        this->nudScanGainScaB->BackColor = System::Drawing::Color::DeepSkyBlue;
-        this->nudScanGainScaB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->nudScanGainScaB->Location = System::Drawing::Point(276, 100);
-        this->nudScanGainScaB->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
-        this->nudScanGainScaB->Name = L"nudScanGainScaB";
-        this->nudScanGainScaB->Size = System::Drawing::Size(57, 22);
-        this->nudScanGainScaB->TabIndex = 53;
-        this->nudScanGainScaB->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-        // 
-        // nudScanGainScaG
-        // 
-        this->nudScanGainScaG->BackColor = System::Drawing::Color::LightGreen;
-        this->nudScanGainScaG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->nudScanGainScaG->Location = System::Drawing::Point(196, 100);
-        this->nudScanGainScaG->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
-        this->nudScanGainScaG->Name = L"nudScanGainScaG";
-        this->nudScanGainScaG->Size = System::Drawing::Size(57, 22);
-        this->nudScanGainScaG->TabIndex = 52;
-        this->nudScanGainScaG->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-        // 
-        // nudScanGainScaR
-        // 
-        this->nudScanGainScaR->BackColor = System::Drawing::Color::LightCoral;
-        this->nudScanGainScaR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-            static_cast<System::Byte>(0)));
-        this->nudScanGainScaR->Location = System::Drawing::Point(111, 100);
-        this->nudScanGainScaR->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
-        this->nudScanGainScaR->Name = L"nudScanGainScaR";
-        this->nudScanGainScaR->Size = System::Drawing::Size(57, 22);
-        this->nudScanGainScaR->TabIndex = 51;
-        this->nudScanGainScaR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
         // 
         // nudNumSamples
         // 
@@ -1100,6 +1079,7 @@ private: System::Windows::Forms::Button^ btnSave;
         this->cboxManualGainExt->Size = System::Drawing::Size(57, 21);
         this->cboxManualGainExt->TabIndex = 94;
         this->cboxManualGainExt->Text = L"1";
+        this->cboxManualGainExt->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxManualGainExt_SelectedIndexChanged);
         // 
         // btnSet
         // 
@@ -1125,11 +1105,95 @@ private: System::Windows::Forms::Button^ btnSave;
         this->btnManualMsmt->Text = L"MAKE MANUAL\r\nMEASUREMENT";
         this->btnManualMsmt->UseVisualStyleBackColor = false;
         // 
+        // cboxScanGainScaB
+        // 
+        this->cboxScanGainScaB->BackColor = System::Drawing::Color::DeepSkyBlue;
+        this->cboxScanGainScaB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->cboxScanGainScaB->FormattingEnabled = true;
+        this->cboxScanGainScaB->Location = System::Drawing::Point(276, 99);
+        this->cboxScanGainScaB->Name = L"cboxScanGainScaB";
+        this->cboxScanGainScaB->Size = System::Drawing::Size(57, 21);
+        this->cboxScanGainScaB->TabIndex = 103;
+        this->cboxScanGainScaB->Text = L"1";
+        this->cboxScanGainScaB->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanGainScaB_SelectedIndexChanged);
+        // 
+        // cboxScanGainScaG
+        // 
+        this->cboxScanGainScaG->BackColor = System::Drawing::Color::LightGreen;
+        this->cboxScanGainScaG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->cboxScanGainScaG->FormattingEnabled = true;
+        this->cboxScanGainScaG->Location = System::Drawing::Point(196, 99);
+        this->cboxScanGainScaG->Name = L"cboxScanGainScaG";
+        this->cboxScanGainScaG->Size = System::Drawing::Size(57, 21);
+        this->cboxScanGainScaG->TabIndex = 102;
+        this->cboxScanGainScaG->Text = L"1";
+        this->cboxScanGainScaG->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanGainScaG_SelectedIndexChanged);
+        // 
+        // cboxScanGainScaR
+        // 
+        this->cboxScanGainScaR->BackColor = System::Drawing::Color::LightCoral;
+        this->cboxScanGainScaR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->cboxScanGainScaR->FormattingEnabled = true;
+        this->cboxScanGainScaR->Location = System::Drawing::Point(111, 99);
+        this->cboxScanGainScaR->Name = L"cboxScanGainScaR";
+        this->cboxScanGainScaR->Size = System::Drawing::Size(57, 21);
+        this->cboxScanGainScaR->TabIndex = 101;
+        this->cboxScanGainScaR->Text = L"1";
+        this->cboxScanGainScaR->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanGainScaR_SelectedIndexChanged);
+        // 
+        // cboxScanGainExtB
+        // 
+        this->cboxScanGainExtB->BackColor = System::Drawing::Color::DeepSkyBlue;
+        this->cboxScanGainExtB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->cboxScanGainExtB->FormattingEnabled = true;
+        this->cboxScanGainExtB->Location = System::Drawing::Point(276, 70);
+        this->cboxScanGainExtB->Name = L"cboxScanGainExtB";
+        this->cboxScanGainExtB->Size = System::Drawing::Size(57, 21);
+        this->cboxScanGainExtB->TabIndex = 100;
+        this->cboxScanGainExtB->Text = L"1";
+        this->cboxScanGainExtB->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanGainExtB_SelectedIndexChanged);
+        // 
+        // cboxScanGainExtG
+        // 
+        this->cboxScanGainExtG->BackColor = System::Drawing::Color::LightGreen;
+        this->cboxScanGainExtG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->cboxScanGainExtG->FormattingEnabled = true;
+        this->cboxScanGainExtG->Location = System::Drawing::Point(196, 70);
+        this->cboxScanGainExtG->Name = L"cboxScanGainExtG";
+        this->cboxScanGainExtG->Size = System::Drawing::Size(57, 21);
+        this->cboxScanGainExtG->TabIndex = 99;
+        this->cboxScanGainExtG->Text = L"1";
+        this->cboxScanGainExtG->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanGainExtG_SelectedIndexChanged);
+        // 
+        // cboxScanGainExtR
+        // 
+        this->cboxScanGainExtR->BackColor = System::Drawing::Color::LightCoral;
+        this->cboxScanGainExtR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->cboxScanGainExtR->FormattingEnabled = true;
+        this->cboxScanGainExtR->Location = System::Drawing::Point(111, 70);
+        this->cboxScanGainExtR->Name = L"cboxScanGainExtR";
+        this->cboxScanGainExtR->Size = System::Drawing::Size(57, 21);
+        this->cboxScanGainExtR->TabIndex = 98;
+        this->cboxScanGainExtR->Text = L"1";
+        this->cboxScanGainExtR->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanGainExtR_SelectedIndexChanged);
+        // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(834, 577);
+        this->Controls->Add(this->cboxScanGainScaB);
+        this->Controls->Add(this->cboxScanGainScaG);
+        this->Controls->Add(this->cboxScanGainScaR);
+        this->Controls->Add(this->cboxScanGainExtB);
+        this->Controls->Add(this->cboxScanGainExtG);
+        this->Controls->Add(this->cboxScanGainExtR);
         this->Controls->Add(this->btnManualMsmt);
         this->Controls->Add(this->btnSet);
         this->Controls->Add(this->cboxManualGainSca);
@@ -1170,12 +1234,6 @@ private: System::Windows::Forms::Button^ btnSave;
         this->Controls->Add(this->nudMeasExtG);
         this->Controls->Add(this->nudMeasExtR);
         this->Controls->Add(this->nudNumSamples);
-        this->Controls->Add(this->nudScanGainScaB);
-        this->Controls->Add(this->nudScanGainScaG);
-        this->Controls->Add(this->nudScanGainScaR);
-        this->Controls->Add(this->nudScanGainExtB);
-        this->Controls->Add(this->nudScanGainExtG);
-        this->Controls->Add(this->nudScanGainExtR);
         this->Controls->Add(this->nudScanLEDB);
         this->Controls->Add(this->nudScanLEDG);
         this->Controls->Add(this->nudScanLEDR);
@@ -1197,12 +1255,6 @@ private: System::Windows::Forms::Button^ btnSave;
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDR))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDG))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDB))->EndInit();
-        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanGainExtB))->EndInit();
-        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanGainExtG))->EndInit();
-        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanGainExtR))->EndInit();
-        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanGainScaB))->EndInit();
-        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanGainScaG))->EndInit();
-        (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanGainScaR))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudNumSamples))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasExtR))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudMeasExtG))->EndInit();
@@ -1295,23 +1347,23 @@ private: System::Void nudScanLEDG_ValueChanged(System::Object^ sender, System::E
 private: System::Void nudScanLEDB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
     settings->LEDB = Decimal::ToInt32(nudScanLEDB->Value);
 }
-private: System::Void nudScanGainExtR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainExtR = Decimal::ToInt32(nudScanGainExtR->Value);
+//private: System::Void cboxScanGainExtR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+//    settings->GainExtR = System::Convert::ToInt32(cboxScanGainExtR->SelectedValue);
+//}
+private: System::Void cboxScanGainExtG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainExtG = System::Convert::ToInt32(cboxScanGainExtG->SelectedValue);
 }
-private: System::Void nudScanGainExtG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainExtG = Decimal::ToInt32(nudScanGainExtG->Value);
+private: System::Void cboxScanGainExtB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainExtB = System::Convert::ToInt32(cboxScanGainExtB->SelectedValue);
 }
-private: System::Void nudScanGainExtB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainExtB = Decimal::ToInt32(nudScanGainExtB->Value);
+private: System::Void cboxScanGainScaR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainScaR = System::Convert::ToInt32(cboxScanGainScaR->SelectedValue);
 }
-private: System::Void nudScanGainScaR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainScaR = Decimal::ToInt32(nudScanGainScaR->Value);
+private: System::Void cboxScanGainScaG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainScaG = System::Convert::ToInt32(cboxScanGainScaG->SelectedValue);
 }
-private: System::Void nudScanGainScaG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-    settings->GainScaG = Decimal::ToInt32(nudScanGainScaG->Value);
-}
-  private: System::Void nudScanGainScaB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-      settings->GainScaB = Decimal::ToInt32(nudScanGainScaB->Value);
+  private: System::Void cboxScanGainScaB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+      settings->GainScaB = System::Convert::ToInt32(cboxScanGainScaB->SelectedValue);
 }
 
 // find available COM ports
@@ -1439,6 +1491,26 @@ void UpdatertbSerialReceived(System::String^ data) {
         rtbSerialReceived->ScrollToCaret();
     }
 
+}
+private: System::Void cboxScanGainExtR_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainExtR = System::Convert::ToInt32(cboxScanGainExtR->SelectedValue);
+}
+private: System::Void cboxManualGainExt_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void cboxScanGainExtG_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainExtG = System::Convert::ToInt32(cboxScanGainExtG->SelectedValue);
+}
+private: System::Void cboxScanGainExtB_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainExtB = System::Convert::ToInt32(cboxScanGainExtB->SelectedValue);
+}
+private: System::Void cboxScanGainScaR_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainScaR = System::Convert::ToInt32(cboxScanGainScaR->SelectedValue);
+}
+private: System::Void cboxScanGainScaG_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainScaG = System::Convert::ToInt32(cboxScanGainScaG->SelectedValue);
+}
+private: System::Void cboxScanGainScaB_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+    settings->GainScaB = System::Convert::ToInt32(cboxScanGainScaB->SelectedValue);
 }
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
