@@ -31,73 +31,64 @@ namespace CppCLRWinFormsProject {
   {
   
   private:
+      //A class to handle saving to CSV
       CSVSaver^ csvSaver;
+      //A class to hold the settings for scanning different wavelengths
       ScanSettings^ scanSettings;
-      System::IO::Ports::SerialPort^ serialPort1;
+      //A class to hold the settings the instrument is currently set to
+      InstrumentSettings^ instrumentSettings;
+      //A class to deal with measurements
+      MeasClass^ meas;
+      //A class to deal with serial communication
       SerialManager^ serialManager1;
-  private: System::Windows::Forms::Label^ labFolderPath;
+
+      //Scan settings part of the form
+      System::Windows::Forms::Label^ labIntTimeExt;
+      System::Windows::Forms::ComboBox^ cboxScanIntTimeExtR;
+      System::Windows::Forms::ComboBox^ cboxScanIntTimeExtG;
+      System::Windows::Forms::ComboBox^ cboxScanIntTimeExtB;
+      System::Windows::Forms::Label^ labIntTimeSca;
+      System::Windows::Forms::ComboBox^ cboxScanIntTimeScaR;
+      System::Windows::Forms::ComboBox^ cboxScanIntTimeScaG;
+      System::Windows::Forms::ComboBox^ cboxScanIntTimeScaB;
+
+      //Manual settings part of the form
+      System::Windows::Forms::Label^ labManualSettings;
+      System::Windows::Forms::Label^ labManualLED;
+      System::Windows::Forms::NumericUpDown^ nudManualLEDB;
+      System::Windows::Forms::NumericUpDown^ nudManualLEDG;
+      System::Windows::Forms::NumericUpDown^ nudManualLEDR;
+      System::Windows::Forms::Label^ labManualGainExt;
+      System::Windows::Forms::ComboBox^ cboxManualGainExt;
+      System::Windows::Forms::Label^ labManualGainSca;
+      System::Windows::Forms::ComboBox^ cboxManualGainSca;
+      System::Windows::Forms::Label^ labManualIntTimeExt;
+      System::Windows::Forms::ComboBox^ cboxManualIntTimeExt;
+      System::Windows::Forms::Label^ labManualIntTimeSca;
+      System::Windows::Forms::ComboBox^ cboxManualIntTimeSca;
+
+
+      //Serial part of the form
+      System::Windows::Forms::Label^ labSerial;
+      System::Windows::Forms::Label^ labCOMPort;
+      System::Windows::Forms::Label^ labSerialSent;
+      System::Windows::Forms::Label^ labSerialReceived;
+      System::Windows::Forms::ComboBox^ cboxCOMPort;
+      System::Windows::Forms::RichTextBox^ rtbSerialReceived;
+      System::Windows::Forms::RichTextBox^ rtbSerialSent;
+
+
+      
+      
+
+      //Measurements part of the form
+      System::Windows::Forms::Label^ labFolderPath;
   
-  private: System::Windows::Forms::ComboBox^ cboxCOMPort;
-  private: System::Windows::Forms::Label^ labCOMPort;
-  private: System::Windows::Forms::Label^ labIntTime;
-  private: System::Windows::Forms::ComboBox^ cboxScanIntTimeExtR;
-  private: System::Windows::Forms::ComboBox^ cboxScanIntTimeExtG;
-  private: System::Windows::Forms::ComboBox^ cboxScanIntTimeExtB;
-  private: System::Windows::Forms::ComboBox^ cboxScanIntTimeScaB;
+  
+ 
 
 
-
-
-  private: System::Windows::Forms::ComboBox^ cboxScanIntTimeScaG;
-
-
-
-
-  private: System::Windows::Forms::ComboBox^ cboxScanIntTimeScaR;
-
-
-
-  private: System::Windows::Forms::Label^ label1;
-  private: System::Windows::Forms::RichTextBox^ rtbSerialReceived;
-
-
-  private: System::Windows::Forms::Label^ labSerial;
-  private: System::Windows::Forms::RichTextBox^ rtbSerialSent;
-
-
-  private: System::Windows::Forms::Label^ labSerialSent;
-  private: System::Windows::Forms::Label^ labSerialReceived;
-  private: System::Windows::Forms::Label^ labManualIntTimeSca;
-  private: System::Windows::Forms::ComboBox^ cboxManualIntTimeSca;
-
-  private: System::Windows::Forms::ComboBox^ cboxManualIntTimeExt;
-
-
-
-
-  private: System::Windows::Forms::Label^ labManualIntTimeExt;
-
-
-
-
-
-
-  private: System::Windows::Forms::NumericUpDown^ nudManualLEDB;
-
-  private: System::Windows::Forms::NumericUpDown^ nudManualLEDG;
-
-  private: System::Windows::Forms::NumericUpDown^ nudManualLEDR;
-
-  private: System::Windows::Forms::Label^ labManualGainSca;
-
-  private: System::Windows::Forms::Label^ labManualGainExt;
-
-  private: System::Windows::Forms::Label^ labManualLED;
-
-  private: System::Windows::Forms::Label^ labManualSettings;
-  private: System::Windows::Forms::ComboBox^ cboxManualGainSca;
-
-  private: System::Windows::Forms::ComboBox^ cboxManualGainExt;
+  
   private: System::Windows::Forms::Button^ btnSet;
   private: System::Windows::Forms::Button^ btnManualMsmt;
   private: System::Windows::Forms::ComboBox^ cboxScanGainScaB;
@@ -128,7 +119,7 @@ namespace CppCLRWinFormsProject {
 
 
 
-         MeasClass^ meas;
+         
 
 
   public:
@@ -370,7 +361,6 @@ private: System::Windows::Forms::Button^ btnSave;
     /// </summary>
     void InitializeComponent(void)
     {
-        this->components = (gcnew System::ComponentModel::Container());
         this->labScanSettings = (gcnew System::Windows::Forms::Label());
         this->labLED = (gcnew System::Windows::Forms::Label());
         this->labGainExt = (gcnew System::Windows::Forms::Label());
@@ -397,17 +387,16 @@ private: System::Windows::Forms::Button^ btnSave;
         this->tbFolderPath = (gcnew System::Windows::Forms::TextBox());
         this->btnSave = (gcnew System::Windows::Forms::Button());
         this->labFolderPath = (gcnew System::Windows::Forms::Label());
-        this->serialPort1 = (gcnew System::IO::Ports::SerialPort(this->components));
         this->cboxCOMPort = (gcnew System::Windows::Forms::ComboBox());
         this->labCOMPort = (gcnew System::Windows::Forms::Label());
-        this->labIntTime = (gcnew System::Windows::Forms::Label());
+        this->labIntTimeExt = (gcnew System::Windows::Forms::Label());
         this->cboxScanIntTimeExtR = (gcnew System::Windows::Forms::ComboBox());
         this->cboxScanIntTimeExtG = (gcnew System::Windows::Forms::ComboBox());
         this->cboxScanIntTimeExtB = (gcnew System::Windows::Forms::ComboBox());
         this->cboxScanIntTimeScaB = (gcnew System::Windows::Forms::ComboBox());
         this->cboxScanIntTimeScaG = (gcnew System::Windows::Forms::ComboBox());
         this->cboxScanIntTimeScaR = (gcnew System::Windows::Forms::ComboBox());
-        this->label1 = (gcnew System::Windows::Forms::Label());
+        this->labIntTimeSca = (gcnew System::Windows::Forms::Label());
         this->rtbSerialReceived = (gcnew System::Windows::Forms::RichTextBox());
         this->labSerial = (gcnew System::Windows::Forms::Label());
         this->rtbSerialSent = (gcnew System::Windows::Forms::RichTextBox());
@@ -781,16 +770,16 @@ private: System::Windows::Forms::Button^ btnSave;
         this->labCOMPort->TabIndex = 66;
         this->labCOMPort->Text = L"COM";
         // 
-        // labIntTime
+        // labIntTimeExt
         // 
-        this->labIntTime->AutoSize = true;
-        this->labIntTime->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+        this->labIntTimeExt->AutoSize = true;
+        this->labIntTimeExt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labIntTime->Location = System::Drawing::Point(12, 132);
-        this->labIntTime->Name = L"labIntTime";
-        this->labIntTime->Size = System::Drawing::Size(81, 16);
-        this->labIntTime->TabIndex = 67;
-        this->labIntTime->Text = L"Int time Ext";
+        this->labIntTimeExt->Location = System::Drawing::Point(12, 132);
+        this->labIntTimeExt->Name = L"labIntTimeExt";
+        this->labIntTimeExt->Size = System::Drawing::Size(81, 16);
+        this->labIntTimeExt->TabIndex = 67;
+        this->labIntTimeExt->Text = L"Int time Ext";
         // 
         // cboxScanIntTimeExtR
         // 
@@ -870,16 +859,16 @@ private: System::Windows::Forms::Button^ btnSave;
         this->cboxScanIntTimeScaR->Text = L"24";
         this->cboxScanIntTimeScaR->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanIntTimeScaR_SelectedIndexChanged);
         // 
-        // label1
+        // labIntTimeSca
         // 
-        this->label1->AutoSize = true;
-        this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+        this->labIntTimeSca->AutoSize = true;
+        this->labIntTimeSca->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->label1->Location = System::Drawing::Point(13, 159);
-        this->label1->Name = L"label1";
-        this->label1->Size = System::Drawing::Size(87, 16);
-        this->label1->TabIndex = 74;
-        this->label1->Text = L"Int time Sca";
+        this->labIntTimeSca->Location = System::Drawing::Point(13, 159);
+        this->labIntTimeSca->Name = L"labIntTimeSca";
+        this->labIntTimeSca->Size = System::Drawing::Size(87, 16);
+        this->labIntTimeSca->TabIndex = 74;
+        this->labIntTimeSca->Text = L"Int time Sca";
         // 
         // rtbSerialReceived
         // 
@@ -1215,14 +1204,14 @@ private: System::Windows::Forms::Button^ btnSave;
         this->Controls->Add(this->rtbSerialSent);
         this->Controls->Add(this->labSerial);
         this->Controls->Add(this->rtbSerialReceived);
-        this->Controls->Add(this->label1);
+        this->Controls->Add(this->labIntTimeSca);
         this->Controls->Add(this->cboxScanIntTimeScaB);
         this->Controls->Add(this->cboxScanIntTimeScaG);
         this->Controls->Add(this->cboxScanIntTimeScaR);
         this->Controls->Add(this->cboxScanIntTimeExtB);
         this->Controls->Add(this->cboxScanIntTimeExtG);
         this->Controls->Add(this->cboxScanIntTimeExtR);
-        this->Controls->Add(this->labIntTime);
+        this->Controls->Add(this->labIntTimeExt);
         this->Controls->Add(this->labCOMPort);
         this->Controls->Add(this->cboxCOMPort);
         this->Controls->Add(this->labFolderPath);
@@ -1430,30 +1419,31 @@ private:
     bool isWaitingForNewLine = false;
     System::Text::StringBuilder^ receivedDataBuilder = gcnew System::Text::StringBuilder();
 
-void serialPort_DataReceived(System::Object^ sender, System::IO::Ports::SerialDataReceivedEventArgs^ e) {
-    System::String^ receivedData = serialPort1->ReadExisting();
-    receivedDataBuilder->Append(receivedData);
-
-    // Check if the received data contains a new line character
-    if (receivedData->Contains("\n")) {
-        //Make the complete command of everything up intil the \n
-        int newLineIndex = receivedDataBuilder->ToString()->LastIndexOf("\n");
-        System::String^ completeData = receivedDataBuilder->ToString()->Substring(0, newLineIndex + 1);
-
-        // Check if the received data came from the Arduino command
-        if (completeData->StartsWith("@")) {
-            // Update the received commands RichTextBox
-            Invoke(gcnew Action<System::String^>(this, &Form1::UpdatertbSerialReceived), completeData);
-        }
-
-        // Clear the StringBuilder and stop waiting for a new line
-        receivedDataBuilder->Clear();
-        isWaitingForNewLine = false;
-    }
-    else {
-        isWaitingForNewLine = true;
-    }
-}
+//LEGACY FOR OLD WAY OF HANDING SERIAL COMMS BEFORE USING SerialManager class
+//void serialPort_DataReceived(System::Object^ sender, System::IO::Ports::SerialDataReceivedEventArgs^ e) {
+//    System::String^ receivedData = serialPort1->ReadExisting();
+//    receivedDataBuilder->Append(receivedData);
+//
+//    // Check if the received data contains a new line character
+//    if (receivedData->Contains("\n")) {
+//        //Make the complete command of everything up intil the \n
+//        int newLineIndex = receivedDataBuilder->ToString()->LastIndexOf("\n");
+//        System::String^ completeData = receivedDataBuilder->ToString()->Substring(0, newLineIndex + 1);
+//
+//        // Check if the received data came from the Arduino command
+//        if (completeData->StartsWith("@")) {
+//            // Update the received commands RichTextBox
+//            Invoke(gcnew Action<System::String^>(this, &Form1::UpdatertbSerialReceived), completeData);
+//        }
+//
+//        // Clear the StringBuilder and stop waiting for a new line
+//        receivedDataBuilder->Clear();
+//        isWaitingForNewLine = false;
+//    }
+//    else {
+//        isWaitingForNewLine = true;
+//    }
+//}
 
 
 
