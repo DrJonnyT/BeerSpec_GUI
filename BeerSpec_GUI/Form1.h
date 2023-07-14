@@ -1448,27 +1448,33 @@ private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e)
     }
 }
 private: System::Void btnManualMsmt_Click(System::Object^ sender, System::EventArgs^ e) {
+    //Read Extinction data
     serialManager1->EnqueueSendCommand("#READEXT");
     serialManager1->SendQueuedCommands();
     //Time to sleep for, in ms. This should be longer than it takes to make a measurement
-    int sleepTime = 5000 + instrumentSettings->IntTimeExt;
+    int sleepTime = 2000 + instrumentSettings->IntTimeExt;
     System::Threading::Thread::Sleep(sleepTime);
     serialManager1->ProcessReceivedCommands(meas);
-
     //Update the measurement boxes on the panel
     tbMeasTime->Text = meas->MeasTime;
     tbMeasExtR->Text = System::Convert::ToString(meas->MeasExtR);
     tbMeasExtG->Text = System::Convert::ToString(meas->MeasExtG);
     tbMeasExtB->Text = System::Convert::ToString(meas->MeasExtB);
+
+    //Read Scattering data
+    serialManager1->EnqueueSendCommand("#READSCA");
+    serialManager1->SendQueuedCommands();
+    System::Threading::Thread::Sleep(sleepTime);
+    serialManager1->ProcessReceivedCommands(meas);
+    //Update the measurement boxes on the panel
+    tbMeasTime->Text = meas->MeasTime;
+    tbMeasScaR->Text = System::Convert::ToString(meas->MeasScaR);
+    tbMeasScaG->Text = System::Convert::ToString(meas->MeasScaG);
+    tbMeasScaB->Text = System::Convert::ToString(meas->MeasScaB);
     
 
 }
 
-       //Append message to console textbox
-void AppendToConsole(String^ message)
-{
-    tbConsole->AppendText(message + Environment::NewLine);
-}
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
 

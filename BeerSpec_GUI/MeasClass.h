@@ -109,6 +109,37 @@ public:
 		m_MeasExtG = -1;
 		m_MeasExtB = -1;
 	}
+
+	//Read the "@SCA = R G B" command from serial
+	void ReadScaFromString(String^ input)
+	{
+		String^ prefix = "@SCA = ";
+		if (input->StartsWith(prefix))
+		{
+			String^ trimmedInput = input->Substring(prefix->Length);
+			array<String^>^ substrings = trimmedInput->Split(' ');
+
+			if (substrings->Length >= 3)
+			{
+				if (Int32::TryParse(substrings[0], m_MeasScaR))
+				{
+					if (Int32::TryParse(substrings[1], m_MeasScaG))
+					{
+						if (Int32::TryParse(substrings[2], m_MeasScaB))
+						{
+							// All three integers successfully parsed
+							return;
+						}
+					}
+				}
+			}
+		}
+
+		// Handle parsing failure if needed, set all to zero
+		m_MeasScaR = -1;
+		m_MeasScaG = -1;
+		m_MeasScaB = -1;
+	}
 	
 
 };

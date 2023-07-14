@@ -54,10 +54,18 @@ void SerialManager::ProcessReceivedCommands(MeasClass^ meas)
         // Check if the command starts with "@" and ends with "\n", i.e. it is a standard command coming from the Arduino
         if (command->StartsWith("@"))
         {
+            //Read extinction data
             if (command->StartsWith("@EXT"))
             {
                 meas->ReadExtFromString(command);
                 
+            }
+
+            //Read scattering data
+            if (command->StartsWith("@SCA"))
+            {
+                meas->ReadScaFromString(command);
+
             }
 
             
