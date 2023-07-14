@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "SerialManager.h"
+#include "MeasClass.h"
 
 SerialManager::SerialManager(String^ portName, int baudRate, RichTextBox^ sendCommandsTextBox, RichTextBox^ receivedCommandsTextBox)
 {
@@ -43,15 +44,25 @@ void SerialManager::EnqueueSendCommand(String^ command)
     sendCommandQueue->Enqueue(command);
 }
 
-void SerialManager::ProcessReceivedCommands()
+void SerialManager::ProcessReceivedCommands(MeasClass^ meas)
+//void SerialManager::ProcessReceivedCommands()
 {
     while (receivedCommandQueue->Count > 0)
     {
         String^ command = receivedCommandQueue->Dequeue();
 
         // Check if the command starts with "@" and ends with "\n", i.e. it is a standard command coming from the Arduino
-        if (command->StartsWith("@")) {
-            // Process the received command as needed
+        if (command->StartsWith("@"))
+        {
+            if (command->StartsWith("@EXT"))
+            {
+                meas->ReadExtFromString(command);
+                
+            }
+
+            
+
+            // Update the received command box afterwards
             UpdateReceivedCommandsTextBox(command);
         }
     }

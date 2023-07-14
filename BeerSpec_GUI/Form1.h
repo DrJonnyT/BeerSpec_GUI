@@ -117,6 +117,7 @@ namespace CppCLRWinFormsProject {
 
 
 
+
   private: System::ComponentModel::IContainer^ components;
   
 
@@ -934,6 +935,7 @@ namespace CppCLRWinFormsProject {
         this->btnManualMsmt->TabIndex = 97;
         this->btnManualMsmt->Text = L"MAKE MANUAL\r\nMEASUREMENT";
         this->btnManualMsmt->UseVisualStyleBackColor = false;
+        this->btnManualMsmt->Click += gcnew System::EventHandler(this, &Form1::btnManualMsmt_Click);
         // 
         // cboxScanGainScaB
         // 
@@ -1193,7 +1195,7 @@ private: System::Void btnScan_Click(System::Object^ sender, System::EventArgs^ e
         //Send the queued commands and process the received ones
         serialManager1->SendQueuedCommands();
         System::Threading::Thread::Sleep(1000);
-        serialManager1->ProcessReceivedCommands();    
+        serialManager1->ProcessReceivedCommands(meas);    
 
     }
     else
@@ -1437,13 +1439,35 @@ private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e)
         //Send the queued commands and process the received ones
         serialManager1->SendQueuedCommands();
         System::Threading::Thread::Sleep(1000);
-        serialManager1->ProcessReceivedCommands();
+        serialManager1->ProcessReceivedCommands(meas);
 
     }
     else
     {
         UpdatertbSerialReceived("Serial port not open");
     }
+}
+private: System::Void btnManualMsmt_Click(System::Object^ sender, System::EventArgs^ e) {
+    serialManager1->EnqueueSendCommand("#READEXT");
+    serialManager1->SendQueuedCommands();
+    //Time to sleep for, in ms. This should be longer than it takes to make a measurement
+    int sleepTime = 5000 + instrumentSettings->IntTimeExt;
+    System::Threading::Thread::Sleep(sleepTime);
+    serialManager1->ProcessReceivedCommands(meas);
+
+    //Update the measurement boxes on the panel
+    tbMeasTime->Text = meas->MeasTime;
+    tbMeasExtR->Text = System::Convert::ToString(meas->MeasExtR);
+    tbMeasExtG->Text = System::Convert::ToString(meas->MeasExtG);
+    tbMeasExtB->Text = System::Convert::ToString(meas->MeasExtB);
+    
+
+}
+
+       //Append message to console textbox
+void AppendToConsole(String^ message)
+{
+    tbConsole->AppendText(message + Environment::NewLine);
 }
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject

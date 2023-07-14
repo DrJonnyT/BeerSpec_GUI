@@ -1,28 +1,30 @@
 #pragma once
-
+using namespace System;
 
 ref class MeasClass
 {
 private:
 	//Sample time
-	System::DateTime m_MeasTime;
+	//DateTime m_MeasTime;
+	String^ m_MeasTime;
 
 	//Extinction mean and stdev
-	System::Single m_MeasExtR;
-	System::Single m_MeasExtG;
-	System::Single m_MeasExtB;
+	int m_MeasExtR;
+	int m_MeasExtG;
+	int m_MeasExtB;
 
 	//Scattering mean and stdev
-	System::Single m_MeasScaR;
-	System::Single m_MeasScaG;
-	System::Single m_MeasScaB;
+	int m_MeasScaR;
+	int m_MeasScaG;
+	int m_MeasScaB;
 
-	System::String^ m_Notes;
+	String^ m_Notes;
 
 public:
 	//Default initialisation
 	MeasClass() {
-		m_MeasTime = System::DateTime::Now;
+		//m_MeasTime = DateTime::Now;
+		m_MeasTime = DateTime::Now.ToString();
 		m_MeasExtR = 0;
 		m_MeasExtG = 0;
 		m_MeasExtB = 0;
@@ -35,45 +37,78 @@ public:
 
 	//Functions to get and set the variables
 	//Time
-	property System::DateTime MeasTime {
-		System::DateTime get() { return m_MeasTime; }
-		void set(System::DateTime value) { m_MeasTime = value; }
+	//property DateTime MeasTime {
+	//	DateTime get() { return m_MeasTime; }
+	//	void set(DateTime value) { m_MeasTime = value; }
+	//}
+	property String^ MeasTime {
+		String^ get() { return m_MeasTime; }
+		void set(String^ value) { m_MeasTime = value; }
 	}
 
 	//Extinction measurements
-	property System::Single MeasExtR {
-		System::Single get() { return m_MeasExtR; }
-		void set(System::Single value) { m_MeasExtR = value; }
+	property int MeasExtR {
+		int get() { return m_MeasExtR; }
+		void set(int value) { m_MeasExtR = value; }
 	}
-	property System::Single MeasExtG {
-		System::Single get() { return m_MeasExtG; }
-		void set(System::Single value) { m_MeasExtG = value; }
+	property int MeasExtG {
+		int get() { return m_MeasExtG; }
+		void set(int value) { m_MeasExtG = value; }
 	}
-	property System::Single MeasExtB {
-		System::Single get() { return m_MeasExtB; }
-		void set(System::Single value) { m_MeasExtB = value; }
+	property int MeasExtB {
+		int get() { return m_MeasExtB; }
+		void set(int value) { m_MeasExtB = value; }
 	}
 
 	//Scattering measurements
-	property System::Single MeasScaR {
-		System::Single get() { return m_MeasScaR; }
-		void set(System::Single value) { m_MeasScaR = value; }
+	property int MeasScaR {
+		int get() { return m_MeasScaR; }
+		void set(int value) { m_MeasScaR = value; }
 	}
-	property System::Single MeasScaG {
-		System::Single get() { return m_MeasScaG; }
-		void set(System::Single value) { m_MeasScaG = value; }
+	property int MeasScaG {
+		int get() { return m_MeasScaG; }
+		void set(int value) { m_MeasScaG = value; }
 	}
-	property System::Single MeasScaB {
-		System::Single get() { return m_MeasScaB; }
-		void set(System::Single value) { m_MeasScaB = value; }
-	}
-
-	property System::String^ Notes {
-		System::String^ get() { return m_Notes; }
-		void set(System::String^ value) { m_Notes = value; }
+	property int MeasScaB {
+		int get() { return m_MeasScaB; }
+		void set(int value) { m_MeasScaB = value; }
 	}
 
+	property String^ Notes {
+		String^ get() { return m_Notes; }
+		void set(String^ value) { m_Notes = value; }
+	}
 
+	//Read the "@EXT = R G B" command from serial
+	void ReadExtFromString(String^ input)
+	{
+		String^ prefix = "@EXT = ";
+		if (input->StartsWith(prefix))
+		{
+			String^ trimmedInput = input->Substring(prefix->Length);
+			array<String^>^ substrings = trimmedInput->Split(' ');
+
+			if (substrings->Length >= 3)
+			{
+				if (Int32::TryParse(substrings[0], m_MeasExtR))
+				{
+					if (Int32::TryParse(substrings[1], m_MeasExtG))
+					{
+						if (Int32::TryParse(substrings[2], m_MeasExtB))
+						{
+							// All three integers successfully parsed
+							return;
+						}
+					}
+				}
+			}
+		}
+
+		// Handle parsing failure if needed, set all to zero
+		m_MeasExtR = -1;
+		m_MeasExtG = -1;
+		m_MeasExtB = -1;
+	}
 	
 
 };

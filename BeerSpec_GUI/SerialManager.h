@@ -4,6 +4,7 @@
 #include <string>
 #include <queue>
 //#include <Windows.h>
+#include "MeasClass.h"
 
 using namespace System;
 using namespace System::IO::Ports;
@@ -26,7 +27,7 @@ public:
     void Close();
     bool IsOpen();
     void EnqueueSendCommand(String^ command);
-    void ProcessReceivedCommands();
+    void ProcessReceivedCommands(MeasClass^ meas);
     void SendQueuedCommands();
 
 private:
