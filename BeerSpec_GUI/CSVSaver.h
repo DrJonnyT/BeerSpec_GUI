@@ -95,7 +95,7 @@ public:
     //}
 
     //Function to actually save the data
-    void SaveDataToFile(SettingsClass^ settings, MeasClass^ meas)
+    void SaveDataToFile(InstrumentSettings^ settings, MeasClass^ meas)
     {
         //Check if the folder exists, and create it if not
         CreateFolderIfNotExists(m_FolderPath);
@@ -110,9 +110,8 @@ public:
         if (!fileExists)
         {
             //Header for time and settings
-            writer->Write("Time,LED_R,LED_G,LED_B,GainExtR,GainExtG,GainExtB,GainScaR,GainScaG,GainScaB");
+            writer->Write("Time,LED_R,LED_G,LED_B,GainExt,GainSca,IntTimeExt,IntTimeSca,");
             writer->Write("MeasExtR,MeasExtG,MeasExtB,MeasScaR,MeasScaG,MeasScaB,Notes");
-            
             writer->WriteLine();
         }
 
@@ -121,12 +120,10 @@ public:
         writer->Write(settings->LEDR.ToString() + ",");
         writer->Write(settings->LEDG.ToString() + ",");
         writer->Write(settings->LEDB.ToString() + ",");
-        writer->Write(settings->GainExtR.ToString() + ",");
-        writer->Write(settings->GainExtG.ToString() + ",");
-        writer->Write(settings->GainExtB.ToString() + ",");
-        writer->Write(settings->GainScaR.ToString() + ",");
-        writer->Write(settings->GainScaG.ToString() + ",");
-        writer->Write(settings->GainScaB.ToString() + ",");
+        writer->Write(settings->GainExt.ToString() + ",");
+        writer->Write(settings->GainSca.ToString() + ",");
+        writer->Write(settings->IntTimeExt.ToString() + ",");
+        writer->Write(settings->IntTimeSca.ToString() + ",");
         //Write the measured data
         writer->Write(meas->MeasExtR.ToString() + ",");
         writer->Write(meas->MeasExtG.ToString() + ",");

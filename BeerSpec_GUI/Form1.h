@@ -1223,7 +1223,7 @@ void Update_tbFolderPath(Object^ sender, EventArgs^ e)
 
 
 private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e) {
-    csvSaver->SaveDataToFile(scanSettings, meas);
+    csvSaver->SaveDataToFile(instrumentSettings, meas);
 }
 private: System::Void tbNotes_TextChanged(System::Object^ sender, System::EventArgs^ e) {
     meas->Notes = tbNotes->Text;
@@ -1237,9 +1237,9 @@ private: System::Void nudScanLEDG_ValueChanged(System::Object^ sender, System::E
 private: System::Void nudScanLEDB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
     scanSettings->LEDB = Decimal::ToInt32(nudScanLEDB->Value);
 }
-//private: System::Void cboxScanGainExtR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-//    scanSettings->GainExtR = System::Convert::ToInt32(cboxScanGainExtR->SelectedValue);
-//}
+private: System::Void cboxScanGainExtR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+    scanSettings->GainExtR = System::Convert::ToInt32(cboxScanGainExtR->SelectedValue);
+}
 private: System::Void cboxScanGainExtG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
     scanSettings->GainExtG = System::Convert::ToInt32(cboxScanGainExtG->SelectedValue);
 }
