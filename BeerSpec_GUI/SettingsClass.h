@@ -30,18 +30,18 @@ public:
 		m_LEDR = 128;
 		m_LEDG = 128;
 		m_LEDB = 128;
-		m_GainExtR = 1;
-		m_GainExtG = 1;
-		m_GainExtB = 1;
-		m_GainScaR = 1;
-		m_GainScaG = 1;
-		m_GainScaB = 1;
-		m_IntTimeExtR = 24;
-		m_IntTimeExtG = 24;
-		m_IntTimeExtB = 24;
-		m_IntTimeScaR = 24;
-		m_IntTimeScaG = 24;
-		m_IntTimeScaB = 24;
+		m_GainExtR = 60;
+		m_GainExtG = 60;
+		m_GainExtB = 60;
+		m_GainScaR = 60;
+		m_GainScaG = 60;
+		m_GainScaB = 60;
+		m_IntTimeExtR = 120;
+		m_IntTimeExtG = 120;
+		m_IntTimeExtB = 120;
+		m_IntTimeScaR = 120;
+		m_IntTimeScaG = 120;
+		m_IntTimeScaB = 120;
 		m_NumSamples = 1;
 	}
 
@@ -139,10 +139,10 @@ public:
 		m_LEDR = 128;
 		m_LEDG = 128;
 		m_LEDB = 128;
-		m_GainExt = 1;
-		m_GainSca = 1;
-		m_IntTimeExt = 24;
-		m_IntTimeSca = 24;
+		m_GainExt = 60;
+		m_GainSca = 60;
+		m_IntTimeExt = 120;
+		m_IntTimeSca = 120;
 	}
 
 

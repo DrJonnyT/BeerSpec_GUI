@@ -177,37 +177,42 @@ namespace CppCLRWinFormsProject {
       cboxScanGainExtR->Items->Add(4);
       cboxScanGainExtR->Items->Add(16);
       cboxScanGainExtR->Items->Add(60);
-      cboxScanGainExtR->SelectedItem = 1;
+      cboxScanGainExtR->SelectedItem = 60;
       cboxScanGainExtG->Items->Add(1);
       cboxScanGainExtG->Items->Add(4);
       cboxScanGainExtG->Items->Add(16);
       cboxScanGainExtG->Items->Add(60);
+      cboxScanGainExtG->SelectedItem = 60;
       cboxScanGainExtB->Items->Add(1);
       cboxScanGainExtB->Items->Add(4);
       cboxScanGainExtB->Items->Add(16);
       cboxScanGainExtB->Items->Add(60);
+      cboxScanGainExtB->SelectedItem = 60;
       cboxScanGainScaR->Items->Add(1);
       cboxScanGainScaR->Items->Add(4);
       cboxScanGainScaR->Items->Add(16);
       cboxScanGainScaR->Items->Add(60);
+      cboxScanGainScaR->SelectedItem = 60;
       cboxScanGainScaG->Items->Add(1);
       cboxScanGainScaG->Items->Add(4);
       cboxScanGainScaG->Items->Add(16);
       cboxScanGainScaG->Items->Add(60);
+      cboxScanGainScaG->SelectedItem = 60;
       cboxScanGainScaB->Items->Add(1);
       cboxScanGainScaB->Items->Add(4);
       cboxScanGainScaB->Items->Add(16);
       cboxScanGainScaB->Items->Add(60);
+      cboxScanGainScaB->SelectedItem = 60;
       cboxManualGainExt->Items->Add(1);
       cboxManualGainExt->Items->Add(4);
       cboxManualGainExt->Items->Add(16);
       cboxManualGainExt->Items->Add(60);
-      cboxManualGainExt->SelectedItem = 1;
+      cboxManualGainExt->SelectedItem = 60;
       cboxManualGainSca->Items->Add(1);
       cboxManualGainSca->Items->Add(4);
       cboxManualGainSca->Items->Add(16);
       cboxManualGainSca->Items->Add(60);
-      cboxManualGainSca->SelectedItem = 1;
+      cboxManualGainSca->SelectedItem = 60;
 
 
       //Set options for integration time boxes
@@ -216,43 +221,49 @@ namespace CppCLRWinFormsProject {
       cboxScanIntTimeExtR->Items->Add(120);
       cboxScanIntTimeExtR->Items->Add(240);
       cboxScanIntTimeExtR->Items->Add(480);
+      cboxScanIntTimeExtR->SelectedItem = 120;
       cboxScanIntTimeExtG->Items->Add(24);
       cboxScanIntTimeExtG->Items->Add(60);
       cboxScanIntTimeExtG->Items->Add(120);
       cboxScanIntTimeExtG->Items->Add(240);
       cboxScanIntTimeExtG->Items->Add(480);
+      cboxScanIntTimeExtG->SelectedItem = 120;
       cboxScanIntTimeExtB->Items->Add(24);
       cboxScanIntTimeExtB->Items->Add(60);
       cboxScanIntTimeExtB->Items->Add(120);
       cboxScanIntTimeExtB->Items->Add(240);
       cboxScanIntTimeExtB->Items->Add(480);
+      cboxScanIntTimeExtB->SelectedItem = 120;
       cboxScanIntTimeScaR->Items->Add(24);
       cboxScanIntTimeScaR->Items->Add(60);
       cboxScanIntTimeScaR->Items->Add(120);
       cboxScanIntTimeScaR->Items->Add(240);
       cboxScanIntTimeScaR->Items->Add(480);
+      cboxScanIntTimeScaR->SelectedItem = 120;
       cboxScanIntTimeScaG->Items->Add(24);
       cboxScanIntTimeScaG->Items->Add(60);
       cboxScanIntTimeScaG->Items->Add(120);
       cboxScanIntTimeScaG->Items->Add(240);
       cboxScanIntTimeScaG->Items->Add(480);
+      cboxScanIntTimeScaG->SelectedItem = 120;
       cboxScanIntTimeScaB->Items->Add(24);
       cboxScanIntTimeScaB->Items->Add(60);
       cboxScanIntTimeScaB->Items->Add(120);
       cboxScanIntTimeScaB->Items->Add(240);
       cboxScanIntTimeScaB->Items->Add(480);
+      cboxScanIntTimeScaB->SelectedItem = 120;
       cboxManualIntTimeExt->Items->Add(24);
       cboxManualIntTimeExt->Items->Add(60);
       cboxManualIntTimeExt->Items->Add(120);
       cboxManualIntTimeExt->Items->Add(240);
       cboxManualIntTimeExt->Items->Add(480);
-      cboxManualIntTimeExt->SelectedItem = 24;
+      cboxManualIntTimeExt->SelectedItem = 120;
       cboxManualIntTimeSca->Items->Add(24);
       cboxManualIntTimeSca->Items->Add(60);
       cboxManualIntTimeSca->Items->Add(120);
       cboxManualIntTimeSca->Items->Add(240);
       cboxManualIntTimeSca->Items->Add(480);
-      cboxManualIntTimeSca->SelectedItem = 24;
+      cboxManualIntTimeSca->SelectedItem = 120;
 
       //
       //TODO: Add the constructor code here
@@ -632,7 +643,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanIntTimeExtR->Name = L"cboxScanIntTimeExtR";
         this->cboxScanIntTimeExtR->Size = System::Drawing::Size(57, 21);
         this->cboxScanIntTimeExtR->TabIndex = 68;
-        this->cboxScanIntTimeExtR->Text = L"24";
+        this->cboxScanIntTimeExtR->Text = L"120";
         this->cboxScanIntTimeExtR->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanIntTimeExtR_SelectedIndexChanged);
         // 
         // cboxScanIntTimeExtG
@@ -645,7 +656,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanIntTimeExtG->Name = L"cboxScanIntTimeExtG";
         this->cboxScanIntTimeExtG->Size = System::Drawing::Size(57, 21);
         this->cboxScanIntTimeExtG->TabIndex = 69;
-        this->cboxScanIntTimeExtG->Text = L"24";
+        this->cboxScanIntTimeExtG->Text = L"120";
         this->cboxScanIntTimeExtG->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanIntTimeExtG_SelectedIndexChanged);
         // 
         // cboxScanIntTimeExtB
@@ -658,7 +669,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanIntTimeExtB->Name = L"cboxScanIntTimeExtB";
         this->cboxScanIntTimeExtB->Size = System::Drawing::Size(57, 21);
         this->cboxScanIntTimeExtB->TabIndex = 70;
-        this->cboxScanIntTimeExtB->Text = L"24";
+        this->cboxScanIntTimeExtB->Text = L"120";
         this->cboxScanIntTimeExtB->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanIntTimeExtB_SelectedIndexChanged);
         // 
         // cboxScanIntTimeScaB
@@ -671,7 +682,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanIntTimeScaB->Name = L"cboxScanIntTimeScaB";
         this->cboxScanIntTimeScaB->Size = System::Drawing::Size(57, 21);
         this->cboxScanIntTimeScaB->TabIndex = 73;
-        this->cboxScanIntTimeScaB->Text = L"24";
+        this->cboxScanIntTimeScaB->Text = L"120";
         this->cboxScanIntTimeScaB->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanIntTimeScaB_SelectedIndexChanged);
         // 
         // cboxScanIntTimeScaG
@@ -684,7 +695,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanIntTimeScaG->Name = L"cboxScanIntTimeScaG";
         this->cboxScanIntTimeScaG->Size = System::Drawing::Size(57, 21);
         this->cboxScanIntTimeScaG->TabIndex = 72;
-        this->cboxScanIntTimeScaG->Text = L"24";
+        this->cboxScanIntTimeScaG->Text = L"120";
         this->cboxScanIntTimeScaG->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanIntTimeScaG_SelectedIndexChanged);
         // 
         // cboxScanIntTimeScaR
@@ -697,7 +708,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanIntTimeScaR->Name = L"cboxScanIntTimeScaR";
         this->cboxScanIntTimeScaR->Size = System::Drawing::Size(57, 21);
         this->cboxScanIntTimeScaR->TabIndex = 71;
-        this->cboxScanIntTimeScaR->Text = L"24";
+        this->cboxScanIntTimeScaR->Text = L"120";
         this->cboxScanIntTimeScaR->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanIntTimeScaR_SelectedIndexChanged);
         // 
         // labIntTimeSca
@@ -781,7 +792,7 @@ namespace CppCLRWinFormsProject {
         this->cboxManualIntTimeSca->Name = L"cboxManualIntTimeSca";
         this->cboxManualIntTimeSca->Size = System::Drawing::Size(57, 21);
         this->cboxManualIntTimeSca->TabIndex = 92;
-        this->cboxManualIntTimeSca->Text = L"24";
+        this->cboxManualIntTimeSca->Text = L"120";
         // 
         // cboxManualIntTimeExt
         // 
@@ -793,7 +804,7 @@ namespace CppCLRWinFormsProject {
         this->cboxManualIntTimeExt->Name = L"cboxManualIntTimeExt";
         this->cboxManualIntTimeExt->Size = System::Drawing::Size(57, 21);
         this->cboxManualIntTimeExt->TabIndex = 91;
-        this->cboxManualIntTimeExt->Text = L"24";
+        this->cboxManualIntTimeExt->Text = L"120";
         // 
         // labManualIntTimeExt
         // 
@@ -816,7 +827,6 @@ namespace CppCLRWinFormsProject {
         this->nudManualLEDB->Name = L"nudManualLEDB";
         this->nudManualLEDB->Size = System::Drawing::Size(57, 22);
         this->nudManualLEDB->TabIndex = 87;
-        this->nudManualLEDB->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
         // 
         // nudManualLEDG
         // 
@@ -828,7 +838,6 @@ namespace CppCLRWinFormsProject {
         this->nudManualLEDG->Name = L"nudManualLEDG";
         this->nudManualLEDG->Size = System::Drawing::Size(57, 22);
         this->nudManualLEDG->TabIndex = 86;
-        this->nudManualLEDG->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
         // 
         // nudManualLEDR
         // 
@@ -896,7 +905,7 @@ namespace CppCLRWinFormsProject {
         this->cboxManualGainSca->Name = L"cboxManualGainSca";
         this->cboxManualGainSca->Size = System::Drawing::Size(57, 21);
         this->cboxManualGainSca->TabIndex = 95;
-        this->cboxManualGainSca->Text = L"1";
+        this->cboxManualGainSca->Text = L"60";
         // 
         // cboxManualGainExt
         // 
@@ -908,7 +917,7 @@ namespace CppCLRWinFormsProject {
         this->cboxManualGainExt->Name = L"cboxManualGainExt";
         this->cboxManualGainExt->Size = System::Drawing::Size(57, 21);
         this->cboxManualGainExt->TabIndex = 94;
-        this->cboxManualGainExt->Text = L"1";
+        this->cboxManualGainExt->Text = L"60";
         this->cboxManualGainExt->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxManualGainExt_SelectedIndexChanged);
         // 
         // btnSet
@@ -947,7 +956,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanGainScaB->Name = L"cboxScanGainScaB";
         this->cboxScanGainScaB->Size = System::Drawing::Size(57, 21);
         this->cboxScanGainScaB->TabIndex = 103;
-        this->cboxScanGainScaB->Text = L"1";
+        this->cboxScanGainScaB->Text = L"60";
         this->cboxScanGainScaB->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanGainScaB_SelectedIndexChanged);
         // 
         // cboxScanGainScaG
@@ -960,7 +969,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanGainScaG->Name = L"cboxScanGainScaG";
         this->cboxScanGainScaG->Size = System::Drawing::Size(57, 21);
         this->cboxScanGainScaG->TabIndex = 102;
-        this->cboxScanGainScaG->Text = L"1";
+        this->cboxScanGainScaG->Text = L"60";
         this->cboxScanGainScaG->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanGainScaG_SelectedIndexChanged);
         // 
         // cboxScanGainScaR
@@ -973,7 +982,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanGainScaR->Name = L"cboxScanGainScaR";
         this->cboxScanGainScaR->Size = System::Drawing::Size(57, 21);
         this->cboxScanGainScaR->TabIndex = 101;
-        this->cboxScanGainScaR->Text = L"1";
+        this->cboxScanGainScaR->Text = L"60";
         this->cboxScanGainScaR->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanGainScaR_SelectedIndexChanged);
         // 
         // cboxScanGainExtB
@@ -986,7 +995,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanGainExtB->Name = L"cboxScanGainExtB";
         this->cboxScanGainExtB->Size = System::Drawing::Size(57, 21);
         this->cboxScanGainExtB->TabIndex = 100;
-        this->cboxScanGainExtB->Text = L"1";
+        this->cboxScanGainExtB->Text = L"60";
         this->cboxScanGainExtB->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanGainExtB_SelectedIndexChanged);
         // 
         // cboxScanGainExtG
@@ -999,7 +1008,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanGainExtG->Name = L"cboxScanGainExtG";
         this->cboxScanGainExtG->Size = System::Drawing::Size(57, 21);
         this->cboxScanGainExtG->TabIndex = 99;
-        this->cboxScanGainExtG->Text = L"1";
+        this->cboxScanGainExtG->Text = L"60";
         this->cboxScanGainExtG->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanGainExtG_SelectedIndexChanged);
         // 
         // cboxScanGainExtR
@@ -1012,7 +1021,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanGainExtR->Name = L"cboxScanGainExtR";
         this->cboxScanGainExtR->Size = System::Drawing::Size(57, 21);
         this->cboxScanGainExtR->TabIndex = 98;
-        this->cboxScanGainExtR->Text = L"1";
+        this->cboxScanGainExtR->Text = L"60";
         this->cboxScanGainExtR->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanGainExtR_SelectedIndexChanged);
         // 
         // tbMeasExtR
