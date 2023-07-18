@@ -1184,35 +1184,6 @@ private: System::Void labLEDR_Click(System::Object^ sender, System::EventArgs^ e
 }
 private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {
 }
-private: System::Void btnScan_Click(System::Object^ sender, System::EventArgs^ e) {
-    if (serialManager1->IsOpen())
-    {   
-        //Set LED RGB
-        String^ serialOut = "#SETTINGSLEDRGB " + System::Convert::ToString(scanSettings->LEDR) + " " + System::Convert::ToString(scanSettings->LEDG) + " " + System::Convert::ToString(scanSettings->LEDB);
-        serialManager1->EnqueueSendCommand(serialOut);        
-        
-        //Set Gains
-        serialOut = "#SETTINGSGAINS " + System::Convert::ToString(scanSettings->GainExtR) + " " + System::Convert::ToString(scanSettings->GainExtG) + " " + System::Convert::ToString(scanSettings->GainExtB);
-        serialOut = serialOut + " " + System::Convert::ToString(scanSettings->GainScaR) + " " + System::Convert::ToString(scanSettings->GainScaG) + " " + System::Convert::ToString(scanSettings->GainScaB);
-        serialManager1->EnqueueSendCommand(serialOut);
-
-        //Set IntTimes
-        serialOut = "#SETTINGSINTTIMESS " + System::Convert::ToString(scanSettings->IntTimeExtR) + " " + System::Convert::ToString(scanSettings->IntTimeExtG) + " " + System::Convert::ToString(scanSettings->IntTimeExtB);
-        serialOut = serialOut + " " + System::Convert::ToString(scanSettings->IntTimeScaR) + " " + System::Convert::ToString(scanSettings->IntTimeScaG) + " " + System::Convert::ToString(scanSettings->IntTimeScaB);
-        serialManager1->EnqueueSendCommand(serialOut);
-
-        //Send the queued commands and process the received ones
-        serialManager1->SendQueuedCommands();
-        System::Threading::Thread::Sleep(1000);
-        serialManager1->ProcessReceivedCommands(meas);    
-
-    }
-    else
-    {
-        UpdatertbSerialReceived("Serial port not open");
-    }
-    
-}
 private: System::Void labNumSamples_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void btnMakeGetMsmt_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1480,9 +1451,151 @@ private: System::Void btnManualMsmt_Click(System::Object^ sender, System::EventA
     tbMeasScaR->Text = System::Convert::ToString(meas->MeasScaR);
     tbMeasScaG->Text = System::Convert::ToString(meas->MeasScaG);
     tbMeasScaB->Text = System::Convert::ToString(meas->MeasScaB);
-    
-
 }
+private: System::Void btnScan_Click(System::Object^ sender, System::EventArgs^ e) {
+    //First update settings in scanSettings object from front panel
+    updateScanSettings();
+
+    if (serialManager1->IsOpen())
+    {   
+        //Update instrumentSettings from scanSettings RED
+        instrumentSettings->LEDR = scanSettings->LEDR;
+        instrumentSettings->LEDG = 0;
+        instrumentSettings->LEDB = 0;
+        instrumentSettings->GainExt = scanSettings->GainExtR;
+        instrumentSettings->GainSca = scanSettings->GainScaR;
+        instrumentSettings->IntTimeExt = scanSettings->IntTimeExtR;
+        instrumentSettings->IntTimeSca = scanSettings->IntTimeScaR;
+        //Serial command to update instrument settings
+        serialManager1->EnqueueSendCommand(instrumentSettings->SerialSet());
+        serialManager1->SendQueuedCommands();
+        System::Threading::Thread::Sleep(500);
+        serialManager1->ProcessReceivedCommands(meas);
+        //Read Extinction data
+        serialManager1->EnqueueSendCommand("#READEXT \n");
+        serialManager1->SendQueuedCommands();
+        int sleepTime = 2000 + instrumentSettings->IntTimeExt;
+        System::Threading::Thread::Sleep(sleepTime);
+        serialManager1->ProcessReceivedCommands(meas);
+        //Update the measurement boxes on the panel
+        tbMeasTime->Text = meas->MeasTime;
+        tbMeasExtR->Text = System::Convert::ToString(meas->MeasExtR);
+        tbMeasExtG->Text = System::Convert::ToString(meas->MeasExtG);
+        tbMeasExtB->Text = System::Convert::ToString(meas->MeasExtB);
+        //Read Scattering data
+        serialManager1->EnqueueSendCommand("#READSCA \n");
+        serialManager1->SendQueuedCommands();
+        sleepTime = 2000 + instrumentSettings->IntTimeSca;
+        System::Threading::Thread::Sleep(sleepTime);
+        serialManager1->ProcessReceivedCommands(meas);
+        //Update the measurement boxes on the panel
+        tbMeasTime->Text = meas->MeasTime;
+        tbMeasScaR->Text = System::Convert::ToString(meas->MeasScaR);
+        tbMeasScaG->Text = System::Convert::ToString(meas->MeasScaG);
+        tbMeasScaB->Text = System::Convert::ToString(meas->MeasScaB);
+
+
+        //Update instrumentSettings from scanSettings GREEN
+        instrumentSettings->LEDR = 0;
+        instrumentSettings->LEDG = scanSettings->LEDG;
+        instrumentSettings->LEDB = 0;
+        instrumentSettings->GainExt = scanSettings->GainExtG;
+        instrumentSettings->GainSca = scanSettings->GainScaG;
+        instrumentSettings->IntTimeExt = scanSettings->IntTimeExtG;
+        instrumentSettings->IntTimeSca = scanSettings->IntTimeScaG;
+        //Serial command to update instrument settings
+        serialManager1->EnqueueSendCommand(instrumentSettings->SerialSet());
+        serialManager1->SendQueuedCommands();
+        System::Threading::Thread::Sleep(500);
+        serialManager1->ProcessReceivedCommands(meas);
+        //Read Extinction data
+        serialManager1->EnqueueSendCommand("#READEXT \n");
+        serialManager1->SendQueuedCommands();
+        sleepTime = 2000 + instrumentSettings->IntTimeExt;
+        System::Threading::Thread::Sleep(sleepTime);
+        serialManager1->ProcessReceivedCommands(meas);
+        //Update the measurement boxes on the panel
+        tbMeasTime->Text = meas->MeasTime;
+        tbMeasExtR->Text = System::Convert::ToString(meas->MeasExtR);
+        tbMeasExtG->Text = System::Convert::ToString(meas->MeasExtG);
+        tbMeasExtB->Text = System::Convert::ToString(meas->MeasExtB);
+        //Read Scattering data
+        serialManager1->EnqueueSendCommand("#READSCA \n");
+        serialManager1->SendQueuedCommands();
+        sleepTime = 2000 + instrumentSettings->IntTimeSca;
+        System::Threading::Thread::Sleep(sleepTime);
+        serialManager1->ProcessReceivedCommands(meas);
+        //Update the measurement boxes on the panel
+        tbMeasTime->Text = meas->MeasTime;
+        tbMeasScaR->Text = System::Convert::ToString(meas->MeasScaR);
+        tbMeasScaG->Text = System::Convert::ToString(meas->MeasScaG);
+        tbMeasScaB->Text = System::Convert::ToString(meas->MeasScaB);
+
+        //Update instrumentSettings from scanSettings BLUE
+        instrumentSettings->LEDR = 0;
+        instrumentSettings->LEDG = 0;
+        instrumentSettings->LEDB = scanSettings->LEDB;
+        instrumentSettings->GainExt = scanSettings->GainExtB;
+        instrumentSettings->GainSca = scanSettings->GainScaB;
+        instrumentSettings->IntTimeExt = scanSettings->IntTimeExtB;
+        instrumentSettings->IntTimeSca = scanSettings->IntTimeScaB;
+        //Serial command to update instrument settings
+        serialManager1->EnqueueSendCommand(instrumentSettings->SerialSet());
+        serialManager1->SendQueuedCommands();
+        System::Threading::Thread::Sleep(500);
+        serialManager1->ProcessReceivedCommands(meas);
+        //Read Extinction data
+        serialManager1->EnqueueSendCommand("#READEXT \n");
+        serialManager1->SendQueuedCommands();
+        sleepTime = 2000 + instrumentSettings->IntTimeExt;
+        System::Threading::Thread::Sleep(sleepTime);
+        serialManager1->ProcessReceivedCommands(meas);
+        //Update the measurement boxes on the panel
+        tbMeasTime->Text = meas->MeasTime;
+        tbMeasExtR->Text = System::Convert::ToString(meas->MeasExtR);
+        tbMeasExtG->Text = System::Convert::ToString(meas->MeasExtG);
+        tbMeasExtB->Text = System::Convert::ToString(meas->MeasExtB);
+        //Read Scattering data
+        serialManager1->EnqueueSendCommand("#READSCA \n");
+        serialManager1->SendQueuedCommands();
+        sleepTime = 2000 + instrumentSettings->IntTimeSca;
+        System::Threading::Thread::Sleep(sleepTime);
+        serialManager1->ProcessReceivedCommands(meas);
+        //Update the measurement boxes on the panel
+        tbMeasTime->Text = meas->MeasTime;
+        tbMeasScaR->Text = System::Convert::ToString(meas->MeasScaR);
+        tbMeasScaG->Text = System::Convert::ToString(meas->MeasScaG);
+        tbMeasScaB->Text = System::Convert::ToString(meas->MeasScaB);
+
+
+
+    }
+    else
+    {
+        UpdatertbSerialReceived("Serial port not open");
+    }
+    
+}
+
+//Update scanSettings object from front panel
+private: System::Void updateScanSettings() {
+    scanSettings->LEDR = static_cast<int>(nudScanLEDR->Value);
+    scanSettings->LEDG = static_cast<int>(nudScanLEDG->Value);
+    scanSettings->LEDB = static_cast<int>(nudScanLEDB->Value);
+    scanSettings->GainExtR = static_cast<int>(cboxScanGainExtR->SelectedItem);
+    scanSettings->GainExtG = static_cast<int>(cboxScanGainExtG->SelectedItem);
+    scanSettings->GainExtB = static_cast<int>(cboxScanGainExtB->SelectedItem);
+    scanSettings->GainScaR = static_cast<int>(cboxScanGainScaR->SelectedItem);
+    scanSettings->GainScaG = static_cast<int>(cboxScanGainScaG->SelectedItem);
+    scanSettings->GainScaB = static_cast<int>(cboxScanGainScaB->SelectedItem);
+    scanSettings->IntTimeExtR = static_cast<int>(cboxScanIntTimeExtR->SelectedItem);
+    scanSettings->IntTimeExtG = static_cast<int>(cboxScanIntTimeExtG->SelectedItem);
+    scanSettings->IntTimeExtB = static_cast<int>(cboxScanIntTimeExtB->SelectedItem);
+    scanSettings->IntTimeScaR = static_cast<int>(cboxScanIntTimeScaR->SelectedItem);
+    scanSettings->IntTimeScaG = static_cast<int>(cboxScanIntTimeScaG->SelectedItem);
+    scanSettings->IntTimeScaB = static_cast<int>(cboxScanIntTimeScaB->SelectedItem);
+}
+
 
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
