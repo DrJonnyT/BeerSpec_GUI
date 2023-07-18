@@ -114,6 +114,9 @@ namespace CppCLRWinFormsProject {
       System::Windows::Forms::Button^ btnScan;  
 
       System::Windows::Forms::Button^ btnSave;
+  private: System::Windows::Forms::CheckBox^ checkboxAutoSave;
+
+
 
 
 
@@ -366,6 +369,7 @@ namespace CppCLRWinFormsProject {
         this->tbMeasScaB = (gcnew System::Windows::Forms::TextBox());
         this->tbMeasScaG = (gcnew System::Windows::Forms::TextBox());
         this->tbMeasScaR = (gcnew System::Windows::Forms::TextBox());
+        this->checkboxAutoSave = (gcnew System::Windows::Forms::CheckBox());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDB))->BeginInit();
@@ -1090,11 +1094,25 @@ namespace CppCLRWinFormsProject {
         this->tbMeasScaR->Size = System::Drawing::Size(84, 22);
         this->tbMeasScaR->TabIndex = 107;
         // 
+        // checkboxAutoSave
+        // 
+        this->checkboxAutoSave->AutoSize = true;
+        this->checkboxAutoSave->Checked = true;
+        this->checkboxAutoSave->CheckState = System::Windows::Forms::CheckState::Checked;
+        this->checkboxAutoSave->Location = System::Drawing::Point(627, 545);
+        this->checkboxAutoSave->Name = L"checkboxAutoSave";
+        this->checkboxAutoSave->Size = System::Drawing::Size(73, 17);
+        this->checkboxAutoSave->TabIndex = 110;
+        this->checkboxAutoSave->Text = L"AutoSave";
+        this->checkboxAutoSave->UseVisualStyleBackColor = true;
+        this->checkboxAutoSave->CheckedChanged += gcnew System::EventHandler(this, &Form1::cbAutoSave_CheckedChanged);
+        // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(834, 577);
+        this->Controls->Add(this->checkboxAutoSave);
         this->Controls->Add(this->tbMeasScaB);
         this->Controls->Add(this->tbMeasScaG);
         this->Controls->Add(this->tbMeasScaR);
@@ -1451,6 +1469,12 @@ private: System::Void btnManualMsmt_Click(System::Object^ sender, System::EventA
     tbMeasScaR->Text = System::Convert::ToString(meas->MeasScaR);
     tbMeasScaG->Text = System::Convert::ToString(meas->MeasScaG);
     tbMeasScaB->Text = System::Convert::ToString(meas->MeasScaB);
+
+    //Save if autosave is ticked
+    if (checkboxAutoSave->Checked)
+    {
+        csvSaver->SaveDataToFile(instrumentSettings, meas);
+    }
 }
 private: System::Void btnScan_Click(System::Object^ sender, System::EventArgs^ e) {
     //First update settings in scanSettings object from front panel
@@ -1522,33 +1546,45 @@ private: System::Void setRead() {
     serialManager1->SendQueuedCommands();
     System::Threading::Thread::Sleep(500);
     serialManager1->ProcessReceivedCommands(meas);
+
     //Read Extinction data
     serialManager1->EnqueueSendCommand("#READEXT \n");
     serialManager1->SendQueuedCommands();
     int sleepTime = 2000 + instrumentSettings->IntTimeExt;
     System::Threading::Thread::Sleep(sleepTime);
     serialManager1->ProcessReceivedCommands(meas);
+
     //Update the measurement boxes on the panel
     tbMeasTime->Text = meas->MeasTime;
     tbMeasExtR->Text = System::Convert::ToString(meas->MeasExtR);
     tbMeasExtG->Text = System::Convert::ToString(meas->MeasExtG);
     tbMeasExtB->Text = System::Convert::ToString(meas->MeasExtB);
+
     //Read Scattering data
     serialManager1->EnqueueSendCommand("#READSCA \n");
     serialManager1->SendQueuedCommands();
     sleepTime = 2000 + instrumentSettings->IntTimeSca;
     System::Threading::Thread::Sleep(sleepTime);
     serialManager1->ProcessReceivedCommands(meas);
+
     //Update the measurement boxes on the panel
     tbMeasTime->Text = meas->MeasTime;
     tbMeasScaR->Text = System::Convert::ToString(meas->MeasScaR);
     tbMeasScaG->Text = System::Convert::ToString(meas->MeasScaG);
     tbMeasScaB->Text = System::Convert::ToString(meas->MeasScaB);
+
+    //Save if autosave is ticked
+    if (checkboxAutoSave->Checked)
+    {
+        csvSaver->SaveDataToFile(instrumentSettings, meas);
+    }
 }
 
 
 
 
+private: System::Void cbAutoSave_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+}
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
 
