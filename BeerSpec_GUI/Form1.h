@@ -386,9 +386,9 @@ namespace CppCLRWinFormsProject {
             static_cast<System::Byte>(0)));
         this->labScanSettings->Location = System::Drawing::Point(12, 9);
         this->labScanSettings->Name = L"labScanSettings";
-        this->labScanSettings->Size = System::Drawing::Size(173, 24);
+        this->labScanSettings->Size = System::Drawing::Size(221, 24);
         this->labScanSettings->TabIndex = 5;
-        this->labScanSettings->Text = L"SCAN SETTINGS";
+        this->labScanSettings->Text = L"RGB SCAN SETTINGS";
         this->labScanSettings->Click += gcnew System::EventHandler(this, &Form1::label1_Click);
         // 
         // labScanLED
@@ -396,7 +396,7 @@ namespace CppCLRWinFormsProject {
         this->labScanLED->AutoSize = true;
         this->labScanLED->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labScanLED->Location = System::Drawing::Point(12, 38);
+        this->labScanLED->Location = System::Drawing::Point(12, 41);
         this->labScanLED->Name = L"labScanLED";
         this->labScanLED->Size = System::Drawing::Size(44, 20);
         this->labScanLED->TabIndex = 12;
@@ -452,11 +452,11 @@ namespace CppCLRWinFormsProject {
         this->btnScan->BackColor = System::Drawing::Color::Khaki;
         this->btnScan->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->btnScan->Location = System::Drawing::Point(372, 439);
+        this->btnScan->Location = System::Drawing::Point(411, 447);
         this->btnScan->Name = L"btnScan";
-        this->btnScan->Size = System::Drawing::Size(75, 33);
+        this->btnScan->Size = System::Drawing::Size(91, 59);
         this->btnScan->TabIndex = 31;
-        this->btnScan->Text = L"SCAN";
+        this->btnScan->Text = L"RGB\r\nSCAN";
         this->btnScan->UseVisualStyleBackColor = false;
         this->btnScan->Click += gcnew System::EventHandler(this, &Form1::btnScan_Click);
         // 
@@ -528,7 +528,7 @@ namespace CppCLRWinFormsProject {
         this->nudScanLEDR->BackColor = System::Drawing::Color::LightCoral;
         this->nudScanLEDR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->nudScanLEDR->Location = System::Drawing::Point(111, 36);
+        this->nudScanLEDR->Location = System::Drawing::Point(111, 39);
         this->nudScanLEDR->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 255, 0, 0, 0 });
         this->nudScanLEDR->Name = L"nudScanLEDR";
         this->nudScanLEDR->Size = System::Drawing::Size(57, 22);
@@ -541,7 +541,7 @@ namespace CppCLRWinFormsProject {
         this->nudScanLEDG->BackColor = System::Drawing::Color::LightGreen;
         this->nudScanLEDG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->nudScanLEDG->Location = System::Drawing::Point(196, 36);
+        this->nudScanLEDG->Location = System::Drawing::Point(196, 39);
         this->nudScanLEDG->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 255, 0, 0, 0 });
         this->nudScanLEDG->Name = L"nudScanLEDG";
         this->nudScanLEDG->Size = System::Drawing::Size(57, 22);
@@ -553,7 +553,7 @@ namespace CppCLRWinFormsProject {
         this->nudScanLEDB->BackColor = System::Drawing::Color::DeepSkyBlue;
         this->nudScanLEDB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->nudScanLEDB->Location = System::Drawing::Point(276, 36);
+        this->nudScanLEDB->Location = System::Drawing::Point(276, 39);
         this->nudScanLEDB->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 255, 0, 0, 0 });
         this->nudScanLEDB->Name = L"nudScanLEDB";
         this->nudScanLEDB->Size = System::Drawing::Size(57, 22);
@@ -586,7 +586,7 @@ namespace CppCLRWinFormsProject {
         this->btnSave->BackColor = System::Drawing::Color::Khaki;
         this->btnSave->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->btnSave->Location = System::Drawing::Point(473, 539);
+        this->btnSave->Location = System::Drawing::Point(411, 541);
         this->btnSave->Name = L"btnSave";
         this->btnSave->Size = System::Drawing::Size(148, 26);
         this->btnSave->TabIndex = 63;
@@ -826,34 +826,37 @@ namespace CppCLRWinFormsProject {
         this->nudManualLEDB->BackColor = System::Drawing::Color::DeepSkyBlue;
         this->nudManualLEDB->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->nudManualLEDB->Location = System::Drawing::Point(679, 36);
+        this->nudManualLEDB->Location = System::Drawing::Point(679, 39);
         this->nudManualLEDB->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 255, 0, 0, 0 });
         this->nudManualLEDB->Name = L"nudManualLEDB";
         this->nudManualLEDB->Size = System::Drawing::Size(57, 22);
         this->nudManualLEDB->TabIndex = 87;
+        this->nudManualLEDB->ValueChanged += gcnew System::EventHandler(this, &Form1::nudManualLEDB_ValueChanged);
         // 
         // nudManualLEDG
         // 
         this->nudManualLEDG->BackColor = System::Drawing::Color::LightGreen;
         this->nudManualLEDG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->nudManualLEDG->Location = System::Drawing::Point(599, 36);
+        this->nudManualLEDG->Location = System::Drawing::Point(599, 39);
         this->nudManualLEDG->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 255, 0, 0, 0 });
         this->nudManualLEDG->Name = L"nudManualLEDG";
         this->nudManualLEDG->Size = System::Drawing::Size(57, 22);
         this->nudManualLEDG->TabIndex = 86;
+        this->nudManualLEDG->ValueChanged += gcnew System::EventHandler(this, &Form1::nudManualLEDG_ValueChanged);
         // 
         // nudManualLEDR
         // 
         this->nudManualLEDR->BackColor = System::Drawing::Color::LightCoral;
         this->nudManualLEDR->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->nudManualLEDR->Location = System::Drawing::Point(514, 36);
+        this->nudManualLEDR->Location = System::Drawing::Point(514, 39);
         this->nudManualLEDR->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 255, 0, 0, 0 });
         this->nudManualLEDR->Name = L"nudManualLEDR";
         this->nudManualLEDR->Size = System::Drawing::Size(57, 22);
         this->nudManualLEDR->TabIndex = 85;
         this->nudManualLEDR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudManualLEDR->ValueChanged += gcnew System::EventHandler(this, &Form1::nudManualLEDR_ValueChanged);
         // 
         // labManualGainSca
         // 
@@ -882,7 +885,7 @@ namespace CppCLRWinFormsProject {
         this->labManualLED->AutoSize = true;
         this->labManualLED->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labManualLED->Location = System::Drawing::Point(415, 38);
+        this->labManualLED->Location = System::Drawing::Point(415, 41);
         this->labManualLED->Name = L"labManualLED";
         this->labManualLED->Size = System::Drawing::Size(44, 20);
         this->labManualLED->TabIndex = 82;
@@ -905,7 +908,7 @@ namespace CppCLRWinFormsProject {
         this->cboxManualGainSca->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
         this->cboxManualGainSca->FormattingEnabled = true;
-        this->cboxManualGainSca->Location = System::Drawing::Point(514, 100);
+        this->cboxManualGainSca->Location = System::Drawing::Point(514, 99);
         this->cboxManualGainSca->Name = L"cboxManualGainSca";
         this->cboxManualGainSca->Size = System::Drawing::Size(57, 21);
         this->cboxManualGainSca->TabIndex = 95;
@@ -917,7 +920,7 @@ namespace CppCLRWinFormsProject {
         this->cboxManualGainExt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
         this->cboxManualGainExt->FormattingEnabled = true;
-        this->cboxManualGainExt->Location = System::Drawing::Point(514, 73);
+        this->cboxManualGainExt->Location = System::Drawing::Point(514, 70);
         this->cboxManualGainExt->Name = L"cboxManualGainExt";
         this->cboxManualGainExt->Size = System::Drawing::Size(57, 21);
         this->cboxManualGainExt->TabIndex = 94;
@@ -942,11 +945,11 @@ namespace CppCLRWinFormsProject {
         this->btnManualMsmt->BackColor = System::Drawing::Color::Khaki;
         this->btnManualMsmt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->btnManualMsmt->Location = System::Drawing::Point(565, 426);
+        this->btnManualMsmt->Location = System::Drawing::Point(514, 447);
         this->btnManualMsmt->Name = L"btnManualMsmt";
         this->btnManualMsmt->Size = System::Drawing::Size(185, 59);
         this->btnManualMsmt->TabIndex = 97;
-        this->btnManualMsmt->Text = L"MAKE MANUAL\r\nMEASUREMENT";
+        this->btnManualMsmt->Text = L"MANUAL\r\nMEASUREMENT";
         this->btnManualMsmt->UseVisualStyleBackColor = false;
         this->btnManualMsmt->Click += gcnew System::EventHandler(this, &Form1::btnManualMsmt_Click);
         // 
@@ -1099,7 +1102,7 @@ namespace CppCLRWinFormsProject {
         this->checkboxAutoSave->AutoSize = true;
         this->checkboxAutoSave->Checked = true;
         this->checkboxAutoSave->CheckState = System::Windows::Forms::CheckState::Checked;
-        this->checkboxAutoSave->Location = System::Drawing::Point(627, 545);
+        this->checkboxAutoSave->Location = System::Drawing::Point(565, 547);
         this->checkboxAutoSave->Name = L"checkboxAutoSave";
         this->checkboxAutoSave->Size = System::Drawing::Size(73, 17);
         this->checkboxAutoSave->TabIndex = 110;
@@ -1584,6 +1587,12 @@ private: System::Void setRead() {
 
 
 private: System::Void cbAutoSave_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void nudManualLEDR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void nudManualLEDG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void nudManualLEDB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
