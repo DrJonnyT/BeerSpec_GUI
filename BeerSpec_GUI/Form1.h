@@ -115,6 +115,10 @@ namespace CppCLRWinFormsProject {
 
       System::Windows::Forms::Button^ btnSave;
   private: System::Windows::Forms::CheckBox^ checkboxAutoSave;
+  private: System::Windows::Forms::Button^ btnGainCal;
+  private: System::Windows::Forms::Button^ btnIntTimeCal;
+  private: System::Windows::Forms::Button^ btnLEDCal;
+
 
 
 
@@ -370,6 +374,9 @@ namespace CppCLRWinFormsProject {
         this->tbMeasScaG = (gcnew System::Windows::Forms::TextBox());
         this->tbMeasScaR = (gcnew System::Windows::Forms::TextBox());
         this->checkboxAutoSave = (gcnew System::Windows::Forms::CheckBox());
+        this->btnGainCal = (gcnew System::Windows::Forms::Button());
+        this->btnIntTimeCal = (gcnew System::Windows::Forms::Button());
+        this->btnLEDCal = (gcnew System::Windows::Forms::Button());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDB))->BeginInit();
@@ -452,7 +459,7 @@ namespace CppCLRWinFormsProject {
         this->btnScan->BackColor = System::Drawing::Color::Khaki;
         this->btnScan->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->btnScan->Location = System::Drawing::Point(411, 447);
+        this->btnScan->Location = System::Drawing::Point(411, 397);
         this->btnScan->Name = L"btnScan";
         this->btnScan->Size = System::Drawing::Size(91, 59);
         this->btnScan->TabIndex = 31;
@@ -506,7 +513,7 @@ namespace CppCLRWinFormsProject {
         // 
         // tbNotes
         // 
-        this->tbNotes->Location = System::Drawing::Point(84, 518);
+        this->tbNotes->Location = System::Drawing::Point(84, 512);
         this->tbNotes->Name = L"tbNotes";
         this->tbNotes->Size = System::Drawing::Size(310, 20);
         this->tbNotes->TabIndex = 43;
@@ -517,7 +524,7 @@ namespace CppCLRWinFormsProject {
         this->labNotes->AutoSize = true;
         this->labNotes->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labNotes->Location = System::Drawing::Point(12, 516);
+        this->labNotes->Location = System::Drawing::Point(12, 510);
         this->labNotes->Name = L"labNotes";
         this->labNotes->Size = System::Drawing::Size(61, 20);
         this->labNotes->TabIndex = 44;
@@ -576,7 +583,7 @@ namespace CppCLRWinFormsProject {
         // 
         this->tbFolderPath->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->tbFolderPath->Location = System::Drawing::Point(128, 545);
+        this->tbFolderPath->Location = System::Drawing::Point(128, 541);
         this->tbFolderPath->Name = L"tbFolderPath";
         this->tbFolderPath->Size = System::Drawing::Size(266, 22);
         this->tbFolderPath->TabIndex = 62;
@@ -586,7 +593,7 @@ namespace CppCLRWinFormsProject {
         this->btnSave->BackColor = System::Drawing::Color::Khaki;
         this->btnSave->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->btnSave->Location = System::Drawing::Point(411, 541);
+        this->btnSave->Location = System::Drawing::Point(411, 537);
         this->btnSave->Name = L"btnSave";
         this->btnSave->Size = System::Drawing::Size(148, 26);
         this->btnSave->TabIndex = 63;
@@ -599,7 +606,7 @@ namespace CppCLRWinFormsProject {
         this->labFolderPath->AutoSize = true;
         this->labFolderPath->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->labFolderPath->Location = System::Drawing::Point(12, 545);
+        this->labFolderPath->Location = System::Drawing::Point(12, 541);
         this->labFolderPath->Name = L"labFolderPath";
         this->labFolderPath->Size = System::Drawing::Size(110, 20);
         this->labFolderPath->TabIndex = 64;
@@ -945,7 +952,7 @@ namespace CppCLRWinFormsProject {
         this->btnManualMsmt->BackColor = System::Drawing::Color::Khaki;
         this->btnManualMsmt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->btnManualMsmt->Location = System::Drawing::Point(514, 447);
+        this->btnManualMsmt->Location = System::Drawing::Point(411, 462);
         this->btnManualMsmt->Name = L"btnManualMsmt";
         this->btnManualMsmt->Size = System::Drawing::Size(185, 59);
         this->btnManualMsmt->TabIndex = 97;
@@ -1102,7 +1109,7 @@ namespace CppCLRWinFormsProject {
         this->checkboxAutoSave->AutoSize = true;
         this->checkboxAutoSave->Checked = true;
         this->checkboxAutoSave->CheckState = System::Windows::Forms::CheckState::Checked;
-        this->checkboxAutoSave->Location = System::Drawing::Point(565, 547);
+        this->checkboxAutoSave->Location = System::Drawing::Point(565, 543);
         this->checkboxAutoSave->Name = L"checkboxAutoSave";
         this->checkboxAutoSave->Size = System::Drawing::Size(73, 17);
         this->checkboxAutoSave->TabIndex = 110;
@@ -1110,11 +1117,53 @@ namespace CppCLRWinFormsProject {
         this->checkboxAutoSave->UseVisualStyleBackColor = true;
         this->checkboxAutoSave->CheckedChanged += gcnew System::EventHandler(this, &Form1::cbAutoSave_CheckedChanged);
         // 
+        // btnGainCal
+        // 
+        this->btnGainCal->BackColor = System::Drawing::Color::Khaki;
+        this->btnGainCal->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->btnGainCal->Location = System::Drawing::Point(681, 397);
+        this->btnGainCal->Name = L"btnGainCal";
+        this->btnGainCal->Size = System::Drawing::Size(113, 59);
+        this->btnGainCal->TabIndex = 111;
+        this->btnGainCal->Text = L"GAIN\r\nCAL";
+        this->btnGainCal->UseVisualStyleBackColor = false;
+        this->btnGainCal->Click += gcnew System::EventHandler(this, &Form1::btnGainCal_Click);
+        // 
+        // btnIntTimeCal
+        // 
+        this->btnIntTimeCal->BackColor = System::Drawing::Color::Khaki;
+        this->btnIntTimeCal->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->btnIntTimeCal->Location = System::Drawing::Point(681, 462);
+        this->btnIntTimeCal->Name = L"btnIntTimeCal";
+        this->btnIntTimeCal->Size = System::Drawing::Size(113, 59);
+        this->btnIntTimeCal->TabIndex = 112;
+        this->btnIntTimeCal->Text = L"INT TIME\r\nCAL";
+        this->btnIntTimeCal->UseVisualStyleBackColor = false;
+        this->btnIntTimeCal->Click += gcnew System::EventHandler(this, &Form1::btnIntTimeCal_Click);
+        // 
+        // btnLEDCal
+        // 
+        this->btnLEDCal->BackColor = System::Drawing::Color::Khaki;
+        this->btnLEDCal->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->btnLEDCal->Location = System::Drawing::Point(681, 527);
+        this->btnLEDCal->Name = L"btnLEDCal";
+        this->btnLEDCal->Size = System::Drawing::Size(113, 40);
+        this->btnLEDCal->TabIndex = 113;
+        this->btnLEDCal->Text = L"LED CAL";
+        this->btnLEDCal->UseVisualStyleBackColor = false;
+        this->btnLEDCal->Click += gcnew System::EventHandler(this, &Form1::btnLEDCal_Click);
+        // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-        this->ClientSize = System::Drawing::Size(834, 577);
+        this->ClientSize = System::Drawing::Size(802, 577);
+        this->Controls->Add(this->btnLEDCal);
+        this->Controls->Add(this->btnIntTimeCal);
+        this->Controls->Add(this->btnGainCal);
         this->Controls->Add(this->checkboxAutoSave);
         this->Controls->Add(this->tbMeasScaB);
         this->Controls->Add(this->tbMeasScaG);
@@ -1598,6 +1647,18 @@ private: System::Void nudManualLEDR_ValueChanged(System::Object^ sender, System:
 private: System::Void nudManualLEDG_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void nudManualLEDB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void btnGainCal_Click(System::Object^ sender, System::EventArgs^ e) {
+    //Loop through the different gain settings 
+    //Probably do it with the LED set to R, G, or B
+}
+private: System::Void btnIntTimeCal_Click(System::Object^ sender, System::EventArgs^ e) {
+    //Loop through the different int times
+    //Probably do it with the LED set to R, G, or B
+}
+private: System::Void btnLEDCal_Click(System::Object^ sender, System::EventArgs^ e) {
+    //Loop through some different LED setting between 0 - 255
+    //Separate R, G, B rather than all at once
 }
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
