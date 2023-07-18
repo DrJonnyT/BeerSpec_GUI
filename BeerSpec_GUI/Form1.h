@@ -1485,35 +1485,40 @@ private: System::Void btnScan_Click(System::Object^ sender, System::EventArgs^ e
 
     if (serialManager1->IsOpen())
     {   
-        //Update instrumentSettings from scanSettings RED
-        instrumentSettings->LEDR = scanSettings->LEDR;
-        instrumentSettings->LEDG = 0;
-        instrumentSettings->LEDB = 0;
-        instrumentSettings->GainExt = scanSettings->GainExtR;
-        instrumentSettings->GainSca = scanSettings->GainScaR;
-        instrumentSettings->IntTimeExt = scanSettings->IntTimeExtR;
-        instrumentSettings->IntTimeSca = scanSettings->IntTimeScaR;
-        setRead();
+        //Loop through the number of samples to take
+        for(int i=0; i<nudNumSamples->Value;i++)
+        {
+            //Update instrumentSettings from scanSettings RED
+            instrumentSettings->LEDR = scanSettings->LEDR;
+            instrumentSettings->LEDG = 0;
+            instrumentSettings->LEDB = 0;
+            instrumentSettings->GainExt = scanSettings->GainExtR;
+            instrumentSettings->GainSca = scanSettings->GainScaR;
+            instrumentSettings->IntTimeExt = scanSettings->IntTimeExtR;
+            instrumentSettings->IntTimeSca = scanSettings->IntTimeScaR;
+            setRead();
 
-        //Update instrumentSettings from scanSettings GREEN
-        instrumentSettings->LEDR = 0;
-        instrumentSettings->LEDG = scanSettings->LEDG;
-        instrumentSettings->LEDB = 0;
-        instrumentSettings->GainExt = scanSettings->GainExtG;
-        instrumentSettings->GainSca = scanSettings->GainScaG;
-        instrumentSettings->IntTimeExt = scanSettings->IntTimeExtG;
-        instrumentSettings->IntTimeSca = scanSettings->IntTimeScaG;
-        setRead();
+            //Update instrumentSettings from scanSettings GREEN
+            instrumentSettings->LEDR = 0;
+            instrumentSettings->LEDG = scanSettings->LEDG;
+            instrumentSettings->LEDB = 0;
+            instrumentSettings->GainExt = scanSettings->GainExtG;
+            instrumentSettings->GainSca = scanSettings->GainScaG;
+            instrumentSettings->IntTimeExt = scanSettings->IntTimeExtG;
+            instrumentSettings->IntTimeSca = scanSettings->IntTimeScaG;
+            setRead();
 
-        //Update instrumentSettings from scanSettings BLUE
-        instrumentSettings->LEDR = 0;
-        instrumentSettings->LEDG = 0;
-        instrumentSettings->LEDB = scanSettings->LEDB;
-        instrumentSettings->GainExt = scanSettings->GainExtB;
-        instrumentSettings->GainSca = scanSettings->GainScaB;
-        instrumentSettings->IntTimeExt = scanSettings->IntTimeExtB;
-        instrumentSettings->IntTimeSca = scanSettings->IntTimeScaB;
-        setRead();
+            //Update instrumentSettings from scanSettings BLUE
+            instrumentSettings->LEDR = 0;
+            instrumentSettings->LEDG = 0;
+            instrumentSettings->LEDB = scanSettings->LEDB;
+            instrumentSettings->GainExt = scanSettings->GainExtB;
+            instrumentSettings->GainSca = scanSettings->GainScaB;
+            instrumentSettings->IntTimeExt = scanSettings->IntTimeExtB;
+            instrumentSettings->IntTimeSca = scanSettings->IntTimeScaB;
+            setRead();
+        }
+        
 
 
     }
