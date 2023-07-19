@@ -945,7 +945,7 @@ namespace CppCLRWinFormsProject {
         this->btnSet->BackColor = System::Drawing::Color::Khaki;
         this->btnSet->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
-        this->btnSet->Location = System::Drawing::Point(642, 115);
+        this->btnSet->Location = System::Drawing::Point(418, 195);
         this->btnSet->Name = L"btnSet";
         this->btnSet->Size = System::Drawing::Size(75, 33);
         this->btnSet->TabIndex = 96;
@@ -1168,7 +1168,7 @@ namespace CppCLRWinFormsProject {
         this->btnLEDOff->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
             static_cast<System::Byte>(0)));
         this->btnLEDOff->ForeColor = System::Drawing::Color::Black;
-        this->btnLEDOff->Location = System::Drawing::Point(642, 183);
+        this->btnLEDOff->Location = System::Drawing::Point(715, 171);
         this->btnLEDOff->Name = L"btnLEDOff";
         this->btnLEDOff->Size = System::Drawing::Size(75, 57);
         this->btnLEDOff->TabIndex = 114;
