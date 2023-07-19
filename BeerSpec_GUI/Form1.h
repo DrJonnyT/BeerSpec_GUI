@@ -1199,7 +1199,7 @@ namespace CppCLRWinFormsProject {
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-        this->ClientSize = System::Drawing::Size(802, 652);
+        this->ClientSize = System::Drawing::Size(802, 633);
         this->Controls->Add(this->labConsole);
         this->Controls->Add(this->rtbConsole);
         this->Controls->Add(this->btnLEDOff);
@@ -1372,20 +1372,15 @@ private: System::Void cboxCOMPort_SelectedIndexChanged(System::Object^ sender, S
 
 
     // Check if the serial port is open
-    if (serialManager1->IsOpen())
+    if (serialManager1->Check())
     {
-        Console::WriteLine("Serial port is open. Ready to send/receive data.");
-        // Perform operations when the serial port is open
+        UpdatertbConsole("Serial port is open. Ready to send/receive data.");
     }
     else
     {
-        Console::WriteLine("Failed to open the serial port.");
-        UpdatertbSerialReceived("not open");
+        UpdatertbConsole("Serial port failed to connect");
     }
 
-
-
-    //}
 }
 private: System::Void nudMeasExtR_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 }
@@ -1519,8 +1514,10 @@ private: System::Void cboxScanGainScaB_SelectedIndexChanged(System::Object^ send
     scanSettings->GainScaB = System::Convert::ToInt32(cboxScanGainScaB->SelectedValue);
 }
 private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e) {
-    if (serialManager1->IsOpen())
+    if (serialManager1->Check())
     {
+        UpdatertbConsole("Using manual settings");
+
         //Update the instrumentSettings object
         instrumentSettings->LEDR = static_cast<int>(nudManualLEDR->Value);
 
@@ -1531,25 +1528,8 @@ private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e)
         instrumentSettings->IntTimeExt = static_cast<int>(cboxManualIntTimeExt->SelectedItem);
         instrumentSettings->IntTimeSca = static_cast<int>(cboxManualIntTimeSca->SelectedItem);
 
-
-        //Set LED RGB
-        //String^ serialOut = instrumentSettings->SerialCommand();
+        //Send the serial command
         serialManager1->EnqueueSendCommand(instrumentSettings->SerialSet());
-
-        //String^ serialOut = "#SETTINGSLEDRGB " + System::Convert::ToString(scanSettings->LEDR) + " " + System::Convert::ToString(scanSettings->LEDG) + " " + System::Convert::ToString(scanSettings->LEDB);
-        //serialManager1->EnqueueSendCommand(serialOut);
-
-        ////Set Gains
-        //serialOut = "#SETTINGSGAINS " + System::Convert::ToString(scanSettings->GainExtR) + " " + System::Convert::ToString(scanSettings->GainExtG) + " " + System::Convert::ToString(scanSettings->GainExtB);
-        //serialOut = serialOut + " " + System::Convert::ToString(scanSettings->GainScaR) + " " + System::Convert::ToString(scanSettings->GainScaG) + " " + System::Convert::ToString(scanSettings->GainScaB);
-        //serialManager1->EnqueueSendCommand(serialOut);
-
-        ////Set IntTimes
-        //serialOut = "#SETTINGSINTTIMESS " + System::Convert::ToString(scanSettings->IntTimeExtR) + " " + System::Convert::ToString(scanSettings->IntTimeExtG) + " " + System::Convert::ToString(scanSettings->IntTimeExtB);
-        //serialOut = serialOut + " " + System::Convert::ToString(scanSettings->IntTimeScaR) + " " + System::Convert::ToString(scanSettings->IntTimeScaG) + " " + System::Convert::ToString(scanSettings->IntTimeScaB);
-        //serialManager1->EnqueueSendCommand(serialOut);
-
-        //Send the queued commands and process the received ones
         serialManager1->SendQueuedCommands();
         System::Threading::Thread::Sleep(1000);
         serialManager1->ProcessReceivedCommands(meas);
@@ -1561,42 +1541,52 @@ private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e)
     }
 }
 private: System::Void btnManualMsmt_Click(System::Object^ sender, System::EventArgs^ e) {
-    //Read Extinction data
-    serialManager1->EnqueueSendCommand("#READEXT");
-    serialManager1->SendQueuedCommands();
-    //Time to sleep for, in ms. This should be longer than it takes to make a measurement
-    int sleepTime = 2000 + instrumentSettings->IntTimeExt;
-    System::Threading::Thread::Sleep(sleepTime);
-    serialManager1->ProcessReceivedCommands(meas);
-    //Update the measurement boxes on the panel
-    tbMeasTime->Text = meas->MeasTime;
-    tbMeasExtR->Text = System::Convert::ToString(meas->MeasExtR);
-    tbMeasExtG->Text = System::Convert::ToString(meas->MeasExtG);
-    tbMeasExtB->Text = System::Convert::ToString(meas->MeasExtB);
-
-    //Read Scattering data
-    serialManager1->EnqueueSendCommand("#READSCA");
-    serialManager1->SendQueuedCommands();
-    System::Threading::Thread::Sleep(sleepTime);
-    serialManager1->ProcessReceivedCommands(meas);
-    //Update the measurement boxes on the panel
-    tbMeasTime->Text = meas->MeasTime;
-    tbMeasScaR->Text = System::Convert::ToString(meas->MeasScaR);
-    tbMeasScaG->Text = System::Convert::ToString(meas->MeasScaG);
-    tbMeasScaB->Text = System::Convert::ToString(meas->MeasScaB);
-
-    //Save if autosave is ticked
-    if (checkboxAutoSave->Checked)
+    if (serialManager1->Check())
     {
-        csvSaver->SaveDataToFile(instrumentSettings, meas);
+        UpdatertbConsole("Manual measurement");
+        //Read Extinction data
+        serialManager1->EnqueueSendCommand("#READEXT");
+        serialManager1->SendQueuedCommands();
+        //Time to sleep for, in ms. This should be longer than it takes to make a measurement
+        int sleepTime = 2000 + instrumentSettings->IntTimeExt;
+        System::Threading::Thread::Sleep(sleepTime);
+        serialManager1->ProcessReceivedCommands(meas);
+        //Update the measurement boxes on the panel
+        tbMeasTime->Text = meas->MeasTime;
+        tbMeasExtR->Text = System::Convert::ToString(meas->MeasExtR);
+        tbMeasExtG->Text = System::Convert::ToString(meas->MeasExtG);
+        tbMeasExtB->Text = System::Convert::ToString(meas->MeasExtB);
+
+        //Read Scattering data
+        serialManager1->EnqueueSendCommand("#READSCA");
+        serialManager1->SendQueuedCommands();
+        System::Threading::Thread::Sleep(sleepTime);
+        serialManager1->ProcessReceivedCommands(meas);
+        //Update the measurement boxes on the panel
+        tbMeasTime->Text = meas->MeasTime;
+        tbMeasScaR->Text = System::Convert::ToString(meas->MeasScaR);
+        tbMeasScaG->Text = System::Convert::ToString(meas->MeasScaG);
+        tbMeasScaB->Text = System::Convert::ToString(meas->MeasScaB);
+
+        //Save if autosave is ticked
+        if (checkboxAutoSave->Checked)
+        {
+            csvSaver->SaveDataToFile(instrumentSettings, meas);
+        }
+    }
+    else
+    {
+        UpdatertbConsole("Serial port not open");
     }
 }
 private: System::Void btnScan_Click(System::Object^ sender, System::EventArgs^ e) {
     //First update settings in scanSettings object from front panel
     updateScanSettings();
 
-    if (serialManager1->IsOpen())
+    if (serialManager1->Check())
     {   
+        UpdatertbConsole("Starting RGB scan");
+
         //Loop through the number of samples to take
         for(int i=0; i<nudNumSamples->Value;i++)
         {
@@ -1631,7 +1621,7 @@ private: System::Void btnScan_Click(System::Object^ sender, System::EventArgs^ e
             setRead();
         }
         
-
+    UpdatertbConsole("RGB scan finished");
 
     }
     else
@@ -1659,6 +1649,7 @@ private: System::Void updateScanSettings() {
     scanSettings->IntTimeScaG = static_cast<int>(cboxScanIntTimeScaG->SelectedItem);
     scanSettings->IntTimeScaB = static_cast<int>(cboxScanIntTimeScaB->SelectedItem);
 }
+
 //#SETALL, #READEXT, and #READSCA commands, one after the other
 private: System::Void setRead() {
     //Serial command to update instrument settings
@@ -1712,158 +1703,190 @@ private: System::Void nudManualLEDG_ValueChanged(System::Object^ sender, System:
 private: System::Void nudManualLEDB_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void btnGainCal_Click(System::Object^ sender, System::EventArgs^ e) {
-    //Loop through the different gain settings 
-    array<int>^ gainArray = gcnew array<int>(4) { 1, 4, 16, 60 };
-
-    //Set int times
-    instrumentSettings->IntTimeExt = 120;
-    instrumentSettings->IntTimeSca = 120;
-
-    //Set LED to red
-    instrumentSettings->LEDR = 128;
-    instrumentSettings->LEDG = 0;
-    instrumentSettings->LEDB = 0;
-    meas->Notes = "Gain Cal Red";
-    tbNotes->Text = "Gain Cal Red";
-
-    //Loop through the different gains
-    for each (int gain in gainArray)
+    if (serialManager1->Check())
     {
-        instrumentSettings->GainExt = gain;
-        instrumentSettings->GainSca = gain;
-        setRead();
+        UpdatertbConsole("Starting gain calibration");
+
+        //Loop through the different gain settings 
+        array<int>^ gainArray = gcnew array<int>(4) { 1, 4, 16, 60 };
+
+        //Set int times
+        instrumentSettings->IntTimeExt = 120;
+        instrumentSettings->IntTimeSca = 120;
+
+        //Set LED to red
+        instrumentSettings->LEDR = 128;
+        instrumentSettings->LEDG = 0;
+        instrumentSettings->LEDB = 0;
+        meas->Notes = "Gain Cal Red";
+        tbNotes->Text = "Gain Cal Red";
+
+        //Loop through the different gains
+        for each (int gain in gainArray)
+        {
+            instrumentSettings->GainExt = gain;
+            instrumentSettings->GainSca = gain;
+            setRead();
+        }
+
+        //Set LED to green
+        instrumentSettings->LEDR = 0;
+        instrumentSettings->LEDG = 128;
+        instrumentSettings->LEDB = 0;
+        meas->Notes = "Gain Cal Green";
+        tbNotes->Text = "Gain Cal Green";
+
+        //Loop through the different gains
+        for each (int gain in gainArray)
+        {
+            instrumentSettings->GainExt = gain;
+            instrumentSettings->GainSca = gain;
+            setRead();
+        }
+
+        //Set LED to blue
+        instrumentSettings->LEDR = 0;
+        instrumentSettings->LEDG = 0;
+        instrumentSettings->LEDB = 128;
+        meas->Notes = "Gain Cal Blue";
+        tbNotes->Text = "Gain Cal Blue";
+
+        //Loop through the different gains
+        for each (int gain in gainArray)
+        {
+            instrumentSettings->GainExt = gain;
+            instrumentSettings->GainSca = gain;
+            setRead();
+        }
+        UpdatertbConsole("Finished gain calibration");
     }
-
-    //Set LED to green
-    instrumentSettings->LEDR = 0;
-    instrumentSettings->LEDG = 128;
-    instrumentSettings->LEDB = 0;
-    meas->Notes = "Gain Cal Green";
-    tbNotes->Text = "Gain Cal Green";
-
-    //Loop through the different gains
-    for each (int gain in gainArray)
+    else
     {
-        instrumentSettings->GainExt = gain;
-        instrumentSettings->GainSca = gain;
-        setRead();
-    }
-
-    //Set LED to blue
-    instrumentSettings->LEDR = 0;
-    instrumentSettings->LEDG = 0;
-    instrumentSettings->LEDB = 128;
-    meas->Notes = "Gain Cal Blue";
-    tbNotes->Text = "Gain Cal Blue";
-
-    //Loop through the different gains
-    for each (int gain in gainArray)
-    {
-        instrumentSettings->GainExt = gain;
-        instrumentSettings->GainSca = gain;
-        setRead();
+        UpdatertbConsole("Serial port not open");
     }
 }
 private: System::Void btnIntTimeCal_Click(System::Object^ sender, System::EventArgs^ e) {
-    //Loop through the different int times
-    array<int>^ intTimeArray = gcnew array<int>(5) { 24, 60, 120, 240, 480 };
-
-    //Set gains
-    instrumentSettings->GainExt = 16;
-    instrumentSettings->GainSca = 16;
-
-    //Set LED to red
-    instrumentSettings->LEDR = 128;
-    instrumentSettings->LEDG = 0;
-    instrumentSettings->LEDB = 0;
-    meas->Notes = "IntTime Cal Red";
-    tbNotes->Text = "IntTime Cal Red";
-
-    //Loop through the different int times
-    for each (int intTime in intTimeArray)
+    if (serialManager1->Check())
     {
-        instrumentSettings->IntTimeExt = intTime;
-        instrumentSettings->IntTimeSca = intTime;
-        setRead();
+        UpdatertbConsole("Starting integration time calibration");
+        //Loop through the different int times
+        array<int>^ intTimeArray = gcnew array<int>(5) { 24, 60, 120, 240, 480 };
+
+        //Set gains
+        instrumentSettings->GainExt = 16;
+        instrumentSettings->GainSca = 16;
+
+        //Set LED to red
+        instrumentSettings->LEDR = 128;
+        instrumentSettings->LEDG = 0;
+        instrumentSettings->LEDB = 0;
+        meas->Notes = "IntTime Cal Red";
+        tbNotes->Text = "IntTime Cal Red";
+
+        //Loop through the different int times
+        for each (int intTime in intTimeArray)
+        {
+            instrumentSettings->IntTimeExt = intTime;
+            instrumentSettings->IntTimeSca = intTime;
+            setRead();
+        }
+
+        //Set LED to green
+        instrumentSettings->LEDR = 0;
+        instrumentSettings->LEDG = 128;
+        instrumentSettings->LEDB = 0;
+        meas->Notes = "IntTime Cal Green";
+        tbNotes->Text = "IntTime Cal Green";
+
+        //Loop through the different int times
+        for each (int intTime in intTimeArray)
+        {
+            instrumentSettings->IntTimeExt = intTime;
+            instrumentSettings->IntTimeSca = intTime;
+            setRead();
+        }
+
+        //Set LED to blue
+        instrumentSettings->LEDR = 0;
+        instrumentSettings->LEDG = 0;
+        instrumentSettings->LEDB = 128;
+        meas->Notes = "IntTime Cal Blue";
+        tbNotes->Text = "IntTime Cal Blue";
+
+        //Loop through the different int times
+        for each (int intTime in intTimeArray)
+        {
+            instrumentSettings->IntTimeExt = intTime;
+            instrumentSettings->IntTimeSca = intTime;
+            setRead();
+        }
+
+        UpdatertbConsole("Finished integration time calibration");
+    }
+    else
+    {
+        UpdatertbConsole("Serial port not open");
     }
 
-    //Set LED to green
-    instrumentSettings->LEDR = 0;
-    instrumentSettings->LEDG = 128;
-    instrumentSettings->LEDB = 0;
-    meas->Notes = "IntTime Cal Green";
-    tbNotes->Text = "IntTime Cal Green";
-
-    //Loop through the different int times
-    for each (int intTime in intTimeArray)
-    {
-        instrumentSettings->IntTimeExt = intTime;
-        instrumentSettings->IntTimeSca = intTime;
-        setRead();
-    }
-
-    //Set LED to blue
-    instrumentSettings->LEDR = 0;
-    instrumentSettings->LEDG = 0;
-    instrumentSettings->LEDB = 128;
-    meas->Notes = "IntTime Cal Blue";
-    tbNotes->Text = "IntTime Cal Blue";
-
-    //Loop through the different int times
-    for each (int intTime in intTimeArray)
-    {
-        instrumentSettings->IntTimeExt = intTime;
-        instrumentSettings->IntTimeSca = intTime;
-        setRead();
-    }
 }
 private: System::Void btnLEDCal_Click(System::Object^ sender, System::EventArgs^ e) {
-    //Loop through some different LED setting between 0 - 255
-    array<int>^ ledArray = gcnew array<int>(8) { 31, 63, 95, 127, 159, 191, 223, 255 };
-
-    //Set gains and int times
-    instrumentSettings->GainExt = 60;
-    instrumentSettings->GainSca = 60;
-    instrumentSettings->IntTimeExt = 120;
-    instrumentSettings->IntTimeSca = 120;
-
-    //Loop through the LED settings for red
-    meas->Notes = "LED Cal Red";
-    tbNotes->Text = "LED Cal Red";
-    for each (int led in ledArray)
+    
+    if (serialManager1->Check())
     {
-        instrumentSettings->LEDR = led;
-        instrumentSettings->LEDG = 0;
-        instrumentSettings->LEDB = 0;
-        setRead();
+        UpdatertbConsole("Starting LED calibration");
+
+        //Loop through some different LED setting between 0 - 255
+        array<int>^ ledArray = gcnew array<int>(8) { 31, 63, 95, 127, 159, 191, 223, 255 };
+
+        //Set gains and int times
+        instrumentSettings->GainExt = 60;
+        instrumentSettings->GainSca = 60;
+        instrumentSettings->IntTimeExt = 120;
+        instrumentSettings->IntTimeSca = 120;
+
+        //Loop through the LED settings for red
+        meas->Notes = "LED Cal Red";
+        tbNotes->Text = "LED Cal Red";
+        for each (int led in ledArray)
+        {
+            instrumentSettings->LEDR = led;
+            instrumentSettings->LEDG = 0;
+            instrumentSettings->LEDB = 0;
+            setRead();
+        }
+
+        //Loop through the LED settings for green
+        meas->Notes = "LED Cal Green";
+        tbNotes->Text = "LED Cal Green";
+        for each (int led in ledArray)
+        {
+            instrumentSettings->LEDR = 0;
+            instrumentSettings->LEDG = led;
+            instrumentSettings->LEDB = 0;
+            setRead();
+        }
+
+        //Loop through the LED settings for blue
+        meas->Notes = "LED Cal Blue";
+        tbNotes->Text = "LED Cal Blue";
+        for each (int led in ledArray)
+        {
+            instrumentSettings->LEDR = 0;
+            instrumentSettings->LEDG = 0;
+            instrumentSettings->LEDB = led;
+            setRead();
+        }
+        UpdatertbConsole("Finished LED calibration");
     }
-
-    //Loop through the LED settings for green
-    meas->Notes = "LED Cal Green";
-    tbNotes->Text = "LED Cal Green";
-    for each (int led in ledArray)
+    else
     {
-        instrumentSettings->LEDR = 0;
-        instrumentSettings->LEDG = led;
-        instrumentSettings->LEDB = 0;
-        setRead();
-    }
-
-    //Loop through the LED settings for blue
-    meas->Notes = "LED Cal Blue";
-    tbNotes->Text = "LED Cal Blue";
-    for each (int led in ledArray)
-    {
-        instrumentSettings->LEDR = 0;
-        instrumentSettings->LEDG = 0;
-        instrumentSettings->LEDB = led;
-        setRead();
+        UpdatertbConsole("Serial port not open");
     }
 
 }
 private: System::Void btnLEDOff_Click(System::Object^ sender, System::EventArgs^ e) {
     //Turn off the LED
-    if (serialManager1->IsOpen())
+    if (serialManager1->Check())
     {
         serialManager1->EnqueueSendCommand("#LEDOFF \n");
         serialManager1->SendQueuedCommands();
