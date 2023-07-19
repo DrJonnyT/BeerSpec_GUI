@@ -119,6 +119,8 @@ namespace CppCLRWinFormsProject {
   private: System::Windows::Forms::Button^ btnIntTimeCal;
   private: System::Windows::Forms::Button^ btnLEDCal;
   private: System::Windows::Forms::Button^ btnLEDOff;
+  private: System::Windows::Forms::Label^ labConsole;
+  private: System::Windows::Forms::RichTextBox^ rtbConsole;
 
 
 
@@ -379,6 +381,8 @@ namespace CppCLRWinFormsProject {
         this->btnIntTimeCal = (gcnew System::Windows::Forms::Button());
         this->btnLEDCal = (gcnew System::Windows::Forms::Button());
         this->btnLEDOff = (gcnew System::Windows::Forms::Button());
+        this->labConsole = (gcnew System::Windows::Forms::Label());
+        this->rtbConsole = (gcnew System::Windows::Forms::RichTextBox());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDB))->BeginInit();
@@ -1172,11 +1176,32 @@ namespace CppCLRWinFormsProject {
         this->btnLEDOff->UseVisualStyleBackColor = false;
         this->btnLEDOff->Click += gcnew System::EventHandler(this, &Form1::btnLEDOff_Click);
         // 
+        // labConsole
+        // 
+        this->labConsole->AutoSize = true;
+        this->labConsole->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->labConsole->Location = System::Drawing::Point(13, 573);
+        this->labConsole->Name = L"labConsole";
+        this->labConsole->Size = System::Drawing::Size(65, 13);
+        this->labConsole->TabIndex = 116;
+        this->labConsole->Text = L"CONSOLE";
+        // 
+        // rtbConsole
+        // 
+        this->rtbConsole->Location = System::Drawing::Point(84, 573);
+        this->rtbConsole->Name = L"rtbConsole";
+        this->rtbConsole->Size = System::Drawing::Size(710, 57);
+        this->rtbConsole->TabIndex = 115;
+        this->rtbConsole->Text = L"";
+        // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-        this->ClientSize = System::Drawing::Size(802, 577);
+        this->ClientSize = System::Drawing::Size(802, 652);
+        this->Controls->Add(this->labConsole);
+        this->Controls->Add(this->rtbConsole);
         this->Controls->Add(this->btnLEDOff);
         this->Controls->Add(this->btnLEDCal);
         this->Controls->Add(this->btnIntTimeCal);
@@ -1452,6 +1477,27 @@ void UpdatertbSerialReceived(System::String^ data) {
     }
 
 }
+void UpdatertbConsole(System::String^ data) {
+    //First add datetime
+    String^ dateTimeNowStr = System::DateTime::Now.ToString("yyyy-MM-dd HH:mm:ss");
+    //Remove whitespace from the ends
+    data = data->Trim();
+
+    // Check if the formatted data is empty
+    if (!System::String::IsNullOrEmpty(data)) {
+        // Add the formatted data to the RichTextBox with the desired formatting
+        rtbConsole->AppendText(dateTimeNowStr + ": " + data + "\n");
+
+        //Scroll to the end of the richtextbox
+        rtbConsole->SelectionStart = rtbConsole->Text->Length;
+        rtbConsole->ScrollToCaret();
+    }
+
+}
+
+
+
+
 private: System::Void cboxScanGainExtR_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
     scanSettings->GainExtR = System::Convert::ToInt32(cboxScanGainExtR->SelectedValue);
 }
@@ -1511,7 +1557,7 @@ private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e)
     }
     else
     {
-        UpdatertbSerialReceived("Serial port not open");
+        UpdatertbConsole("Serial port not open");
     }
 }
 private: System::Void btnManualMsmt_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1590,7 +1636,7 @@ private: System::Void btnScan_Click(System::Object^ sender, System::EventArgs^ e
     }
     else
     {
-        UpdatertbSerialReceived("Serial port not open");
+        UpdatertbConsole("Serial port not open");
     }
     
 }
@@ -1823,10 +1869,11 @@ private: System::Void btnLEDOff_Click(System::Object^ sender, System::EventArgs^
         serialManager1->SendQueuedCommands();
         System::Threading::Thread::Sleep(500);
         serialManager1->ProcessReceivedCommands(meas);
+        UpdatertbConsole("LED off");
     }
     else
     {
-        UpdatertbSerialReceived("Serial port not open");
+        UpdatertbConsole("Serial port not open");
     }
 }
 }; // end of class Form1
