@@ -34,6 +34,42 @@ void SerialManager::Close()
     }
 }
 
+//Check it's communicating with the instrument
+bool SerialManager::Check()
+{
+    if (this->IsOpen())
+    {
+        //Send the check command
+        this->EnqueueSendCommand("#CHECKSERIAL");
+        this->SendQueuedCommands();
+        System::Threading::Thread::Sleep(500);
+
+        //If no response, serial not working
+        if (m_receivedCommandQueue->Count == 0)
+        {
+            return false;
+        }
+        else
+        {
+            String^ command = m_receivedCommandQueue->Dequeue();
+            if (command->StartsWith("@SERIALOK"))
+            {
+                //The only correct response
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+    }
+    else
+    {
+        return false;
+    }
+}
+
 bool SerialManager::IsOpen()
 {
     return m_serialPort->IsOpen;

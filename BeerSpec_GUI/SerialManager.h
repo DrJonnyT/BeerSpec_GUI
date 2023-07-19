@@ -26,6 +26,7 @@ public:
     SerialManager();
     void Open();
     void Close();
+    bool Check();
     bool IsOpen();
     void EnqueueSendCommand(String^ command);
     void ProcessReceivedCommands(MeasClass^ meas);
