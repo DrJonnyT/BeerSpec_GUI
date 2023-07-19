@@ -1650,7 +1650,6 @@ private: System::Void nudManualLEDB_ValueChanged(System::Object^ sender, System:
 }
 private: System::Void btnGainCal_Click(System::Object^ sender, System::EventArgs^ e) {
     //Loop through the different gain settings 
-    //Probably do it with the LED set to R, G, or B
     array<int>^ gainArray = gcnew array<int>(4) { 1, 4, 16, 60 };
 
     //Set int times
@@ -1701,13 +1700,59 @@ private: System::Void btnGainCal_Click(System::Object^ sender, System::EventArgs
         instrumentSettings->GainSca = gain;
         setRead();
     }
-
-
-
 }
 private: System::Void btnIntTimeCal_Click(System::Object^ sender, System::EventArgs^ e) {
     //Loop through the different int times
-    //Probably do it with the LED set to R, G, or B
+    array<int>^ intTimeArray = gcnew array<int>(5) { 24, 60, 120, 240, 480 };
+
+    //Set gains
+    instrumentSettings->GainExt = 16;
+    instrumentSettings->GainSca = 16;
+
+    //Set LED to red
+    instrumentSettings->LEDR = 128;
+    instrumentSettings->LEDG = 0;
+    instrumentSettings->LEDB = 0;
+    meas->Notes = "IntTime Cal Red";
+    tbNotes->Text = "IntTime Cal Red";
+
+    //Loop through the different int times
+    for each (int intTime in intTimeArray)
+    {
+        instrumentSettings->IntTimeExt = intTime;
+        instrumentSettings->IntTimeSca = intTime;
+        setRead();
+    }
+
+    //Set LED to green
+    instrumentSettings->LEDR = 0;
+    instrumentSettings->LEDG = 128;
+    instrumentSettings->LEDB = 0;
+    meas->Notes = "IntTime Cal Green";
+    tbNotes->Text = "IntTime Cal Green";
+
+    //Loop through the different int times
+    for each (int intTime in intTimeArray)
+    {
+        instrumentSettings->IntTimeExt = intTime;
+        instrumentSettings->IntTimeSca = intTime;
+        setRead();
+    }
+
+    //Set LED to blue
+    instrumentSettings->LEDR = 0;
+    instrumentSettings->LEDG = 0;
+    instrumentSettings->LEDB = 128;
+    meas->Notes = "IntTime Cal Blue";
+    tbNotes->Text = "IntTime Cal Blue";
+
+    //Loop through the different int times
+    for each (int intTime in intTimeArray)
+    {
+        instrumentSettings->IntTimeExt = intTime;
+        instrumentSettings->IntTimeSca = intTime;
+        setRead();
+    }
 }
 private: System::Void btnLEDCal_Click(System::Object^ sender, System::EventArgs^ e) {
     //Loop through some different LED setting between 0 - 255
