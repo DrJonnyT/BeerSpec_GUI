@@ -121,7 +121,11 @@ void SerialManager::SendQueuedCommands()
         if (m_serialPort != nullptr)
         {
             m_serialPort->WriteLine(command);
-            UpdateSendCommandsTextBox(command);
+            //Don't print to the textbox if it's the serial check
+            if (command != "#CHECKSERIAL")
+            {
+                UpdateSendCommandsTextBox(command);
+            }
         }
     }
 }
