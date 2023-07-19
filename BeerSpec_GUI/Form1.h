@@ -1651,6 +1651,59 @@ private: System::Void nudManualLEDB_ValueChanged(System::Object^ sender, System:
 private: System::Void btnGainCal_Click(System::Object^ sender, System::EventArgs^ e) {
     //Loop through the different gain settings 
     //Probably do it with the LED set to R, G, or B
+    array<int>^ gainArray = gcnew array<int>(4) { 1, 4, 16, 60 };
+
+    //Set int times
+    instrumentSettings->IntTimeExt = 120;
+    instrumentSettings->IntTimeSca = 120;
+
+    //Set LED to red
+    instrumentSettings->LEDR = 128;
+    instrumentSettings->LEDG = 0;
+    instrumentSettings->LEDB = 0;
+    meas->Notes = "Gain Cal Red";
+    tbNotes->Text = "Gain Cal Red";
+
+    //Loop through the different gains
+    for each (int gain in gainArray)
+    {
+        instrumentSettings->GainExt = gain;
+        instrumentSettings->GainSca = gain;
+        setRead();
+    }
+
+    //Set LED to green
+    instrumentSettings->LEDR = 0;
+    instrumentSettings->LEDG = 128;
+    instrumentSettings->LEDB = 0;
+    meas->Notes = "Gain Cal Green";
+    tbNotes->Text = "Gain Cal Green";
+
+    //Loop through the different gains
+    for each (int gain in gainArray)
+    {
+        instrumentSettings->GainExt = gain;
+        instrumentSettings->GainSca = gain;
+        setRead();
+    }
+
+    //Set LED to blue
+    instrumentSettings->LEDR = 0;
+    instrumentSettings->LEDG = 0;
+    instrumentSettings->LEDB = 128;
+    meas->Notes = "Gain Cal Blue";
+    tbNotes->Text = "Gain Cal Blue";
+
+    //Loop through the different gains
+    for each (int gain in gainArray)
+    {
+        instrumentSettings->GainExt = gain;
+        instrumentSettings->GainSca = gain;
+        setRead();
+    }
+
+
+
 }
 private: System::Void btnIntTimeCal_Click(System::Object^ sender, System::EventArgs^ e) {
     //Loop through the different int times
