@@ -14,14 +14,15 @@ using namespace System::Windows::Forms;
 ref class SerialManager
 {
 private:
-    SerialPort^ serialPort;
-    Queue<String^>^ sendCommandQueue;
-    Queue<String^>^ receivedCommandQueue;
-    RichTextBox^ rtbSendCommands;
-    RichTextBox^ rtbReceivedCommands;
+    SerialPort^ m_serialPort;
+    Queue<String^>^ m_sendCommandQueue;
+    Queue<String^>^ m_receivedCommandQueue;
+    RichTextBox^ m_rtbSendCommands;
+    RichTextBox^ m_rtbReceivedCommands;
+    RichTextBox^ m_rtbConsole;
 
 public:
-    SerialManager(String^ portName, int baudRate, RichTextBox^ sendCommandsTextBox, RichTextBox^ receivedCommandsTextBox);
+    SerialManager(String^ portName, int baudRate, RichTextBox^ sendCommandsTextBox, RichTextBox^ receivedCommandsTextBox, RichTextBox^ consoleTextBox);
     SerialManager();
     void Open();
     void Close();

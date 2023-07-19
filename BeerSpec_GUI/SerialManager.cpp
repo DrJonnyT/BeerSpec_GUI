@@ -2,54 +2,55 @@
 #include "SerialManager.h"
 #include "MeasClass.h"
 
-SerialManager::SerialManager(String^ portName, int baudRate, RichTextBox^ sendCommandsTextBox, RichTextBox^ receivedCommandsTextBox)
+SerialManager::SerialManager(String^ portName, int baudRate, RichTextBox^ sendCommandsTextBox, RichTextBox^ receivedCommandsTextBox, RichTextBox^ consoleTextBox)
 {
-    serialPort = gcnew SerialPort(portName, baudRate);
-    sendCommandQueue = gcnew Queue<String^>();
-    receivedCommandQueue = gcnew Queue<String^>();
-    rtbSendCommands = sendCommandsTextBox;
-    rtbReceivedCommands = receivedCommandsTextBox;
-    serialPort->DataReceived += gcnew SerialDataReceivedEventHandler(this, &SerialManager::DataReceivedHandler);
+    m_serialPort = gcnew SerialPort(portName, baudRate);
+    m_sendCommandQueue = gcnew Queue<String^>();
+    m_receivedCommandQueue = gcnew Queue<String^>();
+    m_rtbSendCommands = sendCommandsTextBox;
+    m_rtbReceivedCommands = receivedCommandsTextBox;
+    m_rtbConsole = consoleTextBox;
+    m_serialPort->DataReceived += gcnew SerialDataReceivedEventHandler(this, &SerialManager::DataReceivedHandler);
 }
 
 //Default constructor
 SerialManager::SerialManager()
 {
-    serialPort = gcnew SerialPort();
+    m_serialPort = gcnew SerialPort();
 }
 
 void SerialManager::Open()
 {
-    if (!serialPort->IsOpen)
+    if (!m_serialPort->IsOpen)
     {
-        serialPort->Open();
+        m_serialPort->Open();
     }
 }
 
 void SerialManager::Close()
 {
-    if (serialPort->IsOpen)
+    if (m_serialPort->IsOpen)
     {
-        serialPort->Close();
+        m_serialPort->Close();
     }
 }
 
 bool SerialManager::IsOpen()
 {
-    return serialPort->IsOpen;
+    return m_serialPort->IsOpen;
 }
 
 void SerialManager::EnqueueSendCommand(String^ command)
 {
-    sendCommandQueue->Enqueue(command);
+    m_sendCommandQueue->Enqueue(command);
 }
 
 void SerialManager::ProcessReceivedCommands(MeasClass^ meas)
 //void SerialManager::ProcessReceivedCommands()
 {
-    while (receivedCommandQueue->Count > 0)
+    while (m_receivedCommandQueue->Count > 0)
     {
-        String^ command = receivedCommandQueue->Dequeue();
+        String^ command = m_receivedCommandQueue->Dequeue();
 
         // Check if the command starts with "@" and ends with "\n", i.e. it is a standard command coming from the Arduino
         if (command->StartsWith("@"))
@@ -80,12 +81,12 @@ void SerialManager::ProcessReceivedCommands(MeasClass^ meas)
 
 void SerialManager::SendQueuedCommands()
 {
-    while (sendCommandQueue->Count > 0)
+    while (m_sendCommandQueue->Count > 0)
     {
-        String^ command = sendCommandQueue->Dequeue();
-        if (serialPort != nullptr)
+        String^ command = m_sendCommandQueue->Dequeue();
+        if (m_serialPort != nullptr)
         {
-            serialPort->WriteLine(command);
+            m_serialPort->WriteLine(command);
             UpdateSendCommandsTextBox(command);
         }
     }
@@ -93,44 +94,44 @@ void SerialManager::SendQueuedCommands()
 
 void SerialManager::UpdateSendCommandsTextBox(String^ command)
 {
-    if (rtbSendCommands != nullptr)
+    if (m_rtbSendCommands != nullptr)
     {
         //Remove whitespace from the ends
         command = command->Trim();
 
         //Scroll to the end of the richtextbox
-        rtbSendCommands->SelectionStart = rtbSendCommands->Text->Length;
-        rtbSendCommands->ScrollToCaret();
+        m_rtbSendCommands->SelectionStart = m_rtbSendCommands->Text->Length;
+        m_rtbSendCommands->ScrollToCaret();
 
         //Add datetime to start and append to box
         String^ dateTimeNowStr = System::DateTime::Now.ToString("yyyy-MM-dd HH:mm:ss");
-        rtbSendCommands->AppendText(dateTimeNowStr + ": " + command + Environment::NewLine);
+        m_rtbSendCommands->AppendText(dateTimeNowStr + ": " + command + Environment::NewLine);
     }
 }
 
 void SerialManager::UpdateReceivedCommandsTextBox(String^ command)
 {
-    if (rtbReceivedCommands != nullptr)
+    if (m_rtbReceivedCommands != nullptr)
     {
         //Remove whitespace from the ends
         command = command->Trim();
 
         //Scroll to the end of the richtextbox
-        rtbReceivedCommands->SelectionStart = rtbReceivedCommands->Text->Length;
-        rtbReceivedCommands->ScrollToCaret();
+        m_rtbReceivedCommands->SelectionStart = m_rtbReceivedCommands->Text->Length;
+        m_rtbReceivedCommands->ScrollToCaret();
 
         //Add datetime to start and append to box
         String^ dateTimeNowStr = System::DateTime::Now.ToString("yyyy-MM-dd HH:mm:ss");
-        rtbReceivedCommands->AppendText(dateTimeNowStr + ": " + command + Environment::NewLine);
+        m_rtbReceivedCommands->AppendText(dateTimeNowStr + ": " + command + Environment::NewLine);
     }
 }
 
 void SerialManager::DataReceivedHandler(Object^ sender, SerialDataReceivedEventArgs^ e)
 {
-    if (serialPort != nullptr)
+    if (m_serialPort != nullptr)
     {
-        String^ receivedData = serialPort->ReadLine();
-        receivedCommandQueue->Enqueue(receivedData);
+        String^ receivedData = m_serialPort->ReadLine();
+        m_receivedCommandQueue->Enqueue(receivedData);
     }
 }
 
