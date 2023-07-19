@@ -118,6 +118,7 @@ namespace CppCLRWinFormsProject {
   private: System::Windows::Forms::Button^ btnGainCal;
   private: System::Windows::Forms::Button^ btnIntTimeCal;
   private: System::Windows::Forms::Button^ btnLEDCal;
+  private: System::Windows::Forms::Button^ btnLEDOff;
 
 
 
@@ -377,6 +378,7 @@ namespace CppCLRWinFormsProject {
         this->btnGainCal = (gcnew System::Windows::Forms::Button());
         this->btnIntTimeCal = (gcnew System::Windows::Forms::Button());
         this->btnLEDCal = (gcnew System::Windows::Forms::Button());
+        this->btnLEDOff = (gcnew System::Windows::Forms::Button());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDB))->BeginInit();
@@ -1156,11 +1158,26 @@ namespace CppCLRWinFormsProject {
         this->btnLEDCal->UseVisualStyleBackColor = false;
         this->btnLEDCal->Click += gcnew System::EventHandler(this, &Form1::btnLEDCal_Click);
         // 
+        // btnLEDOff
+        // 
+        this->btnLEDOff->BackColor = System::Drawing::Color::Khaki;
+        this->btnLEDOff->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->btnLEDOff->ForeColor = System::Drawing::Color::Black;
+        this->btnLEDOff->Location = System::Drawing::Point(642, 183);
+        this->btnLEDOff->Name = L"btnLEDOff";
+        this->btnLEDOff->Size = System::Drawing::Size(75, 57);
+        this->btnLEDOff->TabIndex = 114;
+        this->btnLEDOff->Text = L"LED OFF";
+        this->btnLEDOff->UseVisualStyleBackColor = false;
+        this->btnLEDOff->Click += gcnew System::EventHandler(this, &Form1::btnLEDOff_Click);
+        // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(802, 577);
+        this->Controls->Add(this->btnLEDOff);
         this->Controls->Add(this->btnLEDCal);
         this->Controls->Add(this->btnIntTimeCal);
         this->Controls->Add(this->btnGainCal);
@@ -1756,7 +1773,61 @@ private: System::Void btnIntTimeCal_Click(System::Object^ sender, System::EventA
 }
 private: System::Void btnLEDCal_Click(System::Object^ sender, System::EventArgs^ e) {
     //Loop through some different LED setting between 0 - 255
-    //Separate R, G, B rather than all at once
+    array<int>^ ledArray = gcnew array<int>(8) { 31, 63, 95, 127, 159, 191, 223, 255 };
+
+    //Set gains and int times
+    instrumentSettings->GainExt = 60;
+    instrumentSettings->GainSca = 60;
+    instrumentSettings->IntTimeExt = 120;
+    instrumentSettings->IntTimeSca = 120;
+
+    //Loop through the LED settings for red
+    meas->Notes = "LED Cal Red";
+    tbNotes->Text = "LED Cal Red";
+    for each (int led in ledArray)
+    {
+        instrumentSettings->LEDR = led;
+        instrumentSettings->LEDG = 0;
+        instrumentSettings->LEDB = 0;
+        setRead();
+    }
+
+    //Loop through the LED settings for green
+    meas->Notes = "LED Cal Green";
+    tbNotes->Text = "LED Cal Green";
+    for each (int led in ledArray)
+    {
+        instrumentSettings->LEDR = 0;
+        instrumentSettings->LEDG = led;
+        instrumentSettings->LEDB = 0;
+        setRead();
+    }
+
+    //Loop through the LED settings for blue
+    meas->Notes = "LED Cal Blue";
+    tbNotes->Text = "LED Cal Blue";
+    for each (int led in ledArray)
+    {
+        instrumentSettings->LEDR = 0;
+        instrumentSettings->LEDG = 0;
+        instrumentSettings->LEDB = led;
+        setRead();
+    }
+
+}
+private: System::Void btnLEDOff_Click(System::Object^ sender, System::EventArgs^ e) {
+    //Turn off the LED
+    if (serialManager1->IsOpen())
+    {
+        serialManager1->EnqueueSendCommand("#LEDOFF \n");
+        serialManager1->SendQueuedCommands();
+        System::Threading::Thread::Sleep(500);
+        serialManager1->ProcessReceivedCommands(meas);
+    }
+    else
+    {
+        UpdatertbSerialReceived("Serial port not open");
+    }
 }
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
