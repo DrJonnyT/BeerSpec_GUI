@@ -22,7 +22,7 @@ private:
     RichTextBox^ m_rtbConsole;
 
 public:
-    SerialManager(String^ portName, int baudRate, RichTextBox^ sendCommandsTextBox, RichTextBox^ receivedCommandsTextBox, RichTextBox^ consoleTextBox);
+    SerialManager(String^ portName, int baudRate, RichTextBox^ sendCommandsTextBox, RichTextBox^ receivedCommandsTextBox);
     SerialManager();
     void Open();
     void Close();

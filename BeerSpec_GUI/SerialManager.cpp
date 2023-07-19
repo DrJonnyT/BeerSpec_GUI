@@ -2,14 +2,13 @@
 #include "SerialManager.h"
 #include "MeasClass.h"
 
-SerialManager::SerialManager(String^ portName, int baudRate, RichTextBox^ sendCommandsTextBox, RichTextBox^ receivedCommandsTextBox, RichTextBox^ consoleTextBox)
+SerialManager::SerialManager(String^ portName, int baudRate, RichTextBox^ sendCommandsTextBox, RichTextBox^ receivedCommandsTextBox)
 {
     m_serialPort = gcnew SerialPort(portName, baudRate);
     m_sendCommandQueue = gcnew Queue<String^>();
     m_receivedCommandQueue = gcnew Queue<String^>();
     m_rtbSendCommands = sendCommandsTextBox;
     m_rtbReceivedCommands = receivedCommandsTextBox;
-    m_rtbConsole = consoleTextBox;
     m_serialPort->DataReceived += gcnew SerialDataReceivedEventHandler(this, &SerialManager::DataReceivedHandler);
 }
 
@@ -46,7 +45,6 @@ void SerialManager::EnqueueSendCommand(String^ command)
 }
 
 void SerialManager::ProcessReceivedCommands(MeasClass^ meas)
-//void SerialManager::ProcessReceivedCommands()
 {
     while (m_receivedCommandQueue->Count > 0)
     {
