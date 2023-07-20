@@ -111,7 +111,7 @@ public:
         {
             //Header for time and settings
             writer->Write("DateTime,LED_R,LED_G,LED_B,GainExt,GainSca,IntTimeExt,IntTimeSca,");
-            writer->Write("MeasExtR,MeasExtG,MeasExtB,MeasScaR,MeasScaG,MeasScaB,Notes");
+            writer->Write("ExtR,ExtG,ExtB,ScaR,ScaG,ScaB,Notes");
             writer->WriteLine();
         }
 
