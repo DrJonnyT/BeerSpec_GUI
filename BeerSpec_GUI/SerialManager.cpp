@@ -93,7 +93,8 @@ void SerialManager::ProcessReceivedCommands(MeasClass^ meas)
             if (command->StartsWith("@EXT"))
             {
                 meas->ReadExtFromString(command);
-                meas->MeasTime = DateTime::Now.ToString();
+                meas->MeasTime = DateTime::Now.ToString("yyyy-MM-ddTHH:mm:ss");
+                
                 
             }
 
@@ -101,7 +102,7 @@ void SerialManager::ProcessReceivedCommands(MeasClass^ meas)
             if (command->StartsWith("@SCA"))
             {
                 meas->ReadScaFromString(command);
-                meas->MeasTime = DateTime::Now.ToString();
+                meas->MeasTime = DateTime::Now.ToString("yyyy-MM-ddTHH:mm:ss");
 
             }
 

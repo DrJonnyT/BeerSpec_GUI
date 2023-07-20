@@ -24,7 +24,7 @@ public:
 	//Default initialisation
 	MeasClass() {
 		//m_MeasTime = DateTime::Now;
-		m_MeasTime = DateTime::Now.ToString();
+		m_MeasTime = DateTime::Now.ToString("yyyy-MM-ddTHH:mm:ss");
 		m_MeasExtR = 0;
 		m_MeasExtG = 0;
 		m_MeasExtB = 0;
@@ -37,10 +37,6 @@ public:
 
 	//Functions to get and set the variables
 	//Time
-	//property DateTime MeasTime {
-	//	DateTime get() { return m_MeasTime; }
-	//	void set(DateTime value) { m_MeasTime = value; }
-	//}
 	property String^ MeasTime {
 		String^ get() { return m_MeasTime; }
 		void set(String^ value) { m_MeasTime = value; }
