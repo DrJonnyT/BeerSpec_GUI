@@ -110,7 +110,7 @@ public:
         if (!fileExists)
         {
             //Header for time and settings
-            writer->Write("Time,LED_R,LED_G,LED_B,GainExt,GainSca,IntTimeExt,IntTimeSca,");
+            writer->Write("DateTime,LED_R,LED_G,LED_B,GainExt,GainSca,IntTimeExt,IntTimeSca,");
             writer->Write("MeasExtR,MeasExtG,MeasExtB,MeasScaR,MeasScaG,MeasScaB,Notes");
             writer->WriteLine();
         }
