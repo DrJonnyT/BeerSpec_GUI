@@ -1408,34 +1408,6 @@ private:
     bool isWaitingForNewLine = false;
     System::Text::StringBuilder^ receivedDataBuilder = gcnew System::Text::StringBuilder();
 
-//LEGACY FOR OLD WAY OF HANDING SERIAL COMMS BEFORE USING SerialManager class
-//void serialPort_DataReceived(System::Object^ sender, System::IO::Ports::SerialDataReceivedEventArgs^ e) {
-//    System::String^ receivedData = serialPort1->ReadExisting();
-//    receivedDataBuilder->Append(receivedData);
-//
-//    // Check if the received data contains a new line character
-//    if (receivedData->Contains("\n")) {
-//        //Make the complete command of everything up intil the \n
-//        int newLineIndex = receivedDataBuilder->ToString()->LastIndexOf("\n");
-//        System::String^ completeData = receivedDataBuilder->ToString()->Substring(0, newLineIndex + 1);
-//
-//        // Check if the received data came from the Arduino command
-//        if (completeData->StartsWith("@")) {
-//            // Update the received commands RichTextBox
-//            Invoke(gcnew Action<System::String^>(this, &Form1::UpdatertbSerialReceived), completeData);
-//        }
-//
-//        // Clear the StringBuilder and stop waiting for a new line
-//        receivedDataBuilder->Clear();
-//        isWaitingForNewLine = false;
-//    }
-//    else {
-//        isWaitingForNewLine = true;
-//    }
-//}
-
-
-
 void UpdatertbSerialSent(System::String^ data) {
     //First add datetime
     String^ dateTimeNowStr = System::DateTime::Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -1453,8 +1425,6 @@ void UpdatertbSerialSent(System::String^ data) {
     }
 
 }
-
-
 void UpdatertbSerialReceived(System::String^ data) {
     //First add datetime
     String^ dateTimeNowStr = System::DateTime::Now.ToString("yyyy-MM-dd HH:mm:ss");
