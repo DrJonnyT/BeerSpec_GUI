@@ -1,7 +1,7 @@
 #pragma once
 
 // uncomment to execute the rk1-utils:
-//    #include "rk1_Utils_demo.h"  // shows how the rk1-utils can be used
+#include "rk1_Utils_demo.h"  // shows how the rk1-utils can be used
 
 //#include "Header1.h"
 //#include "Header2.h"
@@ -143,6 +143,9 @@ namespace CppCLRWinFormsProject {
     Form1(void)
     {
       InitializeComponent();
+
+      //Uncomment to run unit tests
+      N_rk1_Utils_demo::execute();
 
       //Find COM ports
       findPorts();
