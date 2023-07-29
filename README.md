@@ -1,5 +1,5 @@
-# BeerSpec_GUI
-A GUI control toolkit for the BeerSpec DIY Arduino spectrophotometer. Built in C++/CLI using Windows forms in Visual Studio.
+# BruSpec_GUI
+A GUI control toolkit for the BruSpec DIY Arduino spectrophotometer. Built in C++/CLI using Windows forms in Visual Studio.
 
 Most of the work is done in Form1.h
 
