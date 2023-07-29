@@ -134,7 +134,6 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CppCLR_Utils.h" />
     <ClInclude Include="CSVSaver.h" />
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
@@ -142,10 +141,8 @@
     <ClInclude Include="MeasClass.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="rk1_Utils_demo.h" />
     <ClInclude Include="SerialManager.h" />
     <ClInclude Include="SettingsClass.h" />
-    <ClInclude Include="SimpleUnitTests.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
