@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BeerSpec_GUI", "BeerSpec_GUI\BeerSpec_GUI.vcxproj", "{63FE71D9-360D-4B7E-879A-5CC576ED2644}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BruSpec_GUI", "BruSpec_GUI\BruSpec_GUI.vcxproj", "{63FE71D9-360D-4B7E-879A-5CC576ED2644}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

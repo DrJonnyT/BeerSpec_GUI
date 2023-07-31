@@ -1270,7 +1270,7 @@ namespace CppCLRWinFormsProject {
         this->Controls->Add(this->labScanLED);
         this->Controls->Add(this->labScanSettings);
         this->Name = L"Form1";
-        this->Text = L"BeerSpec GUI";
+        this->Text = L"BruSpec GUI";
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDR))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDG))->EndInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDB))->EndInit();

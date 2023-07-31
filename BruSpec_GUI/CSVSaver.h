@@ -58,10 +58,10 @@ protected:
 public:
     //Default initialisation
     CSVSaver() {
-        m_FolderPath = "C:\\BeerSpec\\";
+        m_FolderPath = "C:\\BruSpec\\";
         //Make the filename the date/time
         String^ dateTimeString = DateTime::Now.ToString("yyyyMMdd-HHmmss");
-        m_FileName = dateTimeString + "-BeerSpec.csv";
+        m_FileName = dateTimeString + "-BruSpec.csv";
     }
 
     //Make a virtual member variable for the full file path
