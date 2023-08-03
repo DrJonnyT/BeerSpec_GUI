@@ -121,6 +121,7 @@ namespace CppCLRWinFormsProject {
   private: System::Windows::Forms::Button^ btnLEDOff;
   private: System::Windows::Forms::Label^ labConsole;
   private: System::Windows::Forms::RichTextBox^ rtbConsole;
+  private: System::Windows::Forms::Button^ btnZero;
 
 
 
@@ -391,6 +392,7 @@ namespace CppCLRWinFormsProject {
         this->btnLEDOff = (gcnew System::Windows::Forms::Button());
         this->labConsole = (gcnew System::Windows::Forms::Label());
         this->rtbConsole = (gcnew System::Windows::Forms::RichTextBox());
+        this->btnZero = (gcnew System::Windows::Forms::Button());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDR))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDG))->BeginInit();
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nudScanLEDB))->BeginInit();
@@ -1203,11 +1205,25 @@ namespace CppCLRWinFormsProject {
         this->rtbConsole->TabIndex = 115;
         this->rtbConsole->Text = L"";
         // 
+        // btnZero
+        // 
+        this->btnZero->BackColor = System::Drawing::Color::Khaki;
+        this->btnZero->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        this->btnZero->Location = System::Drawing::Point(537, 397);
+        this->btnZero->Name = L"btnZero";
+        this->btnZero->Size = System::Drawing::Size(110, 59);
+        this->btnZero->TabIndex = 117;
+        this->btnZero->Text = L"MANUAL\r\nZERO";
+        this->btnZero->UseVisualStyleBackColor = false;
+        this->btnZero->Click += gcnew System::EventHandler(this, &Form1::btnZero_Click);
+        // 
         // Form1
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(802, 633);
+        this->Controls->Add(this->btnZero);
         this->Controls->Add(this->labConsole);
         this->Controls->Add(this->rtbConsole);
         this->Controls->Add(this->btnLEDOff);
@@ -1509,8 +1525,12 @@ private: System::Void btnSet_Click(System::Object^ sender, System::EventArgs^ e)
         //Send the serial command
         serialManager1->EnqueueSendCommand(instrumentSettings->SerialSet());
         serialManager1->SendQueuedCommands();
-        System::Threading::Thread::Sleep(1000);
+        System::Threading::Thread::Sleep(500);
+        serialManager1->EnqueueSendCommand("#LEDON");
+        serialManager1->SendQueuedCommands();
+        System::Threading::Thread::Sleep(500);
         serialManager1->ProcessReceivedCommands(meas);
+
 
     }
     else
@@ -1545,6 +1565,9 @@ private: System::Void btnManualMsmt_Click(System::Object^ sender, System::EventA
         tbMeasScaR->Text = System::Convert::ToString(meas->MeasScaR);
         tbMeasScaG->Text = System::Convert::ToString(meas->MeasScaG);
         tbMeasScaB->Text = System::Convert::ToString(meas->MeasScaB);
+
+        //Update notes from notes box
+        meas->Notes = tbNotes->Text;
 
         //Save if autosave is ticked
         if (checkboxAutoSave->Checked)
@@ -1632,6 +1655,12 @@ private: System::Void updateScanSettings() {
 private: System::Void setRead() {
     //Serial command to update instrument settings
     serialManager1->EnqueueSendCommand(instrumentSettings->SerialSet());
+    serialManager1->SendQueuedCommands();
+    System::Threading::Thread::Sleep(500);
+    serialManager1->ProcessReceivedCommands(meas);
+
+    //Turn LED on to new settings
+    serialManager1->EnqueueSendCommand("#LEDON");
     serialManager1->SendQueuedCommands();
     System::Threading::Thread::Sleep(500);
     serialManager1->ProcessReceivedCommands(meas);
@@ -1814,7 +1843,7 @@ private: System::Void btnLEDCal_Click(System::Object^ sender, System::EventArgs^
         UpdatertbConsole("Starting LED calibration");
 
         //Loop through some different LED setting between 0 - 255
-        array<int>^ ledArray = gcnew array<int>(8) { 31, 63, 95, 127, 159, 191, 223, 255 };
+        array<int>^ ledArray = gcnew array<int>(10) {0 ,1, 31, 63, 95, 127, 159, 191, 223, 255 };
 
         //Set gains and int times
         instrumentSettings->GainExt = 60;
@@ -1876,6 +1905,33 @@ private: System::Void btnLEDOff_Click(System::Object^ sender, System::EventArgs^
     {
         UpdatertbConsole("Serial port not open");
     }
+}
+private: System::Void btnZero_Click(System::Object^ sender, System::EventArgs^ e) {
+    //Set not to zero
+    String^ origNotes = tbNotes->Text;
+    tbNotes->Text = "Zero";
+    meas->Notes = "Zero";    
+    
+    //Send the manual settings
+    btnSet->PerformClick();
+    
+    //Turn the LED off
+    serialManager1->EnqueueSendCommand("#LEDOFF \n");
+    serialManager1->SendQueuedCommands();
+    System::Threading::Thread::Sleep(500);
+    serialManager1->ProcessReceivedCommands(meas);
+
+    //Manual measurement
+    btnManualMsmt->PerformClick();
+
+    //Reset the notes box
+    tbNotes->Text = origNotes;
+
+    //Reset to manual measurements
+    System::Threading::Thread::Sleep(500);
+    btnSet->PerformClick();
+
+    UpdatertbConsole("Made zero measurement");
 }
 }; // end of class Form1
 } // end of namespace CppCLRWinFormsProject
