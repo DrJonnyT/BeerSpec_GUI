@@ -1591,6 +1591,16 @@ private: System::Void btnScan_Click(System::Object^ sender, System::EventArgs^ e
         //Loop through the number of samples to take
         for(int i=0; i<nudNumSamples->Value;i++)
         {
+            //First take a zero with LED off
+            instrumentSettings->LEDR = 0;
+            instrumentSettings->LEDG = 0;
+            instrumentSettings->LEDB = 0;
+            instrumentSettings->GainExt = scanSettings->GainExtR;
+            instrumentSettings->GainSca = scanSettings->GainScaR;
+            instrumentSettings->IntTimeExt = scanSettings->IntTimeExtR;
+            instrumentSettings->IntTimeSca = scanSettings->IntTimeScaR;
+            setRead();
+
             //Update instrumentSettings from scanSettings RED
             instrumentSettings->LEDR = scanSettings->LEDR;
             instrumentSettings->LEDG = 0;
@@ -1910,7 +1920,7 @@ private: System::Void btnZero_Click(System::Object^ sender, System::EventArgs^ e
     //Set not to zero
     String^ origNotes = tbNotes->Text;
     tbNotes->Text = "Zero";
-    meas->Notes = "Zero";    
+    meas->Notes = "Zero";
     
     //Send the manual settings
     btnSet->PerformClick();
