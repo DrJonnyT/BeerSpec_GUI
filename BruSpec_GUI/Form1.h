@@ -1931,6 +1931,11 @@ private: System::Void btnZero_Click(System::Object^ sender, System::EventArgs^ e
     System::Threading::Thread::Sleep(500);
     serialManager1->ProcessReceivedCommands(meas);
 
+    //Set LED to all 0 in the instrument settings object
+    instrumentSettings->LEDR = 0;
+    instrumentSettings->LEDG = 0;
+    instrumentSettings->LEDB = 0;
+
     //Manual measurement
     btnManualMsmt->PerformClick();
 
