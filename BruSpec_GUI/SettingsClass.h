@@ -27,9 +27,9 @@ public:
 
 	//Default initialisation
 	ScanSettings() {
-		m_LEDR = 128;
-		m_LEDG = 128;
-		m_LEDB = 128;
+		m_LEDR = 255;
+		m_LEDG = 255;
+		m_LEDB = 255;
 		m_GainExtR = 60;
 		m_GainExtG = 60;
 		m_GainExtB = 60;

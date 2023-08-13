@@ -556,7 +556,7 @@ namespace CppCLRWinFormsProject {
         this->nudScanLEDR->Name = L"nudScanLEDR";
         this->nudScanLEDR->Size = System::Drawing::Size(57, 22);
         this->nudScanLEDR->TabIndex = 45;
-        this->nudScanLEDR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudScanLEDR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 255, 0, 0, 0 });
         this->nudScanLEDR->ValueChanged += gcnew System::EventHandler(this, &Form1::nudScanLEDR_ValueChanged);
         // 
         // nudScanLEDG
@@ -569,7 +569,7 @@ namespace CppCLRWinFormsProject {
         this->nudScanLEDG->Name = L"nudScanLEDG";
         this->nudScanLEDG->Size = System::Drawing::Size(57, 22);
         this->nudScanLEDG->TabIndex = 46;
-        this->nudScanLEDG->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudScanLEDG->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 255, 0, 0, 0 });
         // 
         // nudScanLEDB
         // 
@@ -581,7 +581,7 @@ namespace CppCLRWinFormsProject {
         this->nudScanLEDB->Name = L"nudScanLEDB";
         this->nudScanLEDB->Size = System::Drawing::Size(57, 22);
         this->nudScanLEDB->TabIndex = 47;
-        this->nudScanLEDB->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudScanLEDB->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 255, 0, 0, 0 });
         // 
         // nudNumSamples
         // 
@@ -709,7 +709,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanIntTimeScaB->Name = L"cboxScanIntTimeScaB";
         this->cboxScanIntTimeScaB->Size = System::Drawing::Size(57, 21);
         this->cboxScanIntTimeScaB->TabIndex = 73;
-        this->cboxScanIntTimeScaB->Text = L"120";
+        this->cboxScanIntTimeScaB->Text = L"600";
         this->cboxScanIntTimeScaB->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanIntTimeScaB_SelectedIndexChanged);
         // 
         // cboxScanIntTimeScaG
@@ -722,7 +722,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanIntTimeScaG->Name = L"cboxScanIntTimeScaG";
         this->cboxScanIntTimeScaG->Size = System::Drawing::Size(57, 21);
         this->cboxScanIntTimeScaG->TabIndex = 72;
-        this->cboxScanIntTimeScaG->Text = L"120";
+        this->cboxScanIntTimeScaG->Text = L"600";
         this->cboxScanIntTimeScaG->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanIntTimeScaG_SelectedIndexChanged);
         // 
         // cboxScanIntTimeScaR
@@ -735,7 +735,7 @@ namespace CppCLRWinFormsProject {
         this->cboxScanIntTimeScaR->Name = L"cboxScanIntTimeScaR";
         this->cboxScanIntTimeScaR->Size = System::Drawing::Size(57, 21);
         this->cboxScanIntTimeScaR->TabIndex = 71;
-        this->cboxScanIntTimeScaR->Text = L"120";
+        this->cboxScanIntTimeScaR->Text = L"600";
         this->cboxScanIntTimeScaR->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cboxScanIntTimeScaR_SelectedIndexChanged);
         // 
         // labIntTimeSca
@@ -819,7 +819,7 @@ namespace CppCLRWinFormsProject {
         this->cboxManualIntTimeSca->Name = L"cboxManualIntTimeSca";
         this->cboxManualIntTimeSca->Size = System::Drawing::Size(57, 21);
         this->cboxManualIntTimeSca->TabIndex = 92;
-        this->cboxManualIntTimeSca->Text = L"120";
+        this->cboxManualIntTimeSca->Text = L"600";
         // 
         // cboxManualIntTimeExt
         // 
@@ -878,7 +878,7 @@ namespace CppCLRWinFormsProject {
         this->nudManualLEDR->Name = L"nudManualLEDR";
         this->nudManualLEDR->Size = System::Drawing::Size(57, 22);
         this->nudManualLEDR->TabIndex = 85;
-        this->nudManualLEDR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 128, 0, 0, 0 });
+        this->nudManualLEDR->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 255, 0, 0, 0 });
         this->nudManualLEDR->ValueChanged += gcnew System::EventHandler(this, &Form1::nudManualLEDR_ValueChanged);
         // 
         // labManualGainSca
